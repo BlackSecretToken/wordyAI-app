@@ -1,0 +1,58 @@
+{% extends 'layouts/app.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
+{% endblock style %}
+
+{% block wrapper %}
+<div class="page-wrapper">
+    <div class="page-content">
+        <div class="card p-4">
+            <p class="ft22 fw700 text-secondary">Recent Devices</p>
+            <p class="ft12">We need permission from your browser to show notifications. Request Permission</p>
+            <table class="table mb-0 table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">TYPE</th>
+                        <th scope="col">EMAIL</th>
+                        <th scope="col">BROWSER</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>New for you</td>
+                        <td><input class="form-check-input" type="checkbox"></td>
+                        <td><input class="form-check-input" type="checkbox"></td>
+                    </tr>
+                    <tr>
+                        <td>Account activity</td>
+                        <td><input class="form-check-input" type="checkbox"></td>
+                        <td><input class="form-check-input" type="checkbox"></td>
+                    </tr>
+                    <tr>
+                        <td>A new browser used to sign in</td>
+                        <td><input class="form-check-input" type="checkbox"></td>
+                        <td><input class="form-check-input" type="checkbox"></td>
+                    </tr>
+                    <tr>
+                        <td>A new device is linked</td>
+                        <td><input class="form-check-input" type="checkbox"></td>
+                        <td><input class="form-check-input" type="checkbox"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="ft12 mt-3">When sholud we send you notifications?</p>
+            <input type="text" class="form-control" placeholder="Placeholder" name="placeholder" style="max-width:400px;" />
+            <div class="d-flex flex-row mt-3">
+                <button class="btn btn-primary me-3">Save Changes</button>
+                <button class="btn btn-danger">Discard</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock wrapper %}
+
+{% block script %}
+    <script src="{% static 'assets/js/users.js' %}"></script>
+{% endblock script%}

@@ -1,0 +1,32 @@
+{% extends 'layouts/app.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
+{% endblock style %}
+
+{% block wrapper %}
+<div class="page-wrapper">
+    <div class="page-content">
+        <!--breadcrumb-->
+{% comment %}         
+        <form method="POST" action="{% url 'test:upload_image' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <img src="{{avatar}}" style = "width:200px;"></img>
+            <input type="file" name="image" accept="image/*">
+            <button type="submit">Upload</button>
+        </form> {% endcomment %}
+
+        <img src="{{avatar}}" style = "width:200px;"></img>
+        <input type="file" name="image" accept="image/*" id="imageFile">
+        <button onclick="uploadButton()">Upload</button>
+        <!--end row-->
+    </div>
+</div>
+{% endblock wrapper %}
+
+{% block script %}
+<script src="{% static 'assets/js/test.js' %}"></script>
+{% endblock script%}
+
+

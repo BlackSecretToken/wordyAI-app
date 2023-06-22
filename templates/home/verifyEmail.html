@@ -1,0 +1,26 @@
+{% extends './app.html' %}
+{% load static %}
+
+{% block wrapper %}
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <img class="img-fluid" src="{% static '/assets/images/home/verify_email.png' %}">
+        </div>
+        <div class="col-md-6 col-12 margin-top-200">
+            <form class="row g-3 m-auto max-width-500 needs-validation" id="verifyEmailForm" novalidate>
+                {% csrf_token %}
+                <h4 class="mb-2">Verify your email &nbsp;&#x2709;</h5>
+                <label for="register head" class="form-label">Account activation link sent to your email address: {{ email }} Please follow the link inside to continue.</label>   
+                <div class="col-12">
+                    <div class="d-grid">
+                        <button type="btn" class="btn btn-primary px-5" id="loginButton">Skip for now</button>
+                    </div>
+                </div>
+                <div class="col-12 text-center">
+                    <label class="form-check-label" for="gridCheck2">Didn't get the mail? <b class="text-primary cursor-pointer" id="resendEmail">Resend</b></label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock wrapper %}

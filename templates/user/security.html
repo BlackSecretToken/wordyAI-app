@@ -1,0 +1,65 @@
+{% extends 'layouts/app.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
+{% endblock style %}
+
+{% block wrapper %}
+<div class="page-wrapper">
+    <div class="page-content">
+        <div class="card p-4">
+            <p class="ft22 fw700 text-secondary">Profile Details</p>
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600">Current Password</p>
+                        <input type="password" class="form-control" name="currentPassword" id="currentPassword" required/>
+                        <div class="invalid-feedback">
+                            Please enter a current password.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12"></div>
+                <div class="col-md-6 col-12">
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600">New Password</p>
+                        <input type="password" class="form-control"  name="newPassword" id="newPassword" required/>
+                        <div class="invalid-feedback">
+                            Please enter a new password.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600">Confirm New Password</p>
+                        <input type="password" class="form-control"  name="confirmPassword" id="confirmPassword" required/>
+                        <div class="invalid-feedback">
+                            Please enter a confirm new password.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="ft14 fw700 text-secondary">Password Requirements:</p>
+            <p class="ft12 fw700 text-secondary ms-2">&#x00B7;&nbsp;Minimum 8 characters long-the more, the better</p>
+            <p class="ft12 fw700 text-secondary ms-2">&#x00B7;&nbsp;At least one lowercase character</p>
+            <p class="ft12 fw700 text-secondary ms-2">&#x00B7;&nbsp;At least one number, symbol, or whitespace character</p>
+            <div>
+                <buttton class="btn btn-primary px-3" onclick = "updatePassword()">Save Changes</button>
+            </div>
+        </div>
+        <div class="card p-4">
+            <p class="ft22 fw700 text-secondary">Two-steps verification</p>
+            <p class="ft14 fw700 text-secondary">Two-factor authentication is not enabled yet.</p>
+            <p class="text-secondary" style="max-width:700px;">Two-factor authentication adds a layer of security to your account by requiring more thatn just a password to log in. Learn more.</p>
+            <div>
+                <buttton class="btn btn-primary px-3" onclick="twostepVerification()">Enable two-factor authentication</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock wrapper %}
+
+{% block script %}
+    <script src="{% static 'assets/js/security.js' %}"></script>
+{% endblock script%}

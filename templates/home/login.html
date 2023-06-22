@@ -1,0 +1,67 @@
+{% extends './app.html' %}
+{% load static %}
+
+{% block wrapper %}
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <img class="img-fluid" src="{% static '/assets/images/home/login.png' %}">
+        </div>
+        <div class="col-md-6 col-12 margin-top-200">
+            <form class="row g-3 m-auto max-width-500 needs-validation" id="loginForm" novalidate>
+                {% csrf_token %}
+                <h4 class="mb-2">Welcome to WORDYAI &nbsp;&#x1F44B;</h5>
+                <label for="register head" class="form-label">Please sign in to your account and start the adventure</label>   
+                <div class="col-12">
+                    <label for="inputPhoneNo" class="form-label">Email or Username</label>
+                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class="bx bxs-user"></i></span>
+                        <input type="text" class="form-control border-start-0" id="inputUsername" placeholder="User Name" required>
+                    </div>
+                    <div class="invalid-feedback">
+                        Please insert email or username.
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="inputChoosePassword" class="form-label">Password</label>
+                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class="bx bxs-lock-open"></i></span>
+                        <input type="password" class="form-control border-start-0" id="inputChoosePassword" placeholder="Choose Password" required>
+                    </div>
+                    <div class="invalid-feedback">
+                        Please insert password.
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-check">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <input class="form-check-input" type="checkbox" id="rememberMe">
+                                <label class="form-check-label" for="gridCheck2">Remember Me</label>
+                            </div>
+                            <a class="text-primary cursor-pointer" href="/forgotPassword">Forgot Password?</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="d-grid">
+                        <button type="btn" class="btn btn-primary px-5" id="loginButton">Sign in</button>
+                    </div>
+                </div>
+                <div class="col-12 text-center">
+                    <label class="form-check-label" for="gridCheck2">New on our platform? <a class="text-primary cursor-pointer" href="/register">Create an account</a></label>
+                </div>
+                <div class="col-12 text-center">
+                    <label class="form-check-label" for="gridCheck2">or</label>
+                </div>
+                <hr>
+                <div class="col-12 text-center">
+                    <button type="button" class="btn btn-warning"><i class="bx bxl-facebook me-0"></i>
+                    </button>
+                    <button type="button" class="btn btn-info"><i class="bx bxl-twitter me-0"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger"><i class="bx bxl-google me-0"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock wrapper %}

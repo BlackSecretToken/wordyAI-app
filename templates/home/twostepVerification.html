@@ -1,0 +1,55 @@
+{% extends './app.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
+{% endblock style %}
+
+    
+{% block wrapper %}
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <img class="img-fluid" src="{% static '/assets/images/home/two_step_verify.png' %}">
+        </div>
+        <div class="col-md-6 col-12 margin-top-200">
+            <form class="row g-3 m-auto max-width-500 needs-validation" id="loginForm" novalidate>
+                {% csrf_token %}
+                <h4 class="mb-2">Two-Step Verification &nbsp;&#x1F4AC;</h5>
+                <label for="register head" class="form-label">We sent a verification code to your mobile. Enter the code from the mobile in the field below.</label>   
+                <label for="register head" class="form-label">******{{phoneAlias}}</label>
+                <label for="register head" class="form-label">Type your 6 digit security code</label>   
+                <div class="d-flex flex-row justify-content-between">
+                    <div contenteditable = 'true' class="digitInput ft36 fw700 ps-3"></div>
+                    <div contenteditable = 'true' class="digitInput ft36 fw700 ps-3"></div>
+                    <div contenteditable = 'true' class="digitInput ft36 fw700 ps-3"></div>
+                    <div contenteditable = 'true' class="digitInput ft36 fw700 ps-3"></div>
+                    <div contenteditable = 'true' class="digitInput ft36 fw700 ps-3"></div>
+                    <div contenteditable = 'true' class="digitInput ft36 fw700 ps-3"></div>
+                </div>
+                <div class="col-12">
+                    <div class="d-grid">
+                        <button type="btn" class="btn btn-primary px-5" id="loginButton">Verify my account</button>
+                    </div>
+                </div>
+                <div class="col-12 text-center">
+                    <label class="form-check-label" for="gridCheck2">Didn't get the code? <b class="text-primary cursor-pointer">Resend</b></label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock wrapper %}
+
+{% block script %}
+    <script> 
+        var digitDiv = document.getElementsByClassName("digitInput");
+        digitDiv.forEach((div) => {
+            div.addEventListener("input", function() {
+                if (this.innerText.length > 1) {
+                    this.innerText = this.innerText.slice(0, 1);
+                }
+            });
+        })
+            
+    </script>
+{% endblock script%}

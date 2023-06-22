@@ -1,0 +1,99 @@
+{% extends 'layouts/app.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
+{% endblock style %}
+
+{% block wrapper %}
+<div class="page-wrapper">
+    <div class="page-content">
+        <div id="helpIndex">
+            <div class="card p-4 helpBackground mb-0">
+                <div class="d-flex flex-column align-items-center">
+                    <p class="ft24 fw700 text-secondary mt-5">Hello, how can we help?</p>
+                    <div class="input-group mb-3" style="max-width:400px;"> 
+                        <span class="searchBox"><i class='bx bx-search'></i></span>
+                        <input type="text" class="form-control" placeholder="Search a question" name="search">
+                    </div>
+                    <p class="text-secondary fw700 mb-4">Common troubleshooting topics: eCommerce, Blogging to payment</p>
+                </div>
+            </div>
+            <div class="card p-4 my-0 bg-transparent">
+                <div class="d-flex flex-column align-items-center">
+                    <p class="ft24 fw700 text-secondary mt-5 mb-4">Popular Articles</p>
+                    <div class="d-flex flex-row flex-wrap justify-content-center">
+                        <div class="flex flex-column align-items-center helpcenterBorder p-3 text-center mx-2 mb-2">
+                            <img class="img50" src="{% static 'assets/images/data/union.png' %}"/>
+                            <p class="ft24 fw700 text-secondary my-2">Getting Started</p>
+                            <p class="text-secondary twoline-ellipsis">Whether you're new or you're a power user, this article will this article will this article will this article will this article will</p>
+                            <button class="btn btn-primary px-2">Read More</button>
+                        </div>
+
+                        <div class="flex flex-column align-items-center helpcenterBorder p-3 text-center mx-2 mb-2">
+                            <img class="img50" src="{% static 'assets/images/data/gift.png' %}"/>
+                            <p class="ft24 fw700 text-secondary my-2">First Steps</p>
+                            <p class="text-secondary twoline-ellipsis">Are you a new customer wondering how to get started? article will this article will this article will this article will this article will</p>
+                            <button class="btn btn-primary px-2">Read More</button>
+                        </div>
+
+                        <div class="flex flex-column align-items-center helpcenterBorder p-3 text-center mx-2 mb-2">
+                            <img class="img50" src="{% static 'assets/images/data/content.png' %}"/>
+                            <p class="ft24 fw700 text-secondary my-2">Add External Content</p>
+                            <p class="text-secondary twoline-ellipsis">This article will show you how to expand the functionality of article will this article will this article will this article will this article will</p>
+                            <button class="btn btn-primary px-2">Read More</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="card p-4 my-0">
+                <div class="d-flex flex-column align-items-center">
+                    <p class="ft24 fw700 text-secondary mt-5 mb-4">Knowledge Base</p>
+                    <div class="d-flex flex-row flex-wrap justify-content-center" id="helpcenterCard">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="card p-4 my-0 bg-transparent">
+                <div class="d-flex flex-column align-items-center">
+                    <p class="ft24 fw700 text-secondary mt-5 mb-4">Still need help?</p>
+                    <p class="fw700 text-secondary mb-4 mx-width-450">Our specialists are alwas happy to help. Contact us during standard business or email us 24/7, and we'll get back to you.</p>
+                    <div>
+                        <button class="btn btn-primary px-3 md-3">Visit our community</button>
+                        <button class="btn btn-primary px-3">Contact us</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="helpContent">
+            <div class="row">
+                <div class="col-md-4 col-12 mt-4">
+                    <p class="text-secondary fw700 ft24">Categories</p>
+                    <div id="category_category">
+                    </div>
+                </div>
+                <div class="col-md-8 col-12 mt-4" id="helpCategory">
+                    <div class="card p-4">
+                        <div id="category_name">
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" onclick="backHelpcenter()">&#x003C; Back to help center</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-12 mt-4" id="helpDetail">
+                    <div class="card p-4">
+                        <div id="detail_detail">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock wrapper %}
+
+{% block script %}
+    <script src="{% static 'assets/js/helpcenter.js' %}"></script>
+{% endblock script%}

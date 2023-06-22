@@ -1,0 +1,9 @@
+tr {
+    line-height: 40px;
+}
+td {
+    font-size : 16px;
+}
+.customBorder{
+    border-style: none;
+}

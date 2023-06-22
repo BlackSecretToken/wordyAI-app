@@ -1,0 +1,47 @@
+{% extends 'admin/layouts/app.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
+{% endblock style %}
+
+{% block wrapper %}
+<div class="page-wrapper">
+    <div class="page-content">
+        <div class="card p-4" id="page1">
+            <p class="text-secondary fw700 ft24">Stripe Customer</p>
+            <div class="custom-table-div1">
+                <table id="custom_data_table" class="table table-hover custom-table-800">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%"><input type="checkbox" id="main-check"></th>
+                            <th style="width: 30%">ID</th>
+                            <th style="width: 15%">UserName</th>
+                            <th style="width: 30%">Email</th>
+                            <th style="width: 15%">OPERATION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card p-4" id="page2">
+
+        </div>
+        <div id="backdrop">
+            <div class="text-center-custom loading">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock wrapper %}
+
+{% block script %}
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script src="{% static 'assets/js/admin_billing_customer.js' %}"></script>
+{% endblock script%}

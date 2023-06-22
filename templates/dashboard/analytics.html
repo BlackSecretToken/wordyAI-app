@@ -1,0 +1,179 @@
+{% extends 'layouts/app.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/plugins/fancy-file-uploader/fancy_fileupload.css' %}" rel="stylesheet" />
+	<link href="{% static 'assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/plugins/highcharts/css/highcharts.css' %}" rel="stylesheet" />
+	<link href="{% static 'assets/plugins/vectormap/jquery-jvectormap-2.0.2.css' %}" rel="stylesheet" />
+{% endblock style %}
+
+{% block wrapper %}
+<div class="page-wrapper">
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-12 col-lg-7 d-flex flex-column">
+                <div class="card p-5">
+                    <h3>Hey {{username}}</h3>
+                    <p class="ft20">Welcome back {{username}}. We are glad you are here. To optimize your products, select the menu item "Products". If you need support, take a look at our documentation or write our support</p>
+                    <div class="col">
+                        <button type="button" class="btn btn-outline-primary px-5" onclick = "goProductPage()">OPTIMIZE PRODUCTS NOW</button>
+                    </div>
+                </div>
+                <h3>First Steps-Documentation</h3>
+                <div class="row">
+                    <div class="col-12 col-xl-4">
+                        <div class="card" >
+                            <div class="flex flex-column align-items-center p-3 text-center mx-2 mb-2">
+                                <img class="img50" src="{% static 'assets/images/data/union.png' %}"/>
+                                <p class="ft24 fw700 text-secondary my-2">Getting Started</p>
+                                <p class="text-secondary twoline-ellipsis">Whether you're new or you're a power user, this article will...</p>
+                                <button class="btn btn-primary px-2">Read More</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-4">
+                        <div class="card" >
+                            <div class="flex flex-column align-items-center p-3 text-center mx-2 mb-2">
+                                <img class="img50" src="{% static 'assets/images/data/gift.png' %}"/>
+                                <p class="ft24 fw700 text-secondary my-2">First Steps</p>
+                                <p class="text-secondary twoline-ellipsis">Are you a new customer wondering how to get started?</p>
+                                <button class="btn btn-primary px-2">Read More</button>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="col-12 col-xl-4">
+                        <div class="card" >
+                            <div class="flex flex-column align-items-center p-3 text-center mx-2 mb-2">
+                                <img class="img50" src="{% static 'assets/images/data/content.png' %}"/>
+                                <p class="ft24 fw700 text-secondary my-2">Add External..</p>
+                                <p class="text-secondary twoline-ellipsis">This article will show you how to expand the functionality of ...</p>
+                                <button class="btn btn-primary px-2">Read More</button>
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+                <h3>Average Product Performance</h3>
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="card radius-10">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <p class="mb-0">New Sessions</p>
+                                        <h5 class="mb-0">54.6%</h5>
+                                    </div>
+                                    <div class="widgets-icons bg-light-primary text-primary ms-auto"><i class="bx bxs-cookie"></i></div>
+                                </div>
+                                <div id="chart8"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="card radius-10">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <p class="mb-0">Average Pages</p>
+                                        <h5 class="mb-0">38.5%</h5>
+                                    </div>
+                                    <div class="widgets-icons bg-light-danger text-danger ms-auto"><i class="bx bxs-bookmark-alt-plus"></i></div>
+                                </div>
+                                <div id="chart9"></div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="col-12 col-lg-5 d-flex flex-column">
+                <div class="card p-2">
+                    <div class="customers-list p-3">
+                        <div class="customers-list-item d-flex align-items-center border-top border-bottom p-2 cursor-pointer mb-3">
+                            <div class="mx-2">
+                                <img src="{% static 'assets/images/dashboard/product.png' %}" class="rounded-circle" width="60" height="60" alt="" />
+                            </div>
+                            <div class="ms-2">
+                                <h6 class="mb-1 font-20">Active Products</h6>
+                                <p class="mb-0 font-18 fw800">80/500</p>
+                            </div>
+                            <div class="list-inline d-flex customers-contacts ms-auto">	
+                                <a href="javascript:;" class="list-inline-item"><i class='bx bx-right-arrow-alt'></i></a>
+                            </div>
+                        </div>
+                        <div class="customers-list-item d-flex align-items-center border-top border-bottom p-2 cursor-pointer mb-3">
+                            <div class="mx-2">
+                                <img src="{% static 'assets/images/dashboard/product.png' %}" class="rounded-circle" width="60" height="60" alt="" />
+                            </div>
+                            <div class="ms-2">
+                                <h6 class="mb-1 font-20">Optimized Products</h6>
+                                <p class="mb-0 font-18 fw800">80/500</p>
+                            </div>
+                            <div class="list-inline d-flex customers-contacts ms-auto">	
+                                <a href="javascript:;" class="list-inline-item"><i class='bx bx-right-arrow-alt'></i></a>
+                            </div>
+                        </div>
+                        <div class="customers-list-item d-flex align-items-center border-top border-bottom p-2 cursor-pointer mb-3">
+                            <div class="mx-2">
+                                <img src="{% static 'assets/images/dashboard/product.png' %}" class="rounded-circle" width="60" height="60" alt="" />
+                            </div>
+                            <div class="ms-2">
+                                <h6 class="mb-1 font-20">Products to optimize</h6>
+                                <p class="mb-0 font-18 fw800">80/500</p>
+                            </div>
+                            <div class="list-inline d-flex customers-contacts ms-auto">	
+                                <a href="javascript:;" class="list-inline-item"><i class='bx bx-right-arrow-alt'></i></a>
+                            </div>
+                        </div>
+                        <div class="customers-list-item d-flex align-items-center border-top border-bottom p-2 cursor-pointer">
+                            <div class="mx-2">
+                                <img src="{% static 'assets/images/dashboard/product.png' %}" class="rounded-circle" width="60" height="60" alt="" />
+                            </div>
+                            <div class="ms-2">
+                                <h6 class="mb-1 font-20">Problems found</h6>
+                                <p class="mb-0 font-18 fw800">3</p>
+                            </div>
+                            <div class="list-inline d-flex customers-contacts ms-auto">	
+                                <a href="javascript:;" class="list-inline-item"><i class='bx bx-right-arrow-alt'></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-3" style="position:relative;height:160px;">
+                    <p class="font-20 mx-2">Your current subscriptions</p>
+                    <p class="ft32 text-primary mx-2" id="currentSubscription">Free Plan</p>
+                    <img src="{% static 'assets/images/dashboard/List.png'%}" style="width:130px; position:absolute; top:0px; right:0px;">
+                </div>
+                <div class="card p-3" >
+                    <p class="font-20 px-5">Buy <b>Pro Account</b> to explore premimum features</p>
+                    <div class="row m-auto">
+                        <button type="button" class="btn btn-outline-primary px-5" onclick="goBilling()">PURCHASE NOW</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock wrapper %}
+
+{% block script %}
+    <script src="{% static 'assets/plugins/fancy-file-uploader/jquery.ui.widget.js' %}"></script>
+    <script src="{% static 'assets/plugins/fancy-file-uploader/jquery.fileupload.js' %}"></script>
+    <script src="{% static 'assets/plugins/fancy-file-uploader/jquery.iframe-transport.js' %}"></script>
+    <script src="{% static 'assets/plugins/fancy-file-uploader/jquery.fancy-fileupload.js' %}"></script>
+    <script src="{% static 'assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js' %}"></script>
+	<script src="{% static 'assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js' %}"></script>
+	<script src="{% static 'assets/plugins/highcharts/js/highcharts.js' %}"></script>
+	<script src="{% static 'assets/plugins/highcharts/js/exporting.js' %}"></script>
+	<script src="{% static 'assets/plugins/highcharts/js/variable-pie.js' %}"></script>
+	<script src="{% static 'assets/plugins/highcharts/js/export-data.js' %}"></script>
+	<script src="{% static 'assets/plugins/highcharts/js/accessibility.js' %}"></script>
+	<script src="{% static 'assets/plugins/apexcharts-bundle/js/apexcharts.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/users.js' %}"></script>
+    <script src="{% static 'assets/js/index.js' %}"></script>
+{% endblock script%}

@@ -1,0 +1,90 @@
+{% load static %}
+<div class="sidebar-wrapper" data-simplebar="true">
+    <div class="sidebar-header">
+        <div>
+            <img src="{% static 'assets/images/home/wordyAI_logo_small_dark.png' %}" class="logo-icon" alt="logo icon">
+        </div>
+        <div>
+            <h4 class="logo-text">wordyAI</h4>
+        </div>
+        <div class="toggle-icon ms-auto"><i class='bx bx-first-page'></i>
+        </div>
+    </div>
+    <!--navigation-->
+    <ul class="metismenu" id="menu">
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-home'></i>
+                </div>
+                <div class="menu-title">Dashboard</div>
+            </a>
+            <ul class="">
+                <li> <a href="{% url 'dashboard:analytics_view' %}"><i class="bx bx-right-arrow-alt"></i>Analytics</a>
+                </li>
+                <li> <a href="{% url 'dashboard:test_view' %}"><i class="bx bx-right-arrow-alt"></i>Sales</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bxs-cube-alt' ></i>
+                </div>
+                <div class="menu-title">Products</div>
+            </a>
+            <ul class="">
+                <li> <a href="{% url 'product:product_view' %}"><i class="bx bx-right-arrow-alt"></i>Product</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bxs-user' ></i>
+                </div>
+                <div class="menu-title">Membership</div>
+            </a>
+            <ul class="">
+                <li> <a href="{% url 'membership:billing_view' %}"><i class="bx bx-right-arrow-alt"></i>Billing</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-cog' ></i>
+                </div>
+                <div class="menu-title">Settings</div>
+            </a>
+            <ul class="">
+                <li> <a href="{% url 'user:profile_view' %}"><i class="bx bx-right-arrow-alt"></i>Account</a>
+                </li>
+                <li> <a href="{% url 'user:billing_view' %}"><i class="bx bx-right-arrow-alt"></i>Billing & Plan</a>
+                </li>
+                <li> <a href="{% url 'user:notification_view' %}"><i class="bx bx-right-arrow-alt"></i>Notification</a>
+                </li>
+                <li> <a href="{% url 'user:connections_view' %}"><i class="bx bx-right-arrow-alt"></i>Connections</a>
+                </li>
+                <li> <a href="{% url 'user:security_view' %}"><i class="bx bx-right-arrow-alt"></i>Security</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="{% url 'helpcenter:index_view' %}">
+                <div class="parent-icon"><i class="bx bx-help-circle"></i>
+                </div>
+                <div class="menu-title">Help Center</div>
+            </a>
+        </li>
+{% comment %}         
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-user' ></i>
+                </div>
+                <div class="menu-title">Membership</div>
+            </a>
+            <ul class="">
+                <li> <a href="{% url 'user:billing_view' %}"><i class="bx bx-right-arrow-alt"></i>Billing</a>
+                </li>
+            </ul>
+        </li> {% endcomment %}
+    </ul>
+    <!--end navigation-->
+</div>

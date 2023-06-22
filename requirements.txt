@@ -1,0 +1,15 @@
+django
+mysqlclient
+django-tinymce
+fontawesomefree
+django-crispy-forms
+django-recaptcha
+pillow
+six
+woocommerce
+python-dotenv
+channels
+daphne
+Pillow
+openai
+stripe

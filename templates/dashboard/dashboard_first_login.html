@@ -1,0 +1,252 @@
+{% extends 'layouts/app.html' %}
+{% load static %}
+
+{% block style %}
+	<link href="{% static 'assets/plugins/highcharts/css/highcharts.css' %}" rel="stylesheet" />
+	<link href="{% static 'assets/plugins/vectormap/jquery-jvectormap-2.0.2.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/plugins/fancy-file-uploader/fancy_fileupload.css' %}" rel="stylesheet" />
+	<link href="{% static 'assets/plugins/Drag-And-Drop/dist/imageuploadify.min.css' %}" rel="stylesheet" />
+{% endblock style %}
+
+{% block wrapper %}
+<div class="page-wrapper">
+    <div class="page-content">
+        <!--breadcrumb-->
+
+        <!--end breadcrumb-->
+        <div class="row">
+            <!-- Modal -->
+            <div >
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dataModal">Connect your Data</button>
+            <div>
+            <div class="modal fade" id="dataModal" tabindex="-1" aria-hidden="true">
+                {% csrf_token %}
+                <div class="modal-dialog modal-dialog-centered customModal">
+                    <div class="modal-content card">
+                        <div class='d-flex flex-row-reverse ml-1'>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class='d-flex flex-column align-items-center mt-4'>
+                            <p class="font24 fw-bold"> Connect your Data </p>
+                            <p class="font16"> Provide data with this form to create your app.</p>
+                        </div>
+                        <div class='d-flex flex-row'>
+                            <div class='d-flex flex-column mx-3'>
+                                <div class='d-flex flex-row my-3'>
+                                    <div class="imageDiv mx-2 imageDivActive" id="data_1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file svgActive"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font14 fw-bold mb-0">DETAILS</p>
+                                        <p class="font14_50 fw-bold mb-0">Enter Details</p>
+                                    </div>
+                                </div>
+                                <div class='d-flex flex-row my-3' >
+                                    <div class="imageDiv mx-2" id="data_2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font14 fw-bold mb-0">SHOPSYSTEM</p>
+                                        <p class="font14_50 fw-bold mb-0">Select Framework</p>
+                                    </div>
+                                </div>
+                                <div class='d-flex flex-row my-3'>
+                                    <div class="imageDiv mx-2" id="data_3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-database"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font14 fw-bold mb-0">DATABASE</p>
+                                        <p class="font14_50 fw-bold mb-0">Select Database</p>
+                                    </div>
+                                </div>
+                                <div class='d-flex flex-row my-3'>
+                                    <div class="imageDiv mx-2" id="data_4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card " ><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font14 fw-bold mb-0">BILLING</p>
+                                        <p class="font14_50 fw-bold mb-0">Payment Details</p>
+                                    </div>
+                                </div>
+                                <div class='d-flex flex-row my-3' >
+                                    <div class="imageDiv mx-2" id="data_5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font14 fw-bold mb-0">SUBMIT</p>
+                                        <p class="font14_50 fw-bold mb-0">Submit</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='d-flex flex-column mt-3 mx-4' style='width: 420px;'>
+                                <div id="data_tab_1">
+                                    <div class='d-flex flex-column' >
+                                        <div class="input-group mb-3 mx-2">
+                                            <input type="text" class="form-control" placeholder="Application Name" aria-label="Application Name" id="applicationName">
+                                        </div>
+                                        <p class="font22 fw-bold mb-0 mx-2">Category</p>                       
+                                        <div class='d-flex flex-row my-3 justify-content-between align-items-center select_field' id="group1_1">
+                                            <div class='d-flex flex-row'>
+                                                <div class="imageDivBig mx-2 color1">
+                                                    <img src="{% static 'assets/images/data/file-text.png' %}"/>
+                                                </div>
+                                                <div>
+                                                    <p class="font14 fw-bold mb-0 mt-1">Only CSV</p>
+                                                    <p class="font14_50 fw-bold mb-0">Scales with any business</p>
+                                                </div>
+                                            </div>
+                                            <p class="circleText">&#x25EF;</p>
+                                        </div>
+                                        <div class='d-flex flex-row my-3 justify-content-between align-items-center select_field' id="group1_2">
+                                            <div class='d-flex flex-row'>
+                                                <div class="imageDivBig mx-2 color2">
+                                                    <img src="{% static 'assets/images/data/shopping-cart.png' %}"/>
+                                                </div>
+                                                <div>
+                                                    <p class="font14 fw-bold mb-0 mt-1">Only XML</p>
+                                                    <p class="font14_50 fw-bold mb-0">Grow Your Business With App</p>
+                                                </div>
+                                            </div>
+                                            <p class="circleText">&#x25EF;</p>
+                                        </div>
+                                        <div class='d-flex flex-row my-3 justify-content-between align-items-center select_field' id="group1_3">
+                                            <div class='d-flex flex-row'>
+                                                <div class="imageDivBig mx-2 color3">
+                                                    <img src="{% static 'assets/images/data/device-laptop.png' %}"/>
+                                                </div>
+                                                <div>
+                                                    <p class="font14 fw-bold mb-0 mt-1">Your Webshop</p>
+                                                    <p class="font14_50 fw-bold mb-0">Start learning today</p>
+                                                </div>
+                                            </div>
+                                            <p class="circleText">&#x25EF;</p>
+                                        </div>
+                                        <div class="d-flex flex-row-reverse my-4 mx-2">
+                                            <button type="button" class="btn btn-primary" id="bnt_next_1">Next<i class="lni lni-chevron-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="data_tab_2">
+                                    <div class='d-flex flex-column'>
+                                        <p class="font22 fw-bold mb-0 mx-2">Category</p>                       
+                                        <div class='d-flex flex-row my-3 justify-content-between align-items-center select_field' id="group2_1">
+                                            <div class='d-flex flex-row'>
+                                                <div class="imageDivBig mx-2 color1">
+                                                    <img src="{% static 'assets/images/data/brand-react-native.png' %}"/>
+                                                </div>
+                                                <div>
+                                                    <p class="font14 fw-bold mb-0 mt-1">WooCommerce</p>
+                                                    <p class="font14_50 fw-bold mb-0">Create truly native apps</p>
+                                                </div>
+                                            </div>
+                                            <p class="circleText">&#x25EF;</p>
+                                        </div>
+                                        <div class='d-flex flex-row my-3 justify-content-between align-items-center select_field' id="group2_2">
+                                            <div class='d-flex flex-row'>
+                                                <div class="imageDivBig mx-2 color3">
+                                                    <img src="{% static 'assets/images/data/brand-angular.png' %}"/>
+                                                </div>
+                                                <div>
+                                                    <p class="font14 fw-bold mb-0 mt-1">Magento2</p>
+                                                    <p class="font14_50 fw-bold mb-0">Most suited for your application</p>
+                                                </div>
+                                            </div>
+                                            <p class="circleText">&#x25EF;</p>
+                                        </div>
+                                        <div class='d-flex flex-row my-3 justify-content-between align-items-center select_field' id="group2_3">
+                                            <div class='d-flex flex-row'>
+                                                <div class="imageDivBig mx-2 color5">
+                                                    <img src="{% static 'assets/images/data/brand-html5.png' %}"/>
+                                                </div>
+                                                <div>
+                                                    <p class="font14 fw-bold mb-0 mt-1">Shopware 6</p>
+                                                    <p class="font14_50 fw-bold mb-0">Progressive Framework</p>
+                                                </div>
+                                            </div>
+                                            <p class="circleText">&#x25EF;</p>
+                                        </div>
+                                        <div class='d-flex flex-row my-3 justify-content-between align-items-center select_field' id="group2_4">
+                                            <div class='d-flex flex-row'>
+                                                <div class="imageDivBig mx-2 color4">
+                                                    <img src="{% static 'assets/images/data/brand-python.png' %}"/>
+                                                </div>
+                                                <div>
+                                                    <p class="font14 fw-bold mb-0 mt-1">Shopify</p>
+                                                    <p class="font14_50 fw-bold mb-0">Js Web frameworks</p>
+                                                </div>
+                                            </div>
+                                            <p class="circleText">&#x25EF;</p>
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-between my-4 mx-2">
+                                            <button type="button" class="btn btn-primary" id="bnt_prev_2"><i class="lni lni-chevron-left"></i>Previous</button>
+                                            <button type="button" class="btn btn-primary" id="bnt_next_2">Next<i class="lni lni-chevron-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="data_tab_3">
+                                    <div class='d-flex flex-column'>
+                                        <div class="input-group mb-3 mx-2">
+                                            <input type="text" class="form-control" id="apiUrl" placeholder="Your Api Url" aria-label="Api Url">
+                                        </div>
+                                        <div class="input-group mb-3 mx-2">
+                                            <input type="text" class="form-control" id="consumerKey" placeholder="Your Consumer Key" aria-label="Consumer Key">
+                                        </div>
+                                        <div class="input-group mb-3 mx-2">
+                                            <input type="text" class="form-control" id="consumerToken" placeholder="Your Consumer Token" aria-label="Consumer Token">
+                                        </div>
+
+                                        <div class="d-flex flex-row justify-content-between my-4 mx-2">
+                                            <button type="button" class="btn btn-primary" id="bnt_prev_3"><i class="lni lni-chevron-left"></i>Previous</button>
+                                            <button type="button" class="btn btn-primary" id="bnt_next_3">Next<i class="lni lni-chevron-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="data_tab_4">
+                                    <div class='d-flex flex-column'>
+                                        <p class='font24'>Upload your file</p>
+                                        <input type="file" class="form-control" id="customFile" />
+                                        {% comment %} <div class="card">
+                                            <div class="card-body">
+                                                <input id="fancy-file-upload" type="file" name="files" accept=".csv, .xml">
+                                            </div>
+                                        </div> {% endcomment %}
+                                        <div class="d-flex flex-row justify-content-between my-4 mx-2">
+                                            <button type="button" class="btn btn-primary" id="bnt_prev_4"><i class="lni lni-chevron-left"></i>Previous</button>
+                                            <button type="button" class="btn btn-primary" id="bnt_next_4">Next<i class="lni lni-chevron-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="data_tab_5">
+                                    <div class='d-flex flex-column'>
+                                        <div class='d-flex flex-column align-items-center'>
+                                            <p class="font24 fw-bold">Ready to Start!</p>
+                                            <p class="font16">Submit to kick start your project</p>
+                                            <img src="{% static 'assets/images/data/laptop-girl.png' %}"/>
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-between my-4 mx-2">
+                                            <button type="button" class="btn btn-primary" id="bnt_prev_5"><i class="lni lni-chevron-left"></i>Previous</button>
+                                            <button type="button" class="btn btn-success" id="btn_submit"><i class="lni lni-checkmark"></i>Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end row-->
+    </div>
+</div>
+{% endblock wrapper %}
+
+{% block script %}
+    <script src="{% static 'assets/plugins/fancy-file-uploader/jquery.ui.widget.js' %}"></script>
+    <script src="{% static 'assets/plugins/fancy-file-uploader/jquery.fileupload.js' %}"></script>
+    <script src="{% static 'assets/plugins/fancy-file-uploader/jquery.iframe-transport.js' %}"></script>
+    <script src="{% static 'assets/plugins/fancy-file-uploader/jquery.fancy-fileupload.js' %}"></script>
+    <script src="{% static 'assets/plugins/Drag-And-Drop/dist/imageuploadify.min.js' %}"></script>
+    <script src="{% static 'assets/js/users.js' %}"></script>
+{% endblock script%}

@@ -1,0 +1,20 @@
+{% extends 'layouts/app.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
+{% endblock style %}
+
+{% block wrapper %}
+<div class="page-wrapper">
+    <div class="page-content">
+        {% csrf_token %}
+
+    </div>
+</div>
+{% endblock wrapper %}
+
+{% block script %}
+
+<script src="{% static 'assets/js/membership.js' %}"></script>
+{% endblock script%}

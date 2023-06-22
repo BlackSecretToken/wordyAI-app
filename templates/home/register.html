@@ -1,0 +1,80 @@
+{% extends './app.html' %}
+{% load static %}
+
+{% block wrapper %}
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <img class="img-fluid" src="{% static '/assets/images/home/register.png' %}">
+        </div>
+        <div class="col-md-6 col-12 margin-top-100">
+            <form class="row g-3 m-auto max-width-500 needs-validation" id="registerForm" novalidate>
+                {% csrf_token %}
+                <h4 class="mb-2">Adventure starts here &nbsp;&#x1f680;</h5>
+                <label for="register head" class="form-label">Take your online store to the next level!</label>   
+                <div class="col-12">
+                    <label for="inputPhoneNo" class="form-label">Username</label>
+                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class="bx bxs-user"></i></span>
+                        <input type="text" class="form-control border-start-0" id="inputUsername" placeholder="User Name" required>
+                    </div>
+                    <div class="invalid-feedback">
+                        Please insert username.
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="inputEmailAddress" class="form-label">Email Address</label>
+                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class="bx bxs-message"></i></span>
+                        <input type="text" class="form-control border-start-0" id="inputEmailAddress" placeholder="Email Address" required>
+                    </div>
+                    <div class="invalid-feedback">
+                        Please insert email address.
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="inputChoosePassword" class="form-label">Choose Password</label>
+                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class="bx bxs-lock-open"></i></span>
+                        <input type="password" class="form-control border-start-0" id="inputChoosePassword" placeholder="Choose Password" required>
+                    </div>
+                    <div class="invalid-feedback">
+                        Please insert password.
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="inputConfirmPassword" class="form-label">Confirm Password</label>
+                    <div class="input-group"> <span class="input-group-text bg-transparent"><i class="bx bxs-lock"></i></span>
+                        <input type="password" class="form-control border-start-0" id="inputConfirmPassword" placeholder="Confirm Password" required>
+                    </div>
+                    <div class="invalid-feedback">
+                        Please insert confirm password.
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck2" required>
+                        <label class="form-check-label" for="gridCheck2">I agree to <a class="text-primary cursor-pointer" href="">privacy policy & terms</a></label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="d-grid">
+                        <button type="btn" class="btn btn-primary px-5" id="registerButton">Register</button>
+                    </div>
+                </div>
+                <div class="col-12 text-center">
+                    <label class="form-check-label" for="gridCheck2">Already have an account? <a class="text-primary cursor-pointer" href="/login">Sign in instead</a></label>
+                </div>
+                <div class="col-12 text-center">
+                    <label class="form-check-label" for="gridCheck2">or</label>
+                </div>
+                <hr>
+                <div class="col-12 text-center">
+                    <button type="button" class="btn btn-warning"><i class="bx bxl-facebook me-0"></i>
+                    </button>
+                    <button type="button" class="btn btn-info"><i class="bx bxl-twitter me-0"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger"><i class="bx bxl-google me-0"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock wrapper %}

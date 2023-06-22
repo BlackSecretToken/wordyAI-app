@@ -1,0 +1,41 @@
+{% load static %}
+<div class="sidebar-wrapper" data-simplebar="true">
+    <div class="sidebar-header">
+        <div>
+            <img src="{% static 'assets/images/home/wordyAI_logo_final_dark.png' %}" class="logo-icon" alt="logo icon">
+        </div>
+        <div class="toggle-icon ms-auto"><i class='bx bx-first-page'></i>
+        </div>
+    </div>
+    <!--navigation-->
+    <ul class="metismenu" id="menu">
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-home'></i>
+                </div>
+                <div class="menu-title">Help Center</div>
+            </a>
+            <ul>
+                <li> <a href="{% url 'helpcenter:insert_category_view' %}"><i class="bx bx-right-arrow-alt">Insert Category</i></a>
+                </li>
+                <li> <a href="{% url 'helpcenter:insert_content_view' %}"><i class="bx bx-right-arrow-alt">Insert Content</i></a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-user'></i>
+                </div>
+                <div class="menu-title">Billing</div>
+            </a>
+            <ul>
+                <li> <a href="{% url 'membership:admin_billing_customer_view' %}"><i class="bx bx-right-arrow-alt">Customer</i></a>
+                </li>
+                <li> <a href="{% url 'membership:admin_billing_subscriptions_view' %}"><i class="bx bx-right-arrow-alt">Subscriptions</i></a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <!--end navigation-->
+</div>

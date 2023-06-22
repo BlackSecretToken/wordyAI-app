@@ -1,0 +1,159 @@
+{% extends 'layouts/app.html' %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+{% endblock style %}
+
+{% block wrapper %}
+<div class="page-wrapper">
+    <div class="page-content">
+        <div class="card p-4">
+            <p class="ft22 fw700 text-secondary">Current Plan</p>
+            <div class="row" id="playBody">
+            </div>
+        </div>
+        <div class="card p-4">
+            <p class="ft22 fw700 text-secondary">Payment Methods</p>
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="d-flex flex-row mb-4">
+                        <div class="d-flex align-items-center">
+                            <input type="radio" id="cardRadio" name="radios" value="cardRadio">
+                            <label for="cardRadio"><b>Credit/Debit/ATM Card</b></label>
+                        </div>
+                        <div class="d-flex align-items-center ms-4">
+                            <input type="radio" id="paypalRadio" name="radios" value="paypalRadio">
+                            <label for="paypalRadio"><b>PayPal account</b></label>
+                        </div>
+                    </div>
+                    <div class="mb-3 form-group">
+                        <div id="card-element" class="form-control">
+                        </div>
+                        <div id="card-element-errors" role="alert" class="mb-3 text-danger"></div>
+                    </div>
+                    <div class="d-flex flex-row my-3">
+                        <button class="btn btn-primary px-4 me-3" onclick = 'createCard()'>Save Changes</button>
+                        <button class="btn btn-primary px-4" onclick = 'cancelCard()'>Cancel</button>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <p class="ft16 fw700">My Card</p>
+                    <div id="cardField">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="card p-4">
+            <p class="ft22 fw700 text-secondary">Billing Address</p>
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600">Company Name</p>
+                        <input type="text" class="form-control" placeholder="PIXINVENT" name="companyName" id="company">
+                    </div>    
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600">Billing Email</p>
+                        <input type="text" class="form-control" placeholder="john.doe@gmail.com" name="billingEmail" id="email">
+                    </div>    
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600">Tax ID</p>
+                        <input type="text" class="form-control" placeholder="Enter Tax ID" name="taxID" id="taxid">
+                    </div>    
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600">Vat Number</p>
+                        <input type="text" class="form-control" placeholder="Enter Vat Number" name="vatNumber" id="vatnum">
+                    </div>    
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600">Mobile Number</p>
+                        <input type="text" class="form-control" placeholder="647 758 2648" name="mobileNumber" id="mobile">
+                    </div>    
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600">Country</p>
+                        <select class="form-select mx-1" aria-label="Country" id="countryList" name="country">
+                            <option selected value=0>Select Country</option>
+                        </select>
+                    </div>    
+                </div>
+                <div class="col-12">
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600">Billing Address</p>
+                        <input type="text" class="form-control" placeholder="Address" name="address" id="bill_address">
+                    </div>    
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600">State</p>
+                        <input type="text" class="form-control" placeholder="California" name="state" id="state">
+                    </div>    
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600">Zip Code</p>
+                        <input type="text" class="form-control" placeholder="63854" name="zipCode" id="zipcode">
+                    </div>    
+                </div>
+            </div>
+            <div class="d-flex flex-row">
+                <button class="btn btn-primary px-4" onclick = "crateCustomer()">Save Changes</button>
+                <button class="btn btn-danger px-4 ms-3">Discard</button>
+            </div>
+        </div>
+        <div class="card p-4">
+            <p class="ft22 fw700 text-secondary">Download Invoice</p>
+            <div class="custom-table-div1">
+                <table id="invoice_table" class="table table-hover custom-table1">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="main-check"></th>
+                            <th>ID</th>
+                            <th>AMOUNT</th>
+                            <th>START DATE</th>
+                            <th>OPERATION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="backdrop">
+            <div class="text-center-custom loading">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock wrapper %}
+
+{% block script %}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{% static 'assets/js/membership.js' %}"></script>
+    <script src="{% static 'assets/js/card.js' %}"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script>
+        $.ajax({
+            url: "{% static 'assets/data/country.json' %}",
+            dataType: "json",
+            success: function(countryList) {
+                countryList.forEach((data) => {
+                    $('#countryList').append('<option value="'+data.name+'">'+ data.name + '</option>');    
+                })
+            }
+        });
+    </script>
+{% endblock script%}
