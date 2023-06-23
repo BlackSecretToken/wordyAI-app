@@ -55,28 +55,31 @@ async function getInvoiceData() {
     $('#invoice_table').DataTable().destroy();
     $('#invoice_table tbody').empty();
 
-    for(let i=0;i<response.length;i++)
-    {
-        id = response[i].id;
-        amount = response[i].amount_paid / 100;
-        period_start = response[i].period_start;
-        period_end = response[i].period_end;
-        pdf = response[i].invoice_pdf;
-        currency = response[i].currency;
-        period_start = getDateString(period_start);
-        period_end = getDateString(period_end);
-        data = data + '<tr>'+
-        '<td>'+
-        '<input type="checkbox" data_id="'+id+'">' +
-        '</td>' +
-        '<td>' + id+ '</td>' +
-        '<td>' + amount  + currency + '</td>' +
-        '<td>' + period_start + '</td>' +
-        '<td><a href="'+ pdf + '" title="Download invoice pdf"><i class="bx bx-download text-primary ft24 cursor-pointer me-3"></i></a></td>'
-        '</tr>';
-    }   
-    $('#invoice_table tbody').append(data);
-    $('#invoice_table').DataTable()
+    if (response !== undefined){
+        data ="";
+        for(let i=0;i<response.length;i++)
+        {
+            id = response[i].id;
+            amount = response[i].amount_paid / 100;
+            period_start = response[i].period_start;
+            period_end = response[i].period_end;
+            pdf = response[i].invoice_pdf;
+            currency = response[i].currency;
+            period_start = getDateString(period_start);
+            period_end = getDateString(period_end);
+            data = data + '<tr>'+
+            '<td>'+
+            '<input type="checkbox" data_id="'+id+'">' +
+            '</td>' +
+            '<td>' + id+ '</td>' +
+            '<td>' + amount  + currency + '</td>' +
+            '<td>' + period_start + '</td>' +
+            '<td><a href="'+ pdf + '" title="Download invoice pdf"><i class="bx bx-download text-primary ft24 cursor-pointer me-3"></i></a></td>'
+            '</tr>';
+        }   
+        $('#invoice_table tbody').append(data);
+        $('#invoice_table').DataTable()
+    }
     
 }
 
@@ -198,34 +201,36 @@ async function getCardList() {
     data = response.data;
     
     item = '';
-    for(let i=0;i<data.length;i++)
-    {
-        cardList.push(data[i].id);
-        index = cardList.length - 1;
-        item = item + '<div class="card p-3">' +
-                '<div class="d-flex flex-row justify-content-between align-items-center">' + 
-                '<img class="cardImg" src="../static/assets/images/membership/'+ data[i].brand.substring(0,4)+'card.png"/>'+
-                '<div class="d-flex flex-row">' +
-                '<button class="btn px-4 ms-2 btn-danger" onclick="deleteCard('+ index +')">Delete</button>' +
-                '</div>' +
-                '</div>' +
-                '<div class="d-flex flex-row mt-3">' +
-                '<p class="mb-0 me-3 fw700">';
-        if (data[i].name === null)    
-            item =item + 'card' + '</p>';
-        else
-            item =item + data[i].name + '</p>';
+    if (data !== undefined) {
+        for(let i=0;i<data.length;i++)
+        {
+            cardList.push(data[i].id);
+            index = cardList.length - 1;
+            item = item + '<div class="card p-3">' +
+                    '<div class="d-flex flex-row justify-content-between align-items-center">' + 
+                    '<img class="cardImg" src="../static/assets/images/membership/'+ data[i].brand.substring(0,4)+'card.png"/>'+
+                    '<div class="d-flex flex-row">' +
+                    '<button class="btn px-4 ms-2 btn-danger" onclick="deleteCard('+ index +')">Delete</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="d-flex flex-row mt-3">' +
+                    '<p class="mb-0 me-3 fw700">';
+            if (data[i].name === null)    
+                item =item + 'card' + '</p>';
+            else
+                item =item + data[i].name + '</p>';
 
-        if ( i === 0 )
-            item = item + '<span class="badge rounded-pill bg-primary">Primary</span>';
-        else
-            item = item + '<span class="badge rounded-pill bg-danger cursor-pointer" onclick="setCardPrimary(' + index + ')">Set Primary</span>';
-        
-        item = item + '</div>' + '<div class="d-flex flex-row mt-3 justify-content-between">' +
-                '<p class="mb-0 fw700">**** **** **** ' + data[i].last4 + '</p>' +
-                '<p class="mb-0">Card expires at ' + data[i].exp_month + '/' + data[i].exp_year + '</p>' +
-                '</div>' +
-                '</div>';
+            if ( i === 0 )
+                item = item + '<span class="badge rounded-pill bg-primary">Primary</span>';
+            else
+                item = item + '<span class="badge rounded-pill bg-danger cursor-pointer" onclick="setCardPrimary(' + index + ')">Set Primary</span>';
+            
+            item = item + '</div>' + '<div class="d-flex flex-row mt-3 justify-content-between">' +
+                    '<p class="mb-0 fw700">**** **** **** ' + data[i].last4 + '</p>' +
+                    '<p class="mb-0">Card expires at ' + data[i].exp_month + '/' + data[i].exp_year + '</p>' +
+                    '</div>' +
+                    '</div>';
+        }
     }
     $('#cardField').empty();
     $('#cardField').append(item);
