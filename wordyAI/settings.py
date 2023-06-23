@@ -115,13 +115,24 @@ PASSWORD_RESET_TIMEOUT = 14400
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'wordyai',
-        'USER': 'root',
+        'NAME': 'admin_wordyaiapp',
+        'USER': 'admin_wordyaiapp',
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'wordyai',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
