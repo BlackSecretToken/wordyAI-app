@@ -117,7 +117,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'admin_wordyaiapp',
         'USER': 'admin_wordyaiapp',
-        'PASSWORD': '',
+        'PASSWORD': 'Um5u30o#6',
         'HOST': 'localhost',
         'PORT': '3306',
     }
