@@ -41,11 +41,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
-ASGI_APPLICATION = 'wordyAI.asgi.application'
+# ASGI_APPLICATION = 'wordyAI.asgi.application'
 
 # Application definition
 INSTALLED_APPS = [
-    'daphne',
+    # 'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'dashboard',
     'user',
     'product',
-    'channels',
+    # 'channels',
     'chat',
     'fileuploadtest',
     'membership',
