@@ -18,7 +18,7 @@ DEBUG = os.getenv('DEBUG') == 'True'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['94.199.215.123']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Quick-start development settings - unsuitable for production
@@ -30,7 +30,6 @@ SECRET_KEY = 'django-insecure-wj0xug(0v5(7eld2!dy&v1ai1tjr_%i#y81gsajxa$!$x=yv4$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 DATA_URL = '/upload/'
