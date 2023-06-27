@@ -24,7 +24,7 @@ class ProductDownloadThread(threading.Thread):
             version="wc/v3",
             timeout = 100
         )
-        while self.do_run and self.page<20:
+        while self.do_run:
             cnt=0
             try:
                 products = wcapi.get("products", params={"page": self.page, "per_page": self.per_page}).json() 

@@ -27,8 +27,10 @@ $(document).ready(function(){
     $('#product_main_page').show();
     $('#product_detail_page').hide();
     // get download status
+    $('#backdrop').show();
     getDownloadStatus();
     init();
+    $('#backdrop').hide();
 
     $("#productUpDown").click(function (event) {
         productUpDown = 1 - productUpDown;
@@ -76,8 +78,6 @@ $(document).ready(function(){
             })
             $("#product_download_setting_modal").modal('show'); 
         }
-        
-        
         /*
         response = await product_download_status();
         response = await product_download_start();
@@ -110,7 +110,10 @@ $(document).ready(function(){
             keyboard: false // disable keyboard navigation as well
         })
         downloadFrom = parseInt($("#downloadStartFrom").val());
+
+        $('#backdrop').show();
         response = await product_download_start(downloadFrom);
+        $('#backdrop').hide();
         console.log(response);
         if (response.status === 'success')
         {

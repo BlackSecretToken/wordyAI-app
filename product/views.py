@@ -236,16 +236,32 @@ def productDownloadStart(request):
         res['status'] = STATUS_FAIL
         res['message'] = DOWNLOAD_THREAD_ALREADY_EXIST
     else:
-        download_thread = ProductDownloadThread(request, page)
-        download_thread.start()
+        # check api ..
+        wcapi = API(
+            url= apidata.api_url,
+            consumer_key= apidata.consumerKey,
+            consumer_secret= apidata.consumerToken,
+            version="wc/v3",
+            timeout = 100
+        )
+        try:
+            products = wcapi.get("products", params={"page": 1, "per_page": 1}).json()
+            download_thread = ProductDownloadThread(request, page)
+            download_thread.start()
 
-        productDownloadThreadStatus = DownloadProductThreadStatus.objects.create(apidata = apidata, count = 0, thread_id=download_thread.ident)
-        productDownloadThreadStatus.save()
+            productDownloadThreadStatus = DownloadProductThreadStatus.objects.create(apidata = apidata, count = 0, thread_id=download_thread.ident)
+            productDownloadThreadStatus.save()
 
-        request.session['download_thread_id'] = productDownloadThreadStatus.id
+            request.session['download_thread_id'] = productDownloadThreadStatus.id
 
-        res['status'] = STATUS_SUCCESS
-        res['message'] = DOWNLOAD_START
+            res['status'] = STATUS_SUCCESS
+            res['message'] = DOWNLOAD_START
+
+        except Exception as e:
+            # Handle any errors from the Stripe API
+            print('error')
+            res['status'] = STATUS_FAIL
+            res['message'] = INVALID_API
 
     return JsonResponse(res)
 
