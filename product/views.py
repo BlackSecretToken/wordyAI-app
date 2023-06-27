@@ -310,7 +310,9 @@ def productDownloadStatus(request):
             res['download_status'] = False
     else:
         productDownloadThreadStatus = DownloadProductThreadStatus.objects.get(id = download_thread_id )
+        print('------------', productDownloadThreadStatus.thread_id)
         download_thread = get_thread_by_id(productDownloadThreadStatus.thread_id)
+        print('------------', download_thread)
         if download_thread is None:
             email = request.session.get('email')
             user = Users.objects.get(email = email)
