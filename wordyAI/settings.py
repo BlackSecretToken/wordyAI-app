@@ -114,11 +114,11 @@ PASSWORD_RESET_TIMEOUT = 14400
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'admin_wordyaiapp',
-        'USER': 'admin_wordyaiapp',
-        'PASSWORD': 'Um5u30o#6',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
     }
 }
 
@@ -129,7 +129,7 @@ DATABASES = {
 #         'USER': 'root',
 #         'PASSWORD': '',
 #         'HOST': 'localhost',
-#         'PORT': '3306',
+#         'PORT': '3304',
 #     }
 # }
 
@@ -176,10 +176,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static/'
-]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
