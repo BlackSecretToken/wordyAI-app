@@ -28,3 +28,5 @@ NO_DOWNLOAD_THREAD ="There is no download thread.."
 
 STATUS_SUCCESS = "success"
 STATUS_FAIL = "fail"
+
+INVALID_API = "Invalid Api.. Please check again!"
