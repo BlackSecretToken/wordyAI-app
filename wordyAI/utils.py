@@ -1,4 +1,5 @@
-from home.models import Users
+from home.models import *
+from product.models import *
 from .constant import *
 def default_context(request, context):
     email = request.session.get('email')

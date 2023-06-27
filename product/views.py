@@ -44,12 +44,19 @@ def getCategory(wcapi, request):
         print(page)
     print(total)
 
-def getProduct(wcapi, request):
+def getProduct(request):
     email = request.session.get('email')
     user = Users.objects.get(email = email)
     apiData = ApiData.objects.get(users = user)
+    wcapi = API(
+        url= apiData.api_url,
+        consumer_key= apiData.consumerKey,
+        consumer_secret= apiData.consumerToken,
+        version="wc/v3",
+        timeout = 100
+    )
     page = 1
-    per_page = 100
+    per_page = 10
     total = 0
 
     while page < 5:
@@ -120,15 +127,8 @@ def getProduct(wcapi, request):
     print(total)
 
 def test(request):
-    wcapi = API(
-        url="https://woocommerce-982950-3477198.cloudwaysapps.com",
-        consumer_key="ck_a0d5a2bb40665e874485e8588f154bed91e921b9",
-        consumer_secret="cs_9b5dc6af44df67d17a3c1b7d3e5c6b74c10c2fda",
-        version="wc/v3",
-        timeout = 100
-    )
-    getCategory(wcapi, request)
-    getProduct(wcapi, request)
+    # getCategory(wcapi, request)
+    getProduct(request)
     return JsonResponse({})
 
 def get_products(api):
@@ -224,6 +224,8 @@ def productOptimize(request):
 
 def productDownloadStart(request):
     res = {}
+    data = json.loads(request.body)
+    page = data['page']
 
     email = request.session.get('email')
     user = Users.objects.get(email = email)
@@ -234,7 +236,7 @@ def productDownloadStart(request):
         res['status'] = STATUS_FAIL
         res['message'] = DOWNLOAD_THREAD_ALREADY_EXIST
     else:
-        download_thread = ProductDownloadThread() 
+        download_thread = ProductDownloadThread(request, page)
         download_thread.start()
 
         productDownloadThreadStatus = DownloadProductThreadStatus.objects.create(apidata = apidata, count = 0, thread_id=download_thread.ident)
@@ -282,8 +284,8 @@ def productDownloadStatus(request):
             downloadProductThreadStatus = DownloadProductThreadStatus.objects.get(apidata = apidata, is_completed = False)
             download_thread = get_thread_by_id(downloadProductThreadStatus.thread_id)
             if download_thread.is_alive():
-                res['count'] = download_thread.count
-                res['download_status'] = True # true: progress flase: complete
+                res['total'] = download_thread.total
+                res['download_status'] = True # true: thread is alive
             else:
                 res['download_status'] = False
                 downloadProductThreadStatus.is_completed = True
@@ -302,12 +304,11 @@ def productDownloadStatus(request):
                 downloadProductThreadStatus = DownloadProductThreadStatus.objects.get(apidata = apidata, is_completed = False)
                 downloadProductThreadStatus.is_completed = True
                 downloadProductThreadStatus.save()
-                
             res['download_status'] = False
         else:
             if download_thread.is_alive():
-                res['count'] = download_thread.count
-                res['download_status'] = True # true: progress flase: complete
+                res['total'] = download_thread.total
+                res['download_status'] = True # true: thread is alive
             else:
                 res['download_status'] = False
                 downloadProductThreadStatus.is_completed = True

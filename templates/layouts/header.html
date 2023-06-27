@@ -6,6 +6,11 @@
             </div>
             <div class="top-menu-left d-none d-lg-block">
                 <ul class="nav" id="navItem">
+                    <li class="nav-item" id="download_gif" style="display:none;">
+                        <a class="nav-link" href="{% url 'product:product_view' %}">
+                            <img src="{% static 'assets/images/home/download.gif' %}" class="download_gif">
+                        </a>
+                    </li>
                       {% comment %} <li class="nav-item">
                         <a class="nav-link" href=""><i class='bx bx-envelope'></i></a>
                       </li>

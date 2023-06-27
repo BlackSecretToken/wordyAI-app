@@ -20,10 +20,14 @@ var filterStockValue = 0;
 var filterCategoryValue = 0;
 var orderQueue = ['product_title','product_sku','stockstatus_id', 'category_id', 'product_status'];
 
+var hide = false;
+var downloadInterval;
+
 $(document).ready(function(){
     $('#product_main_page').show();
     $('#product_detail_page').hide();
-    //initSidebar();
+    // get download status
+    getDownloadStatus();
     init();
 
     $("#productUpDown").click(function (event) {
@@ -65,33 +69,97 @@ $(document).ready(function(){
     })
 
     $("#pullButton").click(async function (event) {
-        /*
-        $('#loadDataModal').modal({
-            backdrop: 'static',
-            keyboard: false // disable keyboard navigation as well
-        })
-        $("#loadDataModal").modal('show'); 
-        */
+        if (hide === false){
+            $('#product_download_setting_modal').modal({
+                backdrop: 'static',
+                keyboard: false // disable keyboard navigation as well
+            })
+            $("#product_download_setting_modal").modal('show'); 
+        }
         
+        
+        /*
         response = await product_download_status();
         response = await product_download_start();
         console.log(response);
+        */
     })
     $("#pushButton").click(async function (event) {
-
+        /*
         response = await product_download_stop();
         console.log(response);
         response = await product_download_status();
+        */
     })
 
     $("#optimizeButton").click(async function (event) {
-
+        /*
         response = await product_download_status();
         console.log(response); 
+        */
     })
     
-    $("#dataModalCancel").click(function (event) {
-        $("#loadDataModal").modal('hide');    
+    $("#productDownloadSettingCancel").click(function (event) {
+        $("#product_download_setting_modal").modal('hide');    
+    })
+
+    $("#productDownloadStart").click(async function (event) {
+        $("#product_download_setting_modal").modal('hide');    
+        $('#product_download_modal').modal({
+            backdrop: 'static',
+            keyboard: false // disable keyboard navigation as well
+        })
+        downloadFrom = parseInt($("#downloadStartFrom").val());
+        response = await product_download_start(downloadFrom);
+        console.log(response);
+        if (response.status === 'success')
+        {
+            $("#product_download_modal").modal('show');
+            downloadInterval = setInterval(getDownloadStatus, 3000);
+        }
+        else{
+            toastr.options = {
+                "positionClass": "toast-top-right",
+                "timeOut": "3000"
+              }
+            toastr.error(response.message);
+        }
+    })
+
+    $("#productDownloadHide").click(function (event) {
+        $("#product_download_modal").modal('hide');   
+        hide = true; 
+    })
+
+    $("#productDownloadStop").click(async function (event) {
+        response = await product_download_status();
+        total = response.total;
+        response = await product_download_stop();
+        response = await product_download_status();
+        
+        if (response.download_status === false)
+        {
+            // do nothing..
+            $("#product_download_modal").modal('hide');
+            $('#download_gif').hide();    
+            if (downloadInterval !== undefined)
+                clearInterval(downloadInterval);
+            toastr.options = {
+                "positionClass": "toast-top-right",
+                "timeOut": "3000"
+                }
+            toastr.success(total +  ' products downloaded..');
+        }
+        else
+        {
+            $('#product_download_modal').modal({
+                backdrop: 'static',
+                keyboard: false // disable keyboard navigation as well
+            })
+            $("#product_download_modal").modal('show');
+            $('#download_gif').show();    
+        }
+        
     })
 
     $('#pagePrevBtn').click(function (event) {
@@ -123,15 +191,59 @@ $(document).ready(function(){
 
 })
 
-
-async function product_download_start(){
-    response = await fetch("/product/productDownloadStart", { 
+function getDownloadStatus() {
+    fetch("/product/productDownloadStatus", { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRFToken': getCookie('csrftoken'),
         },
         body: {}
+    }).then(response => response.json()).then(
+        
+        response => {
+            console.log(response);
+            if (response.download_status === false)
+            {
+                // do nothing..
+                $("#product_download_modal").modal('hide');
+                $('#download_gif').hide();  
+                if (downloadInterval !== undefined)
+                {  
+                    clearInterval(downloadInterval)
+                }
+            }
+            else
+            {
+                if (hide === false)
+                {
+                    $('#product_download_modal').modal({
+                        backdrop: 'static',
+                        keyboard: false // disable keyboard navigation as well
+                    })
+                    $("#product_download_modal").modal('show');   
+    
+                    $('#totalDownloadCount').text(response.total);
+                }
+                $('#download_gif').show(); 
+                if (downloadInterval === undefined)
+                {
+                    downloadInterval = setInterval(getDownloadStatus, 3000);
+                }
+            }
+        }
+    )
+}
+async function product_download_start(downloadFrom){
+    response = await fetch("/product/productDownloadStart", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+            page: Math.floor(downloadFrom/10 + 1)
+        })
     });
     response = await(response.json());
     
@@ -261,6 +373,7 @@ async function init(){
     await getCategoryData()
     await handlePage();
     await updateUpDownStatus();
+    console.log("Hay");
     //initWebSocket();
 }
 
@@ -294,7 +407,7 @@ async function getCategoryData(){
     });
 
     response = await(response.json());    
-        
+    
     response = JSON.parse(response);
     filterCategory = response;
     response.forEach((data) => {
