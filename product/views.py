@@ -249,10 +249,10 @@ def productDownloadStart(request):
         download_thread = ProductDownloadThread(request, page)
         download_thread.start()
 
-        # productDownloadThreadStatus = DownloadProductThreadStatus.objects.create(apidata = apidata, count = 0, thread_id=download_thread.ident)
-        # productDownloadThreadStatus.save()
+        productDownloadThreadStatus = DownloadProductThreadStatus.objects.create(apidata = apidata, count = 0, thread_id=download_thread.ident)
+        productDownloadThreadStatus.save()
 
-        # request.session['download_thread_id'] = productDownloadThreadStatus.id
+        request.session['download_thread_id'] = productDownloadThreadStatus.id
         res['tread_id'] = download_thread.ident
         res['status'] = STATUS_SUCCESS
         res['message'] = DOWNLOAD_START

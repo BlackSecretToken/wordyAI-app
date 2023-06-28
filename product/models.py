@@ -58,7 +58,7 @@ class ProductDownloadStatus(models.Model):
 
 class DownloadProductThreadStatus(models.Model):
     id =  models.BigAutoField(primary_key=True, auto_created=True)
-    thread_id = models.PositiveIntegerField()
+    thread_id = models.PositiveBigIntegerField(null=True)
     started_at = models.DateTimeField(auto_now_add=True)
     stopped_at = models.DateTimeField(auto_now=True, null= True)
     count = models.IntegerField(default = 0)
