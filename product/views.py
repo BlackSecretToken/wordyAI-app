@@ -255,6 +255,7 @@ def productDownloadStart(request):
         productDownloadThreadStatus.save()
 
         # request.session['download_thread_id'] = productDownloadThreadStatus.id
+        res = get_thread_data(res)
         request.session['download_thread_id'] = download_thread.name
         res['thread_name'] = download_thread.name
         res['tread_id'] = download_thread.ident
@@ -291,12 +292,19 @@ def get_thread_by_id(thread_id):
             return thread
     return None
 
+def get_thread_data(res):
+    res['data'] = []
+    for thread in threading.enumerate():
+        res['data'].append(thread.ident)
+    return res
+
 def productDownloadStatus(request):
     res = {}
     download_thread_id = request.session.get('download_thread_id')
 
     # productDownloadThreadStatus = DownloadProductThreadStatus.objects.get(id = download_thread_id )
     download_thread = get_thread_by_id(download_thread_id)
+    res = get_thread_data(res)
     res['id'] = download_thread_id
     res['download_id'] = download_thread_id
     if download_thread is not None:
