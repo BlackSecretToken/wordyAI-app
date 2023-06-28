@@ -14,6 +14,7 @@ from .models import *
 from wordyAI.openai import *
 from .thread import *
 import threading
+import psutil
 # Create your views here.
 def getCategory(wcapi, request):
     email = request.session.get('email')

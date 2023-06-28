@@ -13,3 +13,4 @@ daphne
 Pillow
 openai
 stripe
+psutil
