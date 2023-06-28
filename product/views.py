@@ -257,6 +257,7 @@ def productDownloadStart(request):
         res['tread_id'] = download_thread.ident
         res['status'] = STATUS_SUCCESS
         res['message'] = DOWNLOAD_START
+        res['new'] = get_thread_by_id(download_thread.name).ident
 
         # except Exception as e:
         #     # Handle any errors from the Stripe API
