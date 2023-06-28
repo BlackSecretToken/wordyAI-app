@@ -244,24 +244,24 @@ def productDownloadStart(request):
             version="wc/v3",
             timeout = 100
         )
-        try:
-            products = wcapi.get("products", params={"page": 1, "per_page": 1}).json()
-            download_thread = ProductDownloadThread(request, page)
-            download_thread.start()
+        # try:
+        #     products = wcapi.get("products", params={"page": 1, "per_page": 1}).json()
+        download_thread = ProductDownloadThread(request, page)
+        download_thread.start()
 
-            productDownloadThreadStatus = DownloadProductThreadStatus.objects.create(apidata = apidata, count = 0, thread_id=download_thread.ident)
-            productDownloadThreadStatus.save()
+        productDownloadThreadStatus = DownloadProductThreadStatus.objects.create(apidata = apidata, count = 0, thread_id=download_thread.ident)
+        productDownloadThreadStatus.save()
 
-            request.session['download_thread_id'] = productDownloadThreadStatus.id
+        request.session['download_thread_id'] = productDownloadThreadStatus.id
 
-            res['status'] = STATUS_SUCCESS
-            res['message'] = DOWNLOAD_START
+        res['status'] = STATUS_SUCCESS
+        res['message'] = DOWNLOAD_START
 
-        except Exception as e:
-            # Handle any errors from the Stripe API
-            print('error')
-            res['status'] = STATUS_FAIL
-            res['message'] = INVALID_API
+        # except Exception as e:
+        #     # Handle any errors from the Stripe API
+        #     print('error')
+        #     res['status'] = STATUS_FAIL
+        #     res['message'] = INVALID_API
 
     return JsonResponse(res)
 
