@@ -259,6 +259,8 @@ def productDownloadStart(request):
 
 
         request.session['download_thread_id'] = productDownloadThreadStatus.id
+        res['status'] = 'success'
+        res['message'] = DOWNLOAD_START
 
         # except Exception as e:
         #     # Handle any errors from the Stripe API
