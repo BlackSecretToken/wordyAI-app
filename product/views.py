@@ -298,6 +298,7 @@ def productDownloadStatus(request):
     res['download_id'] = productDownloadThreadStatus.thread_id
     if download_thread is not None:
         res['thread_id'] = download_thread.ident
+    res['download_status'] = False
     # print('------------', download_thread_id)
     # if download_thread_id is None:
     #     email = request.session.get('email')
