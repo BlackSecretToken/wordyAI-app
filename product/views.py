@@ -259,6 +259,7 @@ def productDownloadStart(request):
 
 
         request.session['download_thread_id'] = productDownloadThreadStatus.id
+        res = get_thread_data(res)
         res['status'] = 'success'
         res['message'] = DOWNLOAD_START
 
@@ -294,12 +295,16 @@ def get_thread_by_id(thread_id):
 
 def get_thread_data(res):
     res['data'] = []
-    for thread in threading.enumerate():
-        res['data'].append(thread.ident)
+    # for thread in threading.enumerate():
+    #     res['data'].append(thread.ident)
+    for key, value in thread_dict.items():
+        print(key)
+        res['data'].append(key)
     return res
 
 def productDownloadStatus(request):
     res = {}
+    res = get_thread_data(res)
     download_thread_id = request.session.get('download_thread_id')
     print('------------', download_thread_id)
     if download_thread_id is None:
