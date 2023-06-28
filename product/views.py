@@ -239,6 +239,7 @@ def productDownloadStart(request):
     if is_exist:
         res['status'] = STATUS_FAIL
         res['message'] = DOWNLOAD_THREAD_ALREADY_EXIST
+        res = get_thread_data(res)
     else:
         # check api ..
         # wcapi = API(
@@ -307,45 +308,47 @@ def productDownloadStatus(request):
     res = get_thread_data(res)
     download_thread_id = request.session.get('download_thread_id')
     print('------------', download_thread_id)
-    if download_thread_id is None:
-        email = request.session.get('email')
-        user = Users.objects.get(email = email)
-        apidata = ApiData.objects.get(users = user) 
+    res['download_status'] = False
+    
+    # if download_thread_id is None:
+    #     email = request.session.get('email')
+    #     user = Users.objects.get(email = email)
+    #     apidata = ApiData.objects.get(users = user) 
 
-        is_exist = DownloadProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
-        if is_exist:
-            downloadProductThreadStatus = DownloadProductThreadStatus.objects.get(apidata = apidata, is_completed = False)
-            download_thread = get_thread_by_id(downloadProductThreadStatus.thread_id)
-            if download_thread.is_alive():
-                res['total'] = download_thread.total
-                res['download_status'] = True # true: thread is alive
-            else:
-                res['download_status'] = False
-                downloadProductThreadStatus.is_completed = True
-                downloadProductThreadStatus.save()
-        else:
-            res['download_status'] = False
-    else:
-        productDownloadThreadStatus = DownloadProductThreadStatus.objects.get(id = download_thread_id )
-        print('------------', productDownloadThreadStatus.thread_id)
-        download_thread = get_thread_by_id(productDownloadThreadStatus.thread_id)
-        print('------------', download_thread)
-        if download_thread is None:
-            email = request.session.get('email')
-            user = Users.objects.get(email = email)
-            apidata = ApiData.objects.get(users = user)
-            is_exist =  DownloadProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
-            if is_exist:
-                downloadProductThreadStatus = DownloadProductThreadStatus.objects.get(apidata = apidata, is_completed = False)
-                downloadProductThreadStatus.is_completed = True
-                downloadProductThreadStatus.save()
-            res['download_status'] = False
-        else:
-            if download_thread.is_alive():
-                res['total'] = download_thread.total
-                res['download_status'] = True # true: thread is alive
-            else:
-                res['download_status'] = False
+    #     is_exist = DownloadProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
+    #     if is_exist:
+    #         downloadProductThreadStatus = DownloadProductThreadStatus.objects.get(apidata = apidata, is_completed = False)
+    #         download_thread = get_thread_by_id(downloadProductThreadStatus.thread_id)
+    #         if download_thread.is_alive():
+    #             res['total'] = download_thread.total
+    #             res['download_status'] = True # true: thread is alive
+    #         else:
+    #             res['download_status'] = False
+    #             downloadProductThreadStatus.is_completed = True
+    #             downloadProductThreadStatus.save()
+    #     else:
+    #         res['download_status'] = False
+    # else:
+    #     productDownloadThreadStatus = DownloadProductThreadStatus.objects.get(id = download_thread_id )
+    #     print('------------', productDownloadThreadStatus.thread_id)
+    #     download_thread = get_thread_by_id(productDownloadThreadStatus.thread_id)
+    #     print('------------', download_thread)
+    #     if download_thread is None:
+    #         email = request.session.get('email')
+    #         user = Users.objects.get(email = email)
+    #         apidata = ApiData.objects.get(users = user)
+    #         is_exist =  DownloadProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
+    #         if is_exist:
+    #             downloadProductThreadStatus = DownloadProductThreadStatus.objects.get(apidata = apidata, is_completed = False)
+    #             downloadProductThreadStatus.is_completed = True
+    #             downloadProductThreadStatus.save()
+    #         res['download_status'] = False
+    #     else:
+    #         if download_thread.is_alive():
+    #             res['total'] = download_thread.total
+    #             res['download_status'] = True # true: thread is alive
+    #         else:
+    #             res['download_status'] = False
 
     return JsonResponse(res)
 
