@@ -39,6 +39,12 @@ MEDIA_URL = '/media/'
 
 
 #SECURE_SSL_REDIRECT = True
+# Set this to true
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Add this line
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # ASGI_APPLICATION = 'wordyAI.asgi.application'
 
