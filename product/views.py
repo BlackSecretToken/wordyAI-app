@@ -253,6 +253,7 @@ def productDownloadStart(request):
         productDownloadThreadStatus.save()
 
         request.session['download_thread_id'] = productDownloadThreadStatus.id
+        res['thread_name'] = download_thread.name
         res['tread_id'] = download_thread.ident
         res['status'] = STATUS_SUCCESS
         res['message'] = DOWNLOAD_START
