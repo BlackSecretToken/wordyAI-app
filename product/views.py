@@ -13,6 +13,7 @@ from home.models import *
 from .models import *
 from wordyAI.openai import *
 from .thread import *
+import threading
 # Create your views here.
 def getCategory(wcapi, request):
     email = request.session.get('email')
@@ -284,7 +285,7 @@ def productDownloadStop(request):
 
 def get_thread_by_id(thread_id):
     for thread in threading.enumerate():
-        if thread.ident == thread_id:
+        if thread.name == thread_id:
             return thread
     return None
 
