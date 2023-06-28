@@ -285,7 +285,7 @@ def productDownloadStop(request):
 
 def get_thread_by_id(thread_id):
     for thread in threading.enumerate():
-        if thread.id == thread_id:
+        if thread.ident == thread_id:
             return thread
     return None
 
