@@ -253,12 +253,13 @@ def productDownloadStart(request):
         productDownloadThreadStatus = DownloadProductThreadStatus.objects.create(apidata = apidata, count = 0, thread_id=download_thread.ident)
         productDownloadThreadStatus.save()
 
-        request.session['download_thread_id'] = productDownloadThreadStatus.id
+        # request.session['download_thread_id'] = productDownloadThreadStatus.id
+        request.session['download_thread_id'] = download_thread.name
         res['thread_name'] = download_thread.name
         res['tread_id'] = download_thread.ident
         res['status'] = STATUS_SUCCESS
         res['message'] = DOWNLOAD_START
-        res['new'] = get_thread_by_id(download_thread.ident).ident
+        res['new'] = get_thread_by_id(download_thread.name).ident
 
         # except Exception as e:
         #     # Handle any errors from the Stripe API
@@ -285,17 +286,18 @@ def productDownloadStop(request):
 
 def get_thread_by_id(thread_id):
     for thread in threading.enumerate():
-        if thread.ident == thread_id:
+        if thread.name == thread_id:
             return thread
     return None
 
 def productDownloadStatus(request):
     res = {}
     download_thread_id = request.session.get('download_thread_id')
-    productDownloadThreadStatus = DownloadProductThreadStatus.objects.get(id = download_thread_id )
-    download_thread = get_thread_by_id(productDownloadThreadStatus.thread_id)
+
+    # productDownloadThreadStatus = DownloadProductThreadStatus.objects.get(id = download_thread_id )
+    download_thread = get_thread_by_id(download_thread_id)
     res['id'] = download_thread_id
-    res['download_id'] = productDownloadThreadStatus.thread_id
+    res['download_id'] = download_thread_id
     if download_thread is not None:
         res['thread_id'] = download_thread.ident
     res['download_status'] = False
