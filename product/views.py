@@ -341,8 +341,6 @@ def productDownloadStatus(request):
                 res['download_status'] = True # true: thread is alive
             else:
                 res['download_status'] = False
-                downloadProductThreadStatus.is_completed = True
-                downloadProductThreadStatus.save()
 
     return JsonResponse(res)
 
