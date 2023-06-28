@@ -237,13 +237,13 @@ def productDownloadStart(request):
         res['message'] = DOWNLOAD_THREAD_ALREADY_EXIST
     else:
         # check api ..
-        wcapi = API(
-            url= apidata.api_url,
-            consumer_key= apidata.consumerKey,
-            consumer_secret= apidata.consumerToken,
-            version="wc/v3",
-            timeout = 100
-        )
+        # wcapi = API(
+        #     url= apidata.api_url,
+        #     consumer_key= apidata.consumerKey,
+        #     consumer_secret= apidata.consumerToken,
+        #     version="wc/v3",
+        #     timeout = 100
+        # )
         # try:
         #     products = wcapi.get("products", params={"page": 1, "per_page": 1}).json()
         download_thread = ProductDownloadThread(request, page)
