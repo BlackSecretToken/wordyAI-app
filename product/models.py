@@ -64,6 +64,7 @@ class DownloadProductThreadStatus(models.Model):
     count = models.IntegerField(default = 0)
     is_completed = models.BooleanField(default=False)
     apidata = models.ForeignKey(ApiData, on_delete=models.CASCADE)
+    
 
 
 

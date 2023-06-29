@@ -12,25 +12,27 @@ class ProductDownloadThread(threading.Thread):
         self.total = 0
         self.per_page = 10
         self.request = request
-        super().__init__()
-    def run(self):
         email = self.request.session.get('email')
         user = Users.objects.get(email = email)
         apiData = ApiData.objects.get(users = user)
+        self.apiData = apiData
+        super().__init__()
+    def run(self):
         wcapi = API(
-            url= apiData.api_url,
-            consumer_key= apiData.consumerKey,
-            consumer_secret= apiData.consumerToken,
+            url= self.apiData.api_url,
+            consumer_key= self.apiData.consumerKey,
+            consumer_secret= self.apiData.consumerToken,
             version="wc/v3",
             timeout = 100
         )
+        
         while self.do_run:
             cnt=0
             try:
                 products = wcapi.get("products", params={"page": self.page, "per_page": self.per_page}).json() 
                 for product in products:
                     ## check catetory is in ##
-                    is_in = Category.objects.filter(apidata_id = apiData.id, category_id = product['categories'][0]['id']).exists()
+                    is_in = Category.objects.filter(apidata_id = self.apiData.id, category_id = product['categories'][0]['id']).exists()
                     category = []
                     if is_in :
                         category = Category.objects.get(apidata_id = apiData.id, category_id = product['categories'][0]['id'])
@@ -38,19 +40,19 @@ class ProductDownloadThread(threading.Thread):
                         category.category_slug = product['categories'][0]['slug']
                         category.save()
                     else:
-                        category = Category.objects.create(apidata_id = apiData.id, category_id = product['categories'][0]['id'], category_name = product['categories'][0]['name'], category_slug = product['categories'][0]['slug'])
+                        category = Category.objects.create(apidata_id = self.apiData.id, category_id = product['categories'][0]['id'], category_name = product['categories'][0]['name'], category_slug = product['categories'][0]['slug'])
                     ### register stock status  ############
-                    is_in = StockStatus.objects.filter(apidata_id = apiData.id, status = product['stock_status']).exists()
+                    is_in = StockStatus.objects.filter(apidata_id = self.apiData.id, status = product['stock_status']).exists()
                     stockstatus = None
                     if is_in:
-                        stockstatus = StockStatus.objects.get(apidata_id = apiData.id, status = product['stock_status'])
+                        stockstatus = StockStatus.objects.get(apidata_id = self.apiData.id, status = product['stock_status'])
                     else:
-                        stockstatus = StockStatus.objects.create(apidata_id =apiData.id, status = product['stock_status'])
+                        stockstatus = StockStatus.objects.create(apidata_id = self.apiData.id, status = product['stock_status'])
                         stockstatus.save()
                     
-                    is_in = Product.objects.filter(apidata_id = apiData.id, product_id = product['id']).exists()
+                    is_in = Product.objects.filter(apidata_id = self.apiData.id, product_id = product['id']).exists()
                     if is_in:
-                        db_product = Product.objects.get(apidata_id = apiData.id, product_id = product['id'])
+                        db_product = Product.objects.get(apidata_id = self.apiData.id, product_id = product['id'])
                         db_product.product_title = product['name']
                         db_product.product_slug = product['slug']
                         db_product.product_sku = product['sku']
@@ -58,12 +60,12 @@ class ProductDownloadThread(threading.Thread):
                         db_product.product_description = product['description']
                         db_product.product_stock_quantity = product['stock_quantity']
                         db_product.stockstatus_id = stockstatus.id
-                        db_product.apidata_id = apiData.id
+                        db_product.apidata_id = self.apiData.id
                         db_product.product_price = product['price']
                         db_product.save()
                     else:
                         db_product = Product.objects.create(
-                            apidata_id = apiData.id, 
+                            apidata_id = self.apiData.id, 
                             product_id = product['id'],
                             product_title = product['name'],
                             product_slug = product['slug'],
@@ -87,8 +89,10 @@ class ProductDownloadThread(threading.Thread):
             except Exception as e:
                 # Handle any errors from the Stripe API
                 print('error')
+            self.setCount()
+            self.check()
         # thread is terminated..
-        downloadProductThreadStatus = DownloadProductThreadStatus.objects.get(apidata = apiData, is_completed = False)
+        downloadProductThreadStatus = DownloadProductThreadStatus.objects.get(apidata = self.apiData, is_completed = False)
         downloadProductThreadStatus.is_completed = True
         downloadProductThreadStatus.save()
 
@@ -98,3 +102,16 @@ class ProductDownloadThread(threading.Thread):
             print('close')
             self.do_run = False
             self.thread.join()
+
+    def check(self):
+        is_exist = DownloadProductThreadStatus.objects.filter(apidata = self.apidata, is_completed = False).exists()
+        if is_exist:
+            self.do_run = True
+        else:
+            self.do_run = False
+            self.thread.join()
+    def setCount(self):
+        downloadProductThreadStatus = DownloadProductThreadStatus.objects.filter(apidata = self.apiData).latest('-id')
+        downloadProductThreadStatus.count = self.total
+        downloadProductThreadStatus.save()
+        print(self.total)
