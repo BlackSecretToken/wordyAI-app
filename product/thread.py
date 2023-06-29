@@ -30,12 +30,13 @@ class ProductDownloadThread(threading.Thread):
             cnt=0
             try:
                 products = wcapi.get("products", params={"page": self.page, "per_page": self.per_page}).json() 
+                print(len(products))
                 for product in products:
                     ## check catetory is in ##
                     is_in = Category.objects.filter(apidata_id = self.apiData.id, category_id = product['categories'][0]['id']).exists()
                     category = []
                     if is_in :
-                        category = Category.objects.get(apidata_id = apiData.id, category_id = product['categories'][0]['id'])
+                        category = Category.objects.get(apidata_id = self.apiData.id, category_id = product['categories'][0]['id'])
                         category.category_name = product['categories'][0]['name']
                         category.category_slug = product['categories'][0]['slug']
                         category.save()
@@ -88,13 +89,15 @@ class ProductDownloadThread(threading.Thread):
                 print(self.page)
             except Exception as e:
                 # Handle any errors from the Stripe API
-                print('error')
+                print('error', e)
             self.setCount()
             self.check()
         # thread is terminated..
-        downloadProductThreadStatus = DownloadProductThreadStatus.objects.get(apidata = self.apiData, is_completed = False)
-        downloadProductThreadStatus.is_completed = True
-        downloadProductThreadStatus.save()
+        is_exist = DownloadProductThreadStatus.objects.filter(apidata = self.apiData, is_completed = False).exists()
+        if is_exist:
+            downloadProductThreadStatus = DownloadProductThreadStatus.objects.get(apidata = self.apiData, is_completed = False)
+            downloadProductThreadStatus.is_completed = True
+            downloadProductThreadStatus.save()
 
     def stop(self, thread):
         self.thread = thread
@@ -104,14 +107,12 @@ class ProductDownloadThread(threading.Thread):
             self.thread.join()
 
     def check(self):
-        is_exist = DownloadProductThreadStatus.objects.filter(apidata = self.apidata, is_completed = False).exists()
+        is_exist = DownloadProductThreadStatus.objects.filter(apidata = self.apiData, is_completed = False).exists()
         if is_exist:
             self.do_run = True
         else:
             self.do_run = False
-            self.thread.join()
     def setCount(self):
-        downloadProductThreadStatus = DownloadProductThreadStatus.objects.filter(apidata = self.apiData).latest('-id')
+        downloadProductThreadStatus = DownloadProductThreadStatus.objects.filter(apidata = self.apiData).latest('id')
         downloadProductThreadStatus.count = self.total
         downloadProductThreadStatus.save()
-        print(self.total)
