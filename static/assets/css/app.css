@@ -78,29 +78,30 @@ a {
 
 .sidebar-wrapper {
 
+	width: 230px;
 
-	width: 250px;
+	min-height: 700px;
 
 
-	height: 100%;
+	height: 900px;
 
 
 	position: fixed;
 
 
-	top: 0px;
+	top: 20px;
 
 
 	bottom: 0;
 
 
-	left: 0px;
+	left: 20px;
 
-	background: #ffffff;
+	background: #080516;
 
 	z-index: 11;
 
-
+	border-radius: 16px;
 
 }
 
@@ -108,7 +109,7 @@ a {
 .sidebar-header {
 
 
-	width: 250px;
+	width: 230px;
 
 
 	height: 60px;
@@ -123,7 +124,7 @@ a {
 	position: absolute;
 
 
-	top: 0px;
+	top: 10px;
 
 
 	bottom: 0;
@@ -135,13 +136,9 @@ a {
 	z-index: 5;
 
 
-	background: #ffffff;
 
 
 	background-clip: border-box;
-
-
-	border-bottom: 1px solid #e4e4e4;
 
 
 }
@@ -163,7 +160,7 @@ a {
 
 	font-weight: 700;
 
-	color: #0a071d;
+	color: #ffffff;
 
 
 	margin-left: 5px;
@@ -213,7 +210,7 @@ a {
 	right: 0;
 
 
-	height: 60px;
+	height: 80px;
 
 
 	background: #ffffff;
@@ -227,10 +224,11 @@ a {
 	z-index: 10;
 
 
-
-
 }
 
+.topbar-mini {
+	left: 140px;
+}
 
 .topbar .navbar {
 
@@ -267,26 +265,80 @@ a {
 
 }
 
-
-.page-content {
-
-
-	padding: 1.5rem;
-
-
+.page-wrapper-mini{
+	margin-left: 140px;
 }
 
 
+.page-content {
+
+	padding: 1.5rem;
+}
+
+.sidebar-body {
+	margin-top: 80px;
+	padding-left:16px;
+}
+
+.navbar-item-wrapper {
+	background:#ffffff;
+}
+.navbar-item-prev {
+	background:#080516;
+	/* border-bottom-right-radius: 16px; */
+	height:15px;
+}
+.navbar-item-after{
+	background:#080516;
+	/* border-top-right-radius: 16px; */
+	height:15px;
+}
+.navbar-item-prev-hover{
+	border-bottom-right-radius: 16px;
+}
+.navbar-item-after-hover{
+	border-top-right-radius: 16px;
+}
+.navbar-item-body {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding-left: 24px;
+	background:#080516;
+	height:60px;
+}
+.navbar-item-body-hover {
+	background:#ffffff;
+	border-top-left-radius: 40px;
+	border-bottom-left-radius: 40px;
+}
+.navbar-item-icon {
+	color: white;
+	font-size: 36px;
+	margin-right:8px;
+}
+.navbar-item-content {
+	color: white;
+	margin-bottom: 0px;
+	font-size: 20px;
+	font-weight: bold;
+}
+.navbar-item-content-mini {
+	display: none;
+}
+.navbar-item-icon-hover {
+	color: #080516;
+}
+.navbar-item-content-hover {
+	color: #080516;
+}
 .page-footer {
 
 
 	background: #ffffff;
 
 
-	left: 250px;
-
-
-	right: 0;
+	left: 0;
 
 
 	bottom: 0;
@@ -303,10 +355,16 @@ a {
 
 	font-size: 14px;
 
+	width: 100%;
 
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 
+	padding-left: 36px;
+	padding-right: 36px;
 
-	z-index: 3;
+	z-index: 12;
 
 
 }
@@ -663,8 +721,25 @@ a {
 
 
 }
+.sidebar-wrapper-mini{
+	width: 120px;
+}
+
+.sidebar-header-mini{
+	width: 120px;
+}
+
+.toggle-icon-hide{
+	width: 30px;
+	cursor: pointer;
+}
 
 
+.toggle-icon-show{
+	width: 30px;
+	cursor: pointer;
+	display: none;
+}
 @media screen and (min-width: 1025px) {
 
 
@@ -695,13 +770,13 @@ a {
 	}
 
 
-	.wrapper.toggled:not(.sidebar-hovered) .sidebar-wrapper .sidebar-header .toggle-icon {
+	/* .wrapper.toggled:not(.sidebar-hovered) .sidebar-wrapper .sidebar-header .toggle-icon {
 
 
 		display: none;
 
 
-	}
+	} */
 
 
 	.wrapper.toggled:not(.sidebar-hovered) .sidebar-wrapper .sidebar-header {
@@ -4414,10 +4489,10 @@ input::placeholder {
 .user-img {
 
 
-	width: 42px;
+	width: 60px;
 
 
-	height: 42px;
+	height: 60px;
 
 
 	border-radius: 50%;
@@ -4474,7 +4549,6 @@ input::placeholder {
 	border-left: 1px solid #f0f0f0;
 
 
-	margin-left: 1rem;
 
 
 }
@@ -5159,13 +5233,24 @@ input::placeholder {
 }
 
 
+.search-wrapper{
+    height: 60px;
+    width: 500px;
+    background: #f8f8f8;
+    border-radius: 12px;
+    padding: 16px;
+}
 
-
-
-
-
-
-
+.search-input{
+	border: none;
+    font-size: 20px;
+    background: #f8f8f8;
+	width: 400px;
+}
+.search-input:focus{
+	border: none;
+	outline: none;
+}
 
 /* Responsive */
 
@@ -5590,7 +5675,11 @@ input::placeholder {
 
 @media screen and (max-width: 767px) {
 
-
+	.page-footer{
+		flex-direction: column;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
 	.user-box .user-info {
 
 
@@ -5692,3 +5781,4 @@ input::placeholder {
 	margin: 4px;
 	display: inline-block;
 }
+

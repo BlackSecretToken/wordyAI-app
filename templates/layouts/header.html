@@ -4,6 +4,10 @@
         <nav class="navbar navbar-expand">
             <div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
             </div>
+            <div class="search-wrapper d-flex flex-row">
+                <img src="{% static 'assets/images/dashboard/search.png' %}" class="search">
+                <input class="search-input ms-2" type="text"name="seachInput" placeholder="Search">
+            </div>
             <div class="top-menu-left d-none d-lg-block">
                 <ul class="nav" id="navItem">
                     <li class="nav-item" id="download_gif" style="display:none;">
@@ -33,11 +37,11 @@
             </div>
             <div class="top-menu ms-auto">
                 <ul class="navbar-nav align-items-center">
-                    <li class="nav-item mobile-search-icon">
+                    {% comment %} <li class="nav-item mobile-search-icon">
                         <a class="nav-link" href="#">   <i class='bx bx-search'></i>
                         </a>
-                    </li>
-                    <li class="nav-item dropdown dropdown-large">
+                    </li> {% endcomment %}
+                    {% comment %} <li class="nav-item dropdown dropdown-large">
                         <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <i class='bx bx-category'></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
@@ -74,7 +78,7 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li> {% endcomment %}
                     <li class="nav-item dropdown dropdown-large">
                         <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <span class="alert-count">7</span>
                             <i class='bx bx-bell'></i>
@@ -172,11 +176,12 @@
             </div>
             <div class="user-box dropdown border-light-2">
                 <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{avatar}}" class="user-img" alt="user avatar">
-                    <div class="user-info ps-3">
-                        <p class="user-name mb-0">{{ username}}</p>
-                        <p class="user-name mb-0">{{ role}}</p>
+                    <div class="user-info ps-3 me-2">
+                        <p class="fwbold ft20 text-primary mb-0">{{ username}}</p>
+                        <p class="fw600 ft14 mb-0 text-secondary">Free <span class="text-primary">Member</span></p>
                     </div>
+                    <img src="{{avatar}}" class="user-img" alt="user avatar">
+                    
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="{% url 'user:profile_view' %}"><i class="bx bx-user"></i><span>My Profile</span></a>
