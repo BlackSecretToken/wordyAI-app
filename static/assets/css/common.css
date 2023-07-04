@@ -549,6 +549,8 @@ input:checked+.slider:before {
 .product-right-arrow-button:hover{
     background: #acaaaa;
 }
+
+
 @keyframes dot-flashing {
     0% {
         background-color: #9880ff;
