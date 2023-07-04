@@ -102,89 +102,116 @@
 }
 
 .ft40 {
-    font-size: 40px;
+    font-size: 40px !important;
 }
 
 .ft38 {
-    font-size: 38px;
+    font-size: 38px !important;
 }
 
 .ft36 {
-    font-size: 36px;
+    font-size: 36px !important;
 }
 
 .ft34 {
-    font-size: 34px;
+    font-size: 34px !important;
 }
 
 .ft32 {
-    font-size: 32px;
+    font-size: 32px !important;
 }
 
 .ft30 {
-    font-size: 30px;
+    font-size: 30px !important;
 }
 
 .ft28 {
-    font-size: 28px;
+    font-size: 28px !important;
 }
 
 .ft26 {
-    font-size: 26px;
+    font-size: 26px !important;
 }
 
 .ft24 {
-    font-size: 24px;
+    font-size: 24px !important;
 }
 
 .ft22 {
-    font-size: 22px;
+    font-size: 22px !important;
 }
 
 .ft20 {
-    font-size: 20px;
+    font-size: 20px !important;
 }
 
 .ft18 {
-    font-size: 18px;
+    font-size: 18px !important;
 }
 
 .ft16 {
-    font-size: 16px;
+    font-size: 16px !important;
 }
 
 .ft14 {
-    font-weight: 900;
+    font-size: 14px !important;
 }
 
 .fw300 {
-    font-weight: 300;
+    font-weight: 300 !important;
 }
 
 .fw400 {
-    font-weight: 400;
+    font-weight: 400 !important;
 }
 
 .fw500 {
-    font-weight: 500;
+    font-weight: 500 !important;
 }
 
 .fw600 {
-    font-weight: 600;
+    font-weight: 600 !important;
 }
 
 .fw700 {
-    font-weight: 700;
+    font-weight: 700 !important;
 }
 
 .fw800 {
-    font-weight: 800;
+    font-weight: 800 !important;
 }
 
 .fw900 {
-    font-weight: 900;
+    font-weight: 900 !important;
 }
 
+.fwbold {
+    font-weight: bold !important;
+}
+.round16 {
+    border-radius: 16px !important;
+}
+.round12 {
+    border-radius: 12px !important;
+}
+.round8 {
+    border-radius: 8px !important;
+}
+.round4 {
+    border-radius: 4px !important;
+}
+.round20 {
+    border-radius: 20px !important;
+}
+.round24 {
+    border-radius: 24px !important;
+}
+.round28 {
+    border-radius: 28px !important;
+}
+.round32 {
+    border-radius: 32px !important;
+}
 .bsCustom {
     background-color: #fafafa;
 }
@@ -502,7 +529,26 @@ input:checked+.slider:before {
     animation: dot-flashing 1s infinite alternate;
     animation-delay: 1s;
 }
-  
+
+.product-card {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.product-right-arrow-button{
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    padding-left: 15px;
+    padding-top: 2px;
+    background: #f8f8f8;
+    color: #313131;
+}
+
+.product-right-arrow-button:hover{
+    background: #acaaaa;
+}
 @keyframes dot-flashing {
     0% {
         background-color: #9880ff;

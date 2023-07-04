@@ -84,33 +84,32 @@ a {
 
 .btn-primary {
 	color: #fff;
-	background-color: #080516;
-	border-color: #080516;
-	border-radius: 12px;
+	background-color: #8833ff;
+	border-color: #8833ff
 }
 .btn-primary:hover {
 	color: #fff;
-	background-color: #11083d;
-	border-color: #11083d
+	background-color: #8531fa;
+	border-color: #8531fa
 }
 .btn-check:focus+.btn-primary, .btn-primary:focus {
 	color: #fff;
-	background-color: #130363;
-	border-color: #130363;
-	box-shadow: 0 0 0 .25rem rgba(19, 3, 99, 0.5)
+	background-color: #037de2;
+	border-color: #037de2;
+	box-shadow: 0 0 0 .25rem rgba(49, 132, 253, .5)
 }
 .btn-check:active+.btn-primary, .btn-check:checked+.btn-primary, .btn-primary.active, .btn-primary:active, .show>.btn-primary.dropdown-toggle {
 	color: #fff;
-	background-color: #130363;
-	border-color: #130363
+	background-color: #037de2;
+	border-color: #037de2
 }
 .btn-check:active+.btn-primary:focus, .btn-check:checked+.btn-primary:focus, .btn-primary.active:focus, .btn-primary:active:focus, .show>.btn-primary.dropdown-toggle:focus {
-	box-shadow: 0 0 0 .25rem rgba(19, 3, 99, 0.5)
+	box-shadow: 0 0 0 .25rem rgba(49, 132, 253, .5)
 }
 .btn-primary.disabled, .btn-primary:disabled {
 	color: #fff;
-	background-color: #080516;
-	border-color: #080516
+	background-color: #8833ff;
+	border-color: #8833ff
 }
 
 
@@ -277,9 +276,7 @@ a {
 .card {
     border: 0 solid transparent;
 	margin-bottom: 1.5rem;
-	/* box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%); */
-	background-color: #f8f8f8;
-	border-radius: 16px;
+	box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
 }
 
 .card-header {
@@ -312,10 +309,10 @@ a {
 
 
 .text-primary {
-	color: #000000!important
+	color: #8833ff!important
 }
 .text-secondary {
-	color: #666666!important
+	color: #6c757d!important
 }
 .text-success {
 	color: #15ca20!important
