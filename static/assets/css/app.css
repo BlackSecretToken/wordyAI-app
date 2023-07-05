@@ -952,7 +952,6 @@ header{
 
 /* Extra CSS */
 
-
 .back-to-top {
 
 
@@ -5689,6 +5688,9 @@ input::placeholder {
 
 @media screen and (max-width: 767px) {
 
+	.back-to-top{
+		bottom: 80px;
+	}
 	.page-footer-body{
 		flex-direction: column;
 		padding-left: 0px;

@@ -559,3 +559,61 @@ input:checked+.slider:before {
         background-color: rgba(152, 128, 255, 0.2);
     }
 }
+
+@media screen and (max-width: 767px) {
+    .ft40 {
+        font-size: 32px !important;
+    }
+    
+    .ft38 {
+        font-size: 32px !important;
+    }
+    
+    .ft36 {
+        font-size: 30px !important;
+    }
+    
+    .ft34 {
+        font-size: 28px !important;
+    }
+    
+    .ft32 {
+        font-size: 28px !important;
+    }
+    
+    .ft30 {
+        font-size: 26px !important;
+    }
+    
+    .ft28 {
+        font-size: 22px !important;
+    }
+    
+    .ft26 {
+        font-size: 22px !important;
+    }
+    
+    .ft24 {
+        font-size: 18px !important;
+    }
+    
+    .ft22 {
+        font-size: 18px !important;
+    }
+    
+    .ft20 {
+        font-size: 16px !important;
+    }
+    
+    .ft18 {
+        font-size: 16px !important;
+    }
+    
+    .ft16 {
+        font-size: 14px !important;
+    }
+    
+    .ft14 {
+        font-size: 14px !important;
+    }
+}
