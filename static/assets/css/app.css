@@ -33,8 +33,6 @@ File: app.css
 
 body {
 
-
-
 	font-size: 14px;
 
 	color: #525f7f;
@@ -42,7 +40,6 @@ body {
 	background-color: #ffffff;
 
 	letter-spacing: 0.5px;
-
 
 	overflow-x: hidden;
 
@@ -54,21 +51,20 @@ body {
 
 a {
 
-
 	text-decoration: none;
-
 
 }
 
 
 .wrapper {
 
-
 	width: 100%;
 
+	max-width: 1554px;
+
+	margin: auto;
 
 	position: relative;
-
 
 }
 
@@ -78,27 +74,28 @@ a {
 
 .sidebar-wrapper {
 
-	width: 230px;
+	width: 240px;
 
 	min-height: 700px;
 
 
-	height: 900px;
+	height: 100vh;
 
 
 	position: fixed;
 
 
-	top: 20px;
+	top: 10px;
 
 
 	bottom: 0;
 
 
-	left: 20px;
+	left: calc((100vw- 1554)/2); 
 
+	margin-left: 10px;
 	background: #080516;
-
+	
 	z-index: 11;
 
 	border-radius: 16px;
@@ -134,9 +131,6 @@ a {
 
 
 	z-index: 5;
-
-
-
 
 	background-clip: border-box;
 
@@ -194,40 +188,26 @@ a {
 
 /* Header */
 
-
-.topbar {
-
+header{
 
 	position: fixed;
-
-
 	top: 0;
-
-
-	left: 250px;
-
-
+	left: 0;
 	right: 0;
-
-
-	height: 80px;
-
-
 	background: #ffffff;
-
-
-
-
 	background-clip: border-box;
-
-
 	z-index: 10;
-
-
+	height: 80px;
+	max-width: 1554px;
+	margin: auto;
+}
+.topbar {
+	padding-left: 250px;
+	padding-top: 10px;
 }
 
 .topbar-mini {
-	left: 140px;
+	padding-left: 140px;
 }
 
 .topbar .navbar {
@@ -332,43 +312,73 @@ a {
 .navbar-item-content-hover {
 	color: #080516;
 }
-.page-footer {
 
+.tab-item-body {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 12px 18px;
+	background:#ffffff;
+	height:60px;
+	color: #080516;
+	border-radius: 12px;
+	margin-left: 4px;
+}
+.tab-item-body:hover{
+	background: #080516;
+	color: #ffffff;
+}
+.tab-item-icon {
+	font-size: 36px;
+	margin-right:8px;
+}
+.tab-item-content {
+	margin-bottom: 0px;
+	font-size: 20px;
+	font-weight: bold;
+}
+.tab-item-active {
+	background: #080516;
+	color: #ffffff;
+}
+
+.page-footer {
 
 	background: #ffffff;
 
-
 	left: 0;
-
 
 	bottom: 0;
 
-
 	position: fixed;
-
 
 	text-align: center;
 
-
 	padding: 7px;
-
 
 	font-size: 14px;
 
 	width: 100%;
 
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-
-	padding-left: 36px;
-	padding-right: 36px;
-
 	z-index: 12;
-
 
 }
 
+.page-footer-body {
+	max-width: 1554px;
+
+	display: flex;
+
+	flex-direction: row;
+
+	justify-content: space-between;
+
+	padding-left: 36px;
+
+	padding-right: 36px;
+
+	margin: auto;
+}
 
 .wrapper.toggled .topbar {
 
@@ -390,32 +400,22 @@ a {
 
 .wrapper.toggled .page-footer {
 
-
-	left: 70px;
-
+	left: 0px;
 
 }
 
 
-
-
 /*Metismenu*/
-
 
 .sidebar-wrapper ul {
 
-
 	padding: 0;
-
 
 	margin: 0;
 
-
 	list-style: none;
 
-
 	background: transparent;
-
 
 }
 
@@ -972,7 +972,7 @@ a {
 	border-radius: 10px;
 
 
-	bottom: 20px;
+	bottom: 45px;
 
 
 	right: 12px;
@@ -5239,6 +5239,7 @@ input::placeholder {
     background: #f8f8f8;
     border-radius: 12px;
     padding: 16px;
+	display: block;
 }
 
 .search-input{
@@ -5257,7 +5258,9 @@ input::placeholder {
 
 @media screen and (max-width: 1280px) {
 
-
+	.tab-item-content{
+		display: none;
+	}
 	.email-header {
 
 
@@ -5285,7 +5288,7 @@ input::placeholder {
 	.topbar {
 
 
-		left: 0px !important;
+		padding-left: 0px;
 
 
 	}
@@ -5675,20 +5678,18 @@ input::placeholder {
 
 @media screen and (max-width: 767px) {
 
-	.page-footer{
+	.page-footer-body{
 		flex-direction: column;
 		padding-left: 0px;
 		padding-right: 0px;
 	}
-	.user-box .user-info {
 
-
-		display: none;
-
-
+	.search-wrapper {
+		display: none !important;
 	}
-
-
+	.user-box .user-info {
+		display: none;
+	}
 	.authentication-forgot {
 
 

@@ -117,7 +117,8 @@ a {
 .btn-success {
 	color: #fff;
 	background-color: #15ca20;
-	border-color: #15ca20
+	border-color: #15ca20;
+	border-radius: 12px;
 }
 .btn-success:hover {
 	color: #fff;
@@ -148,7 +149,8 @@ a {
 .btn-danger {
 	color: #fff;
 	background-color: #fd3550;
-	border-color: #fd3550
+	border-color: #fd3550;
+	border-radius: 12px;
 }
 .btn-danger:hover {
 	color: #fff;
@@ -178,7 +180,8 @@ a {
 
 .btn-outline-primary {
 	color: #8833ff;
-	border-color: #8833ff
+	border-color: #8833ff;
+	border-radius: 12px;
 }
 .btn-outline-primary:hover {
 	color: #fff;
@@ -204,7 +207,8 @@ a {
 
 .btn-outline-success {
 	color: #15ca20;
-	border-color: #15ca20
+	border-color: #15ca20;
+	border-radius: 12px;
 }
 .btn-outline-success:hover {
 	color: #fff;
@@ -230,7 +234,8 @@ a {
 
 .btn-outline-danger {
 	color: #fd3550;
-	border-color: #fd3550
+	border-color: #fd3550;
+	border-radius: 12px;
 }
 .btn-outline-danger:hover {
 	color: #fff;

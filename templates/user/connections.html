@@ -8,15 +8,42 @@
 {% block wrapper %}
 <div class="page-wrapper">
     <div class="page-content">
+        <div class="p-4 d-flex flex-row">
+            <a href="{% url 'user:profile_view' %}" class="tab-item-body">
+                <div class="tab-item-icon"><i class='bx bx-user'></i>
+                </div>
+                <p class="tab-item-content">Account</p>
+            </a>
+            <a href="{% url 'user:security_view' %}" class="tab-item-body">
+                <div class="tab-item-icon"><i class='bx bx-lock'></i>
+                </div>
+                <p class="tab-item-content">Security</p>
+            </a>
+            <a href="{% url 'user:billing_view' %}" class="tab-item-body">
+                <div class="tab-item-icon"><i class='bx bx-file'></i>
+                </div>
+                <p class="tab-item-content">Billing</p>
+            </a>
+            <a href="{% url 'user:notification_view' %}" class="tab-item-body">
+                <div class="tab-item-icon"><i class='bx bx-bell'></i>
+                </div>
+                <p class="tab-item-content">Notifications</p>
+            </a>
+            <a href="{% url 'user:connections_view' %}" class="tab-item-body tab-item-active">
+                <div class="tab-item-icon"><i class='bx bx-link'></i>
+                </div>
+                <p class="tab-item-content">Connections</p>
+            </a>
+        </div>
         <div class="card p-4">
             <div class="row">
                 <div class="col-md-6 col-12">
-                    <p class="ft22 fw700 text-secondary mb-4">Connected Accounts</p>
+                    <p class="ft24 fwbold text-primary mb-4">Connected Accounts</p>
                     <div class="d-flex flex-column mb-4">
                         <div class="d-flex flex-row justify-content-between">
                             <div class="d-flex flex-row align-items-center">
                                 <img class="imageDivSmall" src="{% static 'assets/images/data/brand-react-native.png' %}"/>
-                                <p class="fw700 ft18 text-secondary mb-0 ms-2">WooCommerce</p>
+                                <p class="fwbold ft18 text-primary mb-0 ms-2">WooCommerce</p>
                             </div>
                             <label class="switch">
                                 <input type="checkbox" checked>
@@ -29,7 +56,7 @@
                         <div class="d-flex flex-row justify-content-between">
                             <div class="d-flex flex-row align-items-center">
                                 <img class="imageDivSmall" src="{% static 'assets/images/data/brand-angular.png' %}"/>
-                                <p class="fw700 ft18 text-secondary mb-0 ms-2">Magento 2</p>
+                                <p class="fwbold ft18 text-primary mb-0 ms-2">Magento 2</p>
                             </div>
                             <label class="switch">
                                 <input type="checkbox" checked>
@@ -42,7 +69,7 @@
                         <div class="d-flex flex-row justify-content-between">
                             <div class="d-flex flex-row align-items-center">
                                 <img class="imageDivSmall" src="{% static 'assets/images/data/brand-html5.png' %}"/>
-                                <p class="fw700 ft18 text-secondary mb-0 ms-2">Shopware 6</p>
+                                <p class="fwbold ft18 text-primary mb-0 ms-2">Shopware 6</p>
                             </div>
                             <label class="switch">
                                 <input type="checkbox" checked>
@@ -55,7 +82,7 @@
                         <div class="d-flex flex-row justify-content-between">
                             <div class="d-flex flex-row align-items-center">
                                 <img class="imageDivSmall" src="{% static 'assets/images/data/brand-python.png' %}"/>
-                                <p class="fw700 ft18 text-secondary mb-0 ms-2">Shopify</p>
+                                <p class="fwbold ft18 text-primary mb-0 ms-2">Shopify</p>
                             </div>
                             <label class="switch">
                                 <input type="checkbox" checked>
@@ -68,7 +95,7 @@
                         <div class="d-flex flex-row justify-content-between">
                             <div class="d-flex flex-row align-items-center">
                                 <img class="imageDivSmall" src="{% static 'assets/images/data/google.png' %}"/>
-                                <p class="fw700 ft18 text-secondary mb-0 ms-2">Google Analytics</p>
+                                <p class="fwbold ft18 text-primary mb-0 ms-2">Google Analytics</p>
                             </div>
                             <label class="switch">
                                 <input type="checkbox" checked>

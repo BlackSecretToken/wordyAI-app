@@ -40,13 +40,16 @@ $(function () {
 			$(this).addClass("navbar-item-body-hover");
 		},
 		function() {
-			if ($(this).attr('href') != window.location.pathname)
-			{
-				$(this).prev().find('.navbar-item-prev').removeClass("navbar-item-prev-hover");
-				$(this).next().find('.navbar-item-prev').removeClass("navbar-item-after-hover");
-				$(this).find('.navbar-item-icon').removeClass("navbar-item-icon-hover");
-				$(this).find('.navbar-item-content').removeClass("navbar-item-content-hover");
-				$(this).removeClass("navbar-item-body-hover");
+			if (this.href.includes("user") && window.location.href.includes("user")) {}
+			else{
+				if ($(this).attr('href') != window.location.pathname)
+				{
+					$(this).prev().find('.navbar-item-prev').removeClass("navbar-item-prev-hover");
+					$(this).next().find('.navbar-item-prev').removeClass("navbar-item-after-hover");
+					$(this).find('.navbar-item-icon').removeClass("navbar-item-icon-hover");
+					$(this).find('.navbar-item-content').removeClass("navbar-item-content-hover");
+					$(this).removeClass("navbar-item-body-hover");
+				}
 			}
 		}
 	  );
@@ -59,6 +62,7 @@ $(function () {
 		$(".sidebar-header").removeClass("sidebar-header-mini");
 		$(".page-wrapper").removeClass("page-wrapper-mini");
 		$(".topbar").removeClass("topbar-mini");
+		changeUI();
 
 	});
 	$(".toggle-icon-hide").click(function () {
@@ -70,10 +74,34 @@ $(function () {
 		$(".sidebar-header").addClass("sidebar-header-mini");
 		$(".page-wrapper").addClass("page-wrapper-mini");
 		$(".topbar").addClass("topbar-mini");
+		changeUI();
 	});
+	function changeUI() {
+		var screenWidth = $(window).width();
+		var screenHeight = $(window).height();
+		var maxWidth = 1554;
+		var firstPos = 20;
+		if (screenWidth > 1554)
+		{
+			firstPos = (screenWidth - maxWidth) /2;
+		}
+		//var sidebarWidth = $('.sidebar-wrapper').width() + 20;
+		//$('.sidebar-wrapper').css('left', firstPos);
+		//$('.page-footer').css('left', firstPos);
+		//$('.topbar').css('left', firstPos + sidebarWidth);
+		$('.sidebar-wrapper').css('height', screenHeight-50);
+		console.log(screenHeight-70);
+
+	}
+	$(window).on('resize', function() {
+		changeUI();
+	  
+		// Your code here for handling the screen size change
+	  });
 	/* Back To Top */
 	$(document).ready(function () {
-		
+		changeUI();
+
 		$(window).on("scroll", function () {
 			if ($(this).scrollTop() > 300) {
 				$('.back-to-top').fadeIn();
@@ -92,6 +120,8 @@ $(function () {
 	
 	$(function () {
 		let o= $(".navbar-item-body").filter(function () {
+			if (this.href.includes("user") && window.location.href.includes("user"))
+				return true;
 			return this.href == window.location.href;
 		})
 		console.log(o);

@@ -8,8 +8,35 @@
 {% block wrapper %}
 <div class="page-wrapper">
     <div class="page-content">
+        <div class="p-4 d-flex flex-row">
+            <a href="{% url 'user:profile_view' %}" class="tab-item-body">
+                <div class="tab-item-icon"><i class='bx bx-user'></i>
+                </div>
+                <p class="tab-item-content">Account</p>
+            </a>
+            <a href="{% url 'user:security_view' %}" class="tab-item-body">
+                <div class="tab-item-icon"><i class='bx bx-lock'></i>
+                </div>
+                <p class="tab-item-content">Security</p>
+            </a>
+            <a href="{% url 'user:billing_view' %}" class="tab-item-body">
+                <div class="tab-item-icon"><i class='bx bx-file'></i>
+                </div>
+                <p class="tab-item-content">Billing</p>
+            </a>
+            <a href="{% url 'user:notification_view' %}" class="tab-item-body tab-item-active">
+                <div class="tab-item-icon"><i class='bx bx-bell'></i>
+                </div>
+                <p class="tab-item-content">Notifications</p>
+            </a>
+            <a href="{% url 'user:connections_view' %}" class="tab-item-body">
+                <div class="tab-item-icon"><i class='bx bx-link'></i>
+                </div>
+                <p class="tab-item-content">Connections</p>
+            </a>
+        </div>
         <div class="card p-4">
-            <p class="ft22 fw700 text-secondary">Recent Devices</p>
+            <p class="ft24 fwbold text-primary">Recent Devices</p>
             <p class="ft12">We need permission from your browser to show notifications. Request Permission</p>
             <table class="table mb-0 table-striped table-bordered">
                 <thead>
@@ -42,7 +69,7 @@
                     </tr>
                 </tbody>
             </table>
-            <p class="ft12 mt-3">When sholud we send you notifications?</p>
+            <p class="ft12 mt-3 fw600 text-primary">When sholud we send you notifications?</p>
             <input type="text" class="form-control" placeholder="Placeholder" name="placeholder" style="max-width:400px;" />
             <div class="d-flex flex-row mt-3">
                 <button class="btn btn-primary me-3">Save Changes</button>

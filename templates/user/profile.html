@@ -17,8 +17,35 @@
             <div class="container">
                 <div class="main-body">
                     <div class="row">
+                        <div class="p-4 d-flex flex-row">
+                            <a href="{% url 'user:profile_view' %}" class="tab-item-body tab-item-active">
+                                <div class="tab-item-icon"><i class='bx bx-user'></i>
+                                </div>
+                                <p class="tab-item-content">Account</p>
+                            </a>
+                            <a href="{% url 'user:security_view' %}" class="tab-item-body">
+                                <div class="tab-item-icon"><i class='bx bx-lock'></i>
+                                </div>
+                                <p class="tab-item-content">Security</p>
+                            </a>
+                            <a href="{% url 'user:billing_view' %}" class="tab-item-body">
+                                <div class="tab-item-icon"><i class='bx bx-file'></i>
+                                </div>
+                                <p class="tab-item-content">Billing</p>
+                            </a>
+                            <a href="{% url 'user:notification_view' %}" class="tab-item-body">
+                                <div class="tab-item-icon"><i class='bx bx-bell'></i>
+                                </div>
+                                <p class="tab-item-content">Notifications</p>
+                            </a>
+                            <a href="{% url 'user:connections_view' %}" class="tab-item-body">
+                                <div class="tab-item-icon"><i class='bx bx-link'></i>
+                                </div>
+                                <p class="tab-item-content">Connections</p>
+                            </a>
+                        </div>
                         <div class="card p-4">
-                            <p class="ft22 fw700 text-secondary">Profile Details</p>
+                            <p class="ft24 fwbold text-primary">Profile Details</p>
                             <div class="d-flex flex-row">
                                 <img src="{{avatar}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
                                 <div class="d-flex flex-column ms-3">
@@ -36,35 +63,35 @@
                                 <div class="row">
                                     <div class="col-md-6 col-12">
                                         <div class="mb-3 form-group">
-                                            <p class="text-secondary mb-1 fw600">First Name</p>
+                                            <p class="text-primary mb-1 fw600">First Name</p>
                                             <input type="text" class="form-control" value="{{firstname}}" name="firstname" required/>
                                             <div class="invalid-feedback">
                                                 Please enter a first name.
                                             </div>
                                         </div>
                                         <div class="mb-3 form-group">
-                                            <p class="text-secondary mb-1 fw600">Email</p>
+                                            <p class="text-primary mb-1 fw600">Email</p>
                                             <input type="email" class="form-control" value="{{email}}" name="email" required>
                                             <div class="invalid-feedback">
                                                 Please enter a valid email address.
                                             </div>
                                         </div>
                                         <div class="mb-3 form-group">
-                                            <p class="text-secondary mb-1 fw600">Phone Number</p>
+                                            <p class="text-primary mb-1 fw600">Phone Number</p>
                                             <input type="text" class="form-control" value="{{phoneNumber}}" name="phoneNumber" required/>
                                             <div class="invalid-feedback">
                                                 Please enter a phone number.
                                             </div>
                                         </div>
                                         <div class="mb-3 form-group">
-                                            <p class="text-secondary mb-1 fw600">State</p>
+                                            <p class="text-primary mb-1 fw600">State</p>
                                             <input type="text" class="form-control" value="{{state}}" name="state" required/>
                                             <div class="invalid-feedback">
                                                 Please enter a state.
                                             </div>
                                         </div>
                                         <div class="mb-3 form-group">
-                                            <p class="text-secondary mb-1 fw600">Country</p>
+                                            <p class="text-primary mb-1 fw600">Country</p>
                                             <select class="form-select mx-1" aria-label="Country" id="countryList" name="country">
                                                 <option selected value=0>Select Country</option>
                                             </select>
@@ -73,7 +100,7 @@
                                             </div>
                                         </div>
                                         <div class="mb-3 form-group">
-                                            <p class="text-secondary mb-1 fw600">Timezone</p>
+                                            <p class="text-primary mb-1 fw600">Timezone</p>
                                             <select class="form-select mx-1" aria-label="Timezone" id="timezoneList" name="timezone">
                                                 <option selected value=0>Select Timezone</option>
                                             </select>
@@ -84,42 +111,42 @@
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <div class="mb-3 form-group">
-                                            <p class="text-secondary mb-1 fw600">Last Name</p>
+                                            <p class="text-primary mb-1 fw600">Last Name</p>
                                             <input type="text" class="form-control" value="{{lastname}}" name="lastname" required/>
                                             <div class="invalid-feedback">
                                                 Please enter a last name.
                                             </div>
                                         </div>
                                         <div class="mb-3 form-group">
-                                            <p class="text-secondary mb-1 fw600">Organization</p>
+                                            <p class="text-primary mb-1 fw600">Organization</p>
                                             <input type="text" class="form-control" value="{{organization}}" name="organization" required>
                                             <div class="invalid-feedback">
                                                 Please enter a organization.
                                             </div>
                                         </div>
                                         <div class="mb-3 form-group">
-                                            <p class="text-secondary mb-1 fw600">Address</p>
+                                            <p class="text-primary mb-1 fw600">Address</p>
                                             <input type="text" class="form-control" value="{{address}}" name="address" required/>
                                             <div class="invalid-feedback">
                                                 Please enter an address.
                                             </div>
                                         </div>
                                         <div class="mb-3 form-group">
-                                            <p class="text-secondary mb-1 fw600">Zip Code</p>
+                                            <p class="text-primary mb-1 fw600">Zip Code</p>
                                             <input type="text" class="form-control" value="{{zipcode}}" name="zipcode" required/>
                                             <div class="invalid-feedback">
                                                 Please enter a zip code.
                                             </div>
                                         </div>
                                         <div class="mb-3 form-group">
-                                            <p class="text-secondary mb-1 fw600">Language</p>
+                                            <p class="text-primary mb-1 fw600">Language</p>
                                             <input type="text" class="form-control" value="{{language}}" name="language" required/>
                                             <div class="invalid-feedback">
                                                 Please enter language.
                                             </div>
                                         </div>
                                         <div class="mb-3 form-group">
-                                            <p class="text-secondary mb-1 fw600">Currency</p>
+                                            <p class="text-primary mb-1 fw600">Currency</p>
                                             <select class="form-select mx-1" aria-label="Currency" id="currencyList" name="currency">
                                                 <option selected value=0>Select currency</option>
                                             </select>
@@ -132,7 +159,7 @@
                             </form>
                         </div>
                         <div class="card p-4">
-                            <p class="ft22 fw700 text-secondary">Delete Account</p>
+                            <p class="ft24 fwbold text-primary">Delete Account</p>
                             <div class="card p-4 color6">
                                 <p class="ft16 mb-2 text-col1 fw600">Are you sure you want to delete your account?</p>
                                 <p class="ft12 mb-0 text-col1">Once you delete your account, there is no going back. Please be certain.</p>

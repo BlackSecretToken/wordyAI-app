@@ -16,62 +16,46 @@
         <div>
             <div class="row">
                 <div class="col-12 col-md-6 col-xl-3 p-2">
-                    <div class="customers-list p-1">
-                        <div class="card customers-list-item">
-                            <div class=" d-flex align-items-center p-2 cursor-pointer">
-                                <div class="mx-2">
-                                    <img src="/static/assets/images/dashboard/product.png" class="rounded-circle" width="60" height="60" alt="">
-                                </div>
-                                <div class="ms-2">
-                                    <h6 class="mb-1 font-18">Active Products</h6>
-                                    <p class="mb-0 font-18 fw800">80/500</p>
-                                </div>
-                            </div>
+                    <div class="product-card d-flex align-items-center p-2 mb-3">
+                        <div class="mx-2">
+                            <img src="{% static 'assets/images/data/active_product.png' %}" class="round12" width="70" height="70" alt="" />
+                        </div>
+                        <div class="ms-2">
+                            <p class="mb-0 ft18 fw600 text-primary">Active Products</p>
+                            <p class="mb-0 ft28 fw800 text-primary">80</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-xl-3 p-2">
-                    <div class="customers-list p-1">
-                        <div class="card customers-list-item">
-                            <div class=" d-flex align-items-center p-2 cursor-pointer">
-                                <div class="mx-2">
-                                    <img src="/static/assets/images/dashboard/product.png" class="rounded-circle" width="60" height="60" alt="">
-                                </div>
-                                <div class="ms-2">
-                                    <h6 class="mb-1 font-18">Optimized Products</h6>
-                                    <p class="mb-0 font-18 fw800">50</p>
-                                </div>
-                            </div>
+                    <div class="product-card d-flex align-items-center p-2 mb-3">
+                        <div class="mx-2">
+                            <img src="{% static 'assets/images/data/optimized_product.png' %}" class="round12" width="70" height="70" alt="" />
+                        </div>
+                        <div class="ms-2">
+                            <p class="mb-0 ft18 fw600 text-primary">Optimized Products</p>
+                            <p class="mb-0 ft28 fw800 text-primary">27</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-xl-3 p-2">
-                    <div class="customers-list p-1">
-                        <div class="card customers-list-item">
-                            <div class=" d-flex align-items-center p-2 cursor-pointer">
-                                <div class="mx-2">
-                                    <img src="/static/assets/images/dashboard/product.png" class="rounded-circle" width="60" height="60" alt="">
-                                </div>
-                                <div class="ms-2">
-                                    <h6 class="mb-1 font-18">Products to optimize</h6>
-                                    <p class="mb-0 font-18 fw800">50</p>
-                                </div>
-                            </div>
+                    <div class="product-card d-flex align-items-center p-2 mb-3">
+                        <div class="mx-2">
+                            <img src="{% static 'assets/images/data/products_optimize.png' %}" class="round12" width="70" height="70" alt="" />
+                        </div>
+                        <div class="ms-2">
+                            <p class="mb-0 ft18 fw600 text-primary">Products to optimize</p>
+                            <p class="mb-0 ft28 fw800 text-primary">50</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-xl-3 p-2">
-                    <div class="customers-list p-1">
-                        <div class="card customers-list-item">
-                            <div class=" d-flex align-items-center p-2 cursor-pointer">
-                                <div class="mx-2">
-                                    <img src="/static/assets/images/dashboard/product.png" class="rounded-circle" width="60" height="60" alt="">
-                                </div>
-                                <div class="ms-2">
-                                    <h6 class="mb-1 font-18">Problem found</h6>
-                                    <p class="mb-0 font-18 fw800">3</p>
-                                </div>
-                            </div>
+                    <div class="product-card d-flex align-items-center p-2">
+                        <div class="mx-2">
+                            <img src="{% static 'assets/images/data/problems_product.png' %}" class="round12" width="70" height="70" alt="" />
+                        </div>
+                        <div class="ms-2">
+                            <p class="mb-0 ft18 fw600 text-primary">Problems found</p>
+                            <p class="mb-0 ft28 fw800 text-primary">3</p>
                         </div>
                     </div>
                 </div>
@@ -81,7 +65,7 @@
                         <div class="custom-table1">
                             <div class="row">
                                 <div class="col-12 col-xl-6 d-flex flex-row align-items-center mb-3">
-                                    <p class="ft24 mb-0 me-2">Filters:</p>
+                                    <p class="ft20 mb-0 me-2 fwbold text-primary">Filters:</p>
                                     <select class="form-select mx-1" aria-label="Status" id="filterStatus">
                                         <option selected value=0>Status</option>
                                     </select>
@@ -94,7 +78,7 @@
 
                                 </div>
                                 <div class="col-12 col-xl-6 d-flex justify-content-end mb-3">
-                                    <button class="btn btn-dark px-4 mx-1" id="optimizeButton">OPTIMIZE PRODUCTS</button>
+                                    <button class="btn btn-primary px-4 mx-1" id="optimizeButton">OPTIMIZE PRODUCTS</button>
                                     <button class="btn btn-primary px-4 mx-1" id="pullButton">PULL</button>
                                     <button class="btn btn-primary px-4 ms-1" id="pushButton">PUSH</button>    
                                 </div>
@@ -157,15 +141,15 @@
                             <div class = "d-flex flex-row-reverse">
                                 <nav aria-label="Page navigation">
                                     <ul class="pagination round-pagination">
-                                        <li class="page-item cursor-pointer"><a class="page-link" id="pagePrevBtn">Previous</a>
+                                        <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pagePrevBtn">Previous</a>
                                         </li>
-                                        <li class="page-item cursor-pointer"><a class="page-link" id="pageOne">1</a>
+                                        <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pageOne">1</a>
                                         </li>
-                                        <li class="page-item cursor-pointer"><a class="page-link" id="pageTwo">2</a>
+                                        <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pageTwo">2</a>
                                         </li>
-                                        <li class="page-item cursor-pointer"><a class="page-link" id="pageThree">3</a>
+                                        <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pageThree">3</a>
                                         </li>
-                                        <li class="page-item cursor-pointer"><a class="page-link" id="pageNextBtn">Next</a>
+                                        <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pageNextBtn">Next</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -256,30 +240,30 @@
                                     </ul>
                                     <div class="tab-content py-3">
                                         <div class="tab-pane fade show active" id="productdetail" role="tabpanel">
-                                            <p class="ft24 mt-3"><b>Product Details</b></p>
+                                            <p class="ft20 mt-3 text-primary"><b>Product Details</b></p>
                                             <input type="text" class="form-control mb-3" placeholder="ProductTitle" id="productTitle">
                                             <div contenteditable = 'true' class="editableDiv mb-3" id="productDescription" > </div>
                                             <div class="row mb-3">
                                                 <div class = "col-12 col-md-4">
-                                                    <div class="input-group"> <span class="input-group-text">SKU</span>
+                                                    <div class="input-group"> <span class="input-group-text text-primary">SKU</span>
                                                         <input type="text" class="form-control" placeholder="1234568" id="productSKU">
                                                     </div>
                                                 </div>
                                                 <div class = "col-12 col-md-4">
-                                                    <div class="input-group"> <span class="input-group-text">Price</span>
+                                                    <div class="input-group"> <span class="input-group-text text-primary">Price</span>
                                                         <input type="text" class="form-control" placeholder="1234568" id="productPrice">
                                                     </div>
                                                 </div>
                                                 <div class = "col-12 col-md-4">
-                                                    <div class="input-group"> <span class="input-group-text">Stock Status</span>
+                                                    <div class="input-group"> <span class="input-group-text text-primary">Stock Status</span>
                                                         <input type="text" class="form-control" placeholder="1234568" id="productStockStatus">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="input-group mb-3"> <span class="input-group-text">Categories</span>
+                                            <div class="input-group mb-3"> <span class="input-group-text text-primary">Categories</span>
                                                 <input type="text" class="form-control" placeholder="Furniture, Tables, Living room" id="productCategory">
                                             </div>
-                                            <p class="ft24 my-3"><b>Attributes</b></p>
+                                            <p class="ft20 my-3 text-primary"><b>Attributes</b></p>
                                             <table class="table">
                                                 <thead class="table-primary">
                                                     <tr>
@@ -316,7 +300,7 @@
                             </div>
                             <div class = "col-12 col-lg-4 bsCustom radius-10">
                                 <div>
-                                    <p class="ft24"><b>Product Status</b></p>
+                                    <p class="ft20 text-primary"><b>Product Status</b></p>
                                     <div class="d-flex flex-column">
                                         <div class="d-flex align-items-center">
                                             <p class="circleText mb-0 me-3 circleActive">&#x25EF;</p>
@@ -337,7 +321,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-3">
-                                    <p class="ft24"><b>Statistics</b></p>
+                                    <p class="ft20 text-primary"><b>Statistics</b></p>
                                     <div class="card radius-10">
                                         <div class="card-body">
                                             <div class="d-flex align-items-center">

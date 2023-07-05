@@ -8,12 +8,39 @@
 {% block wrapper %}
 <div class="page-wrapper">
     <div class="page-content">
+        <div class="p-4 d-flex flex-row">
+            <a href="{% url 'user:profile_view' %}" class="tab-item-body">
+                <div class="tab-item-icon"><i class='bx bx-user'></i>
+                </div>
+                <p class="tab-item-content">Account</p>
+            </a>
+            <a href="{% url 'user:security_view' %}" class="tab-item-body tab-item-active">
+                <div class="tab-item-icon"><i class='bx bx-lock'></i>
+                </div>
+                <p class="tab-item-content">Security</p>
+            </a>
+            <a href="{% url 'user:billing_view' %}" class="tab-item-body">
+                <div class="tab-item-icon"><i class='bx bx-file'></i>
+                </div>
+                <p class="tab-item-content">Billing</p>
+            </a>
+            <a href="{% url 'user:notification_view' %}" class="tab-item-body">
+                <div class="tab-item-icon"><i class='bx bx-bell'></i>
+                </div>
+                <p class="tab-item-content">Notifications</p>
+            </a>
+            <a href="{% url 'user:connections_view' %}" class="tab-item-body">
+                <div class="tab-item-icon"><i class='bx bx-link'></i>
+                </div>
+                <p class="tab-item-content">Connections</p>
+            </a>
+        </div>
         <div class="card p-4">
-            <p class="ft22 fw700 text-secondary">Profile Details</p>
+            <p class="ft24 fwbold text-primary">Profile Details</p>
             <div class="row">
                 <div class="col-md-6 col-12">
                     <div class="mb-3 form-group">
-                        <p class="text-secondary mb-1 fw600">Current Password</p>
+                        <p class="text-primary mb-1 fw600">Current Password</p>
                         <input type="password" class="form-control" name="currentPassword" id="currentPassword" required/>
                         <div class="invalid-feedback">
                             Please enter a current password.
@@ -23,7 +50,7 @@
                 <div class="col-md-6 col-12"></div>
                 <div class="col-md-6 col-12">
                     <div class="mb-3 form-group">
-                        <p class="text-secondary mb-1 fw600">New Password</p>
+                        <p class="text-primary mb-1 fw600">New Password</p>
                         <input type="password" class="form-control"  name="newPassword" id="newPassword" required/>
                         <div class="invalid-feedback">
                             Please enter a new password.
@@ -32,7 +59,7 @@
                 </div>
                 <div class="col-md-6 col-12">
                     <div class="mb-3 form-group">
-                        <p class="text-secondary mb-1 fw600">Confirm New Password</p>
+                        <p class="text-primary mb-1 fw600">Confirm New Password</p>
                         <input type="password" class="form-control"  name="confirmPassword" id="confirmPassword" required/>
                         <div class="invalid-feedback">
                             Please enter a confirm new password.
@@ -49,8 +76,8 @@
             </div>
         </div>
         <div class="card p-4">
-            <p class="ft22 fw700 text-secondary">Two-steps verification</p>
-            <p class="ft14 fw700 text-secondary">Two-factor authentication is not enabled yet.</p>
+            <p class="ft24 fwbold text-primary">Two-steps verification</p>
+            <p class="ft14 fw700 text-primary">Two-factor authentication is not enabled yet.</p>
             <p class="text-secondary" style="max-width:700px;">Two-factor authentication adds a layer of security to your account by requiring more thatn just a password to log in. Learn more.</p>
             <div>
                 <buttton class="btn btn-primary px-3" onclick="twostepVerification()">Enable two-factor authentication</button>
