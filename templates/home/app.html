@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/dark-theme.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/semi-dark.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/header-colors.css' %}" />
+	<link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
     <title>wordyAI</title>
 </head>
 
@@ -38,6 +39,12 @@
         {% block wrapper %}{% endblock wrapper %}
 	</div>
     
+	<footer class="page-footer">
+		<div class="page-footer-body">
+			<p class="mb-0 text-primary ft14 fw600">© 2023 wordyAI | Coded with <span class="text-danger ft20">&#9829;</span> in Europe.</p>
+			<p class="mb-0 text-primary ft14 fw600">Imprint | Privacy | Temrs & Conditions | Support</p>
+		</div>
+	</footer>
 	<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
 	<!--plugins-->
 	<script src="{% static 'assets/js/jquery.min.js' %}"></script>

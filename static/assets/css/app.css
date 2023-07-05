@@ -342,6 +342,17 @@ header{
 	color: #ffffff;
 }
 
+.custom-form{
+	background: #f8f8f8;
+	border-radius: 12px;
+	max-width: 550px;
+	margin: auto;
+	padding: 30px;
+}
+.register-logo {
+	width: 274px;
+	height: 100px;
+}
 .page-footer {
 
 	background: #ffffff;

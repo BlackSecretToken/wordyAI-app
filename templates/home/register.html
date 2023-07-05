@@ -2,15 +2,15 @@
 {% load static %}
 
 {% block wrapper %}
-    <div class="row">
-        <div class="col-md-6 col-12">
-            <img class="img-fluid" src="{% static '/assets/images/home/register.png' %}">
+    <div class="row margin-top-100 mb-5">
+        <div class="d-flex flex-row justify-content-center mb-3">
+            <img src="{% static 'assets/images/home/wordyAI_logo_final_dark.png' %}" class="register-logo">
         </div>
-        <div class="col-md-6 col-12 margin-top-100">
-            <form class="row g-3 m-auto max-width-500 needs-validation" id="registerForm" novalidate>
+        <div class="custom-form">
+            <form class="row g-3 m-auto needs-validation" id="registerForm" novalidate>
                 {% csrf_token %}
-                <h4 class="mb-2">Adventure starts here &nbsp;&#x1f680;</h5>
-                <label for="register head" class="form-label">Take your online store to the next level!</label>   
+                <p class="ft28 mb-2 fwbold text-primary">Adventure starts here &nbsp;&#x1f680;</p>
+                <label for="register head" class="form-label ft16">Take your online store to the next level!</label>   
                 <div class="col-12">
                     <label for="inputPhoneNo" class="form-label">Username</label>
                     <div class="input-group"> <span class="input-group-text bg-transparent"><i class="bx bxs-user"></i></span>
@@ -50,7 +50,7 @@
                 <div class="col-12">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="gridCheck2" required>
-                        <label class="form-check-label" for="gridCheck2">I agree to <a class="text-primary cursor-pointer" href="">privacy policy & terms</a></label>
+                        <label class="form-check-label" for="gridCheck2">I agree to <a class="text-primary-1 cursor-pointer" href="">privacy policy & terms</a></label>
                     </div>
                 </div>
                 <div class="col-12">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="col-12 text-center">
-                    <label class="form-check-label" for="gridCheck2">Already have an account? <a class="text-primary cursor-pointer" href="/login">Sign in instead</a></label>
+                    <label class="form-check-label" for="gridCheck2">Already have an account? <a class="text-primary-1 cursor-pointer" href="/login">Sign in instead</a></label>
                 </div>
                 <div class="col-12 text-center">
                     <label class="form-check-label" for="gridCheck2">or</label>
