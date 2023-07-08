@@ -58,7 +58,10 @@ class ProductDownloadThread(threading.Thread):
                         db_product.product_slug = product['slug']
                         db_product.product_sku = product['sku']
                         db_product.product_image = product['images'][0]['src']
-                        db_product.product_description = product['description']
+                        if not db_product.product_updated_description:
+                            db_product.product_updated_description = product['description']
+                        else:    
+                            db_product.product_description = product['description']
                         db_product.product_stock_quantity = product['stock_quantity']
                         db_product.stockstatus_id = stockstatus.id
                         db_product.apidata_id = self.apiData.id
