@@ -13,5 +13,7 @@ urlpatterns = [
     path('productDownloadStart', views.productDownloadStart, name='product_download_start'),
     path('productDownloadStop', views.productDownloadStop, name='product_download_stop'),
     path('productDownloadStatus', views.productDownloadStatus, name='product_download_status'),
+    path('saveProductDetail', views.saveProductDetail, name='save_product_detail'),
+    path('getProductStatus', views.getProductStatus, name='get_product_status'),
     path('test', views.test, name='test'),
 ]

@@ -22,8 +22,12 @@ var orderQueue = ['product_title','product_sku','stockstatus_id', 'category_id',
 
 var hide = false;
 var downloadInterval;
+var originalDescription;
+var currentProductId;
 
 $(document).ready(function(){
+    // disable save button //
+    //disableSaveButton();
     $('#product_main_page').show();
     $('#product_detail_page').hide();
     // get download status
@@ -192,7 +196,60 @@ $(document).ready(function(){
         handlePage();
     })
 
+    $('#saveProductButton').click(function (event) {
+        var updatedDescription = ($('#productDescription').html());
+        confirmToast(' Are you going to save product detail. Is it optimized well?', 
+        function() { // confirm ok
+            
+            fetch("/product/saveProductDetail", { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({
+                    'description': updatedDescription,
+                    'id': currentProductId
+                })
+            }).then(response => response.json()).then(
+                
+                response => {
+                    if (response.status === 'success')
+                    {
+                        toastr.options = {
+                            "positionClass": "toast-top-right",
+                            "timeOut": "3000"
+                          }
+                        toastr.success(response.message);
+                        getProductStatus();
+                        getProductData(1);
+                    }
+                    else
+                    {
+                        toastr.options = {
+                            "positionClass": "toast-top-right",
+                            "timeOut": "3000"
+                          }
+                        toastr.error(response.message);
+                    }
+                }
+            )
+            
+        },
+        function() {} // confirm cancel           
+    ); 
+        
+    });
+
 })
+
+function disableSaveButton() {
+    $('#saveProductButton').prop("disabled", true);
+}
+
+function enableSaveButton() {
+    $('#saveProductButton').prop("disabled", false);
+}
 
 function getDownloadStatus() {
     fetch("/product/productDownloadStatus", { 
@@ -369,6 +426,8 @@ function updateUpDownStatus(){
 }
 
 async function init(){
+    getProductStatus();
+    $('#filterStatus').empty();
     filterStatus.forEach((status) => {
         $('#filterStatus').append('<option value="'+status.id+'">'+ status.name + '</option>')
     })
@@ -376,8 +435,31 @@ async function init(){
     await getCategoryData()
     await handlePage();
     await updateUpDownStatus();
+    
     console.log("Hay");
     //initWebSocket();
+}
+
+function getProductStatus(){
+    fetch("/product/getProductStatus", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: {}
+    }).then(response => response.json()).then(
+        
+        response => {
+            $('#activeProductCount').text(response.active_cnt);
+            if (response.new_optimized_cnt > 0 )
+                $('#optimizedProductCount').html(response.optimized_cnt + `/<span class="ft22 text-primary-1">+${response.new_optimized_cnt}</span>`);
+            else
+            $('#optimizedProductCount').html(response.optimized_cnt);
+            $('#optimizeProductCount').text(response.unoptimized_cnt);
+            $('#problemProductCount').text(0);
+        }
+    )
 }
 
 async function getStockData(){
@@ -393,6 +475,7 @@ async function getStockData(){
     
     response = JSON.parse(response);
     filterStock = response;
+    $('#filterStock').empty();
     response.forEach((data) => {
         $('#filterStock').append('<option value="'+data.pk+'">'+ data.fields.status + '</option>');    
     })
@@ -413,6 +496,7 @@ async function getCategoryData(){
     
     response = JSON.parse(response);
     filterCategory = response;
+    $('#filterCategory').empty();
     response.forEach((data) => {
         $('#filterCategory').append('<option value="'+data.pk+'">'+ data.fields.category_name + '</option>');    
     })
@@ -540,16 +624,27 @@ async function getProductDataById(product_id){
 
     $('#productTitle').val(response.product_title);
     $('#productDescription').empty();
-    $('#productDescription').append(response.product_description);
+    if (response.product_status == 1) // optimized product
+        $('#productDescription').append(response.product_updated_description);
+    else
+        $('#productDescription').append(response.product_description);
+        
     $('#productSKU').val(response.product_sku);
     $('#productPrice').val(response.product_price);
     $('#productStockStatus').val(getStockStatusValue(response.stockstatus_id));
     $('#productCategory').val(getCategoryValue(response.category_id));
-        
+    originalDescription = response.product_description;
+    currentProductId = product_id;    
 }
 
 function productOptimize(){
-    $('.modal').modal('show');
+
+    $('#product_optimize_modal').modal({
+        backdrop: 'static',
+        keyboard: false // disable keyboard navigation as well
+    })
+    $("#product_optimize_modal").modal('show'); 
+    
     content = ($('#productDescription').html());
     index = content.indexOf('<ul>');
     contentEnd = content.slice(index-1);
@@ -573,9 +668,11 @@ function productOptimize(){
         response => {
             $('#productDescription').empty()
             $('#productDescription').append(response.message + contentEnd);
-            $('.modal').modal('hide');
+            $('#product_optimize_modal').modal('hide');
+            enableSaveButton();
         }
     )
+    
 }
 
 function goBack(){

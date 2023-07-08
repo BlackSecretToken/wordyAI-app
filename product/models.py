@@ -45,6 +45,7 @@ class Product(models.Model):
     category_id = models.BigIntegerField(default = 0)
     attribute_id = models.BigIntegerField(default = 0)
     stockstatus_id = models.BigIntegerField(default = 0)
+    is_uploaded = models.BooleanField(default = False)
     created_at = models.DateTimeField(auto_now_add = True, null= True)
     updated_at = models.DateTimeField(auto_now = True, null=True)
 

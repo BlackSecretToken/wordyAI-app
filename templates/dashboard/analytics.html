@@ -96,7 +96,7 @@
                             </div>
                             <div class="ms-2">
                                 <p class="mb-0 ft18 fw600 text-primary">Active Products</p>
-                                <p class="mb-0 ft28 fw800 text-primary">80</p>
+                                <p class="mb-0 ft28 fw800 text-primary" id="activeProductCount">--</p>
                             </div>
                             <div class="list-inline d-flex ms-auto">	
                                 <a href="javascript:;" class="list-inline-item">
@@ -110,7 +110,7 @@
                             </div>
                             <div class="ms-2">
                                 <p class="mb-0 ft18 fw600 text-primary">Optimized Products</p>
-                                <p class="mb-0 ft28 fw800 text-primary">27</p>
+                                <p class="mb-0 ft28 fw800 text-primary position-relative" id="optimizedProductCount">--</p>
                             </div>
                             <div class="list-inline d-flex ms-auto">	
                                 <a href="javascript:;" class="list-inline-item">
@@ -124,7 +124,7 @@
                             </div>
                             <div class="ms-2">
                                 <p class="mb-0 ft18 fw600 text-primary">Products to optimize</p>
-                                <p class="mb-0 ft28 fw800 text-primary">50</p>
+                                <p class="mb-0 ft28 fw800 text-primary" id="optimizeProductCount">--</p>
                             </div>
                             <div class="list-inline d-flex ms-auto">	
                                 <a href="javascript:;" class="list-inline-item">
@@ -138,7 +138,7 @@
                             </div>
                             <div class="ms-2">
                                 <p class="mb-0 ft18 fw600 text-primary">Problems found</p>
-                                <p class="mb-0 ft28 fw800 text-primary">3</p>
+                                <p class="mb-0 ft28 fw800 text-primary" id="problemProductCount">--</p>
                             </div>
                             <div class="list-inline d-flex ms-auto">	
                                 <a href="javascript:;" class="list-inline-item">
@@ -186,4 +186,5 @@
     <script src="{% static 'assets/js/users.js' %}"></script>
     <script src="{% static 'assets/js/index.js' %}"></script>
     <script src="{% static 'assets/js/product_download_status.js' %}"></script>
+    <script src="{% static 'assets/js/product_status.js' %}"></script>
 {% endblock script%}
