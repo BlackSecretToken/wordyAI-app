@@ -31,7 +31,7 @@ UPLOAD_START = "Upload started.."
 UPLOAD_STOP = "Upload stopped.."
 UPLOAD_THREAD_ALREADY_EXIST = "Upload thread already exists.."
 NO_UPLOAD_THREAD ="There is no upload thread.."
-
+NO_UPLOAD_PRODUCT = "There is no newly optimized product.."
 
 STATUS_SUCCESS = "success"
 STATUS_FAIL = "fail"

@@ -143,6 +143,7 @@ $(document).ready(function(){
                 "timeOut": "3000"
                 }
             toastr.success(total +  ' products uploaded..');
+            getProductStatus();
         }
         else
         {
@@ -213,6 +214,7 @@ $(document).ready(function(){
                 "timeOut": "3000"
                 }
             toastr.success(total +  ' products downloaded..');
+            getProductStatus();
         }
         else
         {
@@ -329,6 +331,7 @@ function getUploadStatus() {
                 {  
                     clearInterval(uploadInterval)
                 }
+                getProductStatus();
             }
             else
             {
@@ -373,6 +376,7 @@ function getDownloadStatus() {
                 {  
                     clearInterval(downloadInterval)
                 }
+                getProductStatus();
             }
             else
             {

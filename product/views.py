@@ -365,39 +365,43 @@ def productUploadStart(request):
     email = request.session.get('email')
     user = Users.objects.get(email = email)
     apidata = ApiData.objects.get(users = user) 
-
-    is_exist = UploadProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
-    if is_exist:
-        res['status'] = STATUS_FAIL
-        res['message'] = UPLOAD_THREAD_ALREADY_EXIST
-    else:
-        # check api ..
-        wcapi = API(
-            url= apidata.api_url,
-            consumer_key= apidata.consumerKey,
-            consumer_secret= apidata.consumerToken,
-            version="wc/v3",
-            timeout = 100
-        )
-        try:
-            products = wcapi.get("products", params={"page": 1, "per_page": 1}).json()
-            upload_thread = ProductUploadThread(request)
-            upload_thread.start()
-
-            thread_dict[upload_thread.ident] = upload_thread
-            productUploadThreadStatus = UploadProductThreadStatus.objects.create(apidata = apidata, count = 0, thread_id=upload_thread.ident)
-            productUploadThreadStatus.save()
-
-
-            request.session['upload_thread_id'] = productUploadThreadStatus.id
-            res['status'] = 'success'
-            res['message'] = UPLOAD_START
-
-        except Exception as e:
-            # Handle any errors from the Stripe API
-            print(e)
+    new_optimized_cnt = Product.objects.filter(apidata_id = apidata.id, product_status = PRODUCTSTATUS.OPTIMIZED.value, is_uploaded = False).count()
+    if new_optimized_cnt > 0:
+        is_exist = UploadProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
+        if is_exist:
             res['status'] = STATUS_FAIL
-            res['message'] = INVALID_API
+            res['message'] = UPLOAD_THREAD_ALREADY_EXIST
+        else:
+            # check api ..
+            wcapi = API(
+                url= apidata.api_url,
+                consumer_key= apidata.consumerKey,
+                consumer_secret= apidata.consumerToken,
+                version="wc/v3",
+                timeout = 100
+            )
+            try:
+                products = wcapi.get("products", params={"page": 1, "per_page": 1}).json()
+                upload_thread = ProductUploadThread(request)
+                upload_thread.start()
+
+                thread_dict[upload_thread.ident] = upload_thread
+                productUploadThreadStatus = UploadProductThreadStatus.objects.create(apidata = apidata, count = 0, thread_id=upload_thread.ident)
+                productUploadThreadStatus.save()
+
+
+                request.session['upload_thread_id'] = productUploadThreadStatus.id
+                res['status'] = 'success'
+                res['message'] = UPLOAD_START
+
+            except Exception as e:
+                # Handle any errors from the Stripe API
+                print(e)
+                res['status'] = STATUS_FAIL
+                res['message'] = INVALID_API
+    else:
+        res['status'] = STATUS_FAIL
+        res['message'] = NO_UPLOAD_PRODUCT
 
     return JsonResponse(res)
 
