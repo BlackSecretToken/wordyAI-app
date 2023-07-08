@@ -95,6 +95,8 @@ class ProductDownloadThread(threading.Thread):
                 print('error', e)
             self.setCount()
             self.check()
+            time.sleep(0.1)
+
         # thread is terminated..
         is_exist = DownloadProductThreadStatus.objects.filter(apidata = self.apiData, is_completed = False).exists()
         if is_exist:
@@ -119,3 +121,69 @@ class ProductDownloadThread(threading.Thread):
         downloadProductThreadStatus = DownloadProductThreadStatus.objects.filter(apidata = self.apiData).latest('id')
         downloadProductThreadStatus.count = self.total
         downloadProductThreadStatus.save()
+
+class ProductUploadThread(threading.Thread):
+    def __init__(self, request):
+        self.do_run = True
+        self.count = 0
+        self.request = request
+        email = self.request.session.get('email')
+        user = Users.objects.get(email = email)
+        apiData = ApiData.objects.get(users = user)
+        self.apiData = apiData
+        super().__init__()
+        
+    def run(self):
+        wcapi = API(
+            url= self.apiData.api_url,
+            consumer_key= self.apiData.consumerKey,
+            consumer_secret= self.apiData.consumerToken,
+            version="wc/v3",
+            timeout = 100
+        )
+        
+        while self.do_run:
+            cnt=0
+            products = Product.objects.filter(apidata_id = self.apiData.id, product_status = PRODUCTSTATUS.OPTIMIZED.value, is_uploaded = False).all()
+
+            for product in products:
+                self.count = self.count + 1
+                try:
+                    data = { "description" : product.product_description }
+                    wcapi.put( "products/" + product.product_id , data).json()
+                    product.is_uploaded = True
+                    product.save()
+                    
+                except Exception as e:
+                    # Handle any errors from the Stripe API
+                    print('error', e)
+
+                self.setCount()
+                self.check()
+                time.sleep(0.1)
+            
+            break
+        # thread is terminated..
+        is_exist = UploadProductThreadStatus.objects.filter(apidata = self.apiData, is_completed = False).exists()
+        if is_exist:
+            uploadProductThreadStatus = UploadProductThreadStatus.objects.get(apidata = self.apiData, is_completed = False)
+            uploadProductThreadStatus.is_completed = True
+            uploadProductThreadStatus.save()
+
+    def stop(self, thread):
+        self.thread = thread
+        if hasattr(self, 'thread') and self.thread.is_alive():
+            print('close')
+            self.do_run = False
+            self.thread.join()
+
+    def check(self):
+        is_exist = UploadProductThreadStatus.objects.filter(apidata = self.apiData, is_completed = False).exists()
+        if is_exist:
+            self.do_run = True
+        else:
+            self.do_run = False
+    def setCount(self):
+        uploadProductThreadStatus = UploadProductThreadStatus.objects.filter(apidata = self.apiData).latest('id')
+        uploadProductThreadStatus.count = self.total
+        uploadProductThreadStatus.save()
