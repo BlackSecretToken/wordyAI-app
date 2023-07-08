@@ -22,4 +22,25 @@ function init(){
             }
         }
     )
+
+    fetch("/product/productUploadStatus", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: {}
+    }).then(response => response.json()).then(
+        
+        response => {
+            if (response.upload_status === false)
+            {
+                $('#upload_gif').hide();
+            }
+            else
+            {
+                $('#upload_gif').show();
+            }
+        }
+    )
 }

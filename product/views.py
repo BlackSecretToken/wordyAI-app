@@ -340,6 +340,102 @@ def getProductStatus(request):
 
     return JsonResponse(res)
 
+def productPush(request):
+    res={}
+    email = request.session.get('email')
+    user = Users.objects.get(email = email)
+    apidata = ApiData.objects.get(users = user) 
+    wcapi = API(
+        url= apidata.api_url,
+        consumer_key= apidata.consumerKey,
+        consumer_secret= apidata.consumerToken,
+        version="wc/v3",
+        timeout = 100
+    )
+    data = { "description": "Hello" }
+    print(wcapi.put("products/184996", data).json())
+
+
+    return JsonResponse(res)
+
+
+def productUploadStart(request):
+    res = {}
+
+    email = request.session.get('email')
+    user = Users.objects.get(email = email)
+    apidata = ApiData.objects.get(users = user) 
+
+    is_exist = UploadProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
+    if is_exist:
+        res['status'] = STATUS_FAIL
+        res['message'] = UPLOAD_THREAD_ALREADY_EXIST
+    else:
+        # check api ..
+        wcapi = API(
+            url= apidata.api_url,
+            consumer_key= apidata.consumerKey,
+            consumer_secret= apidata.consumerToken,
+            version="wc/v3",
+            timeout = 100
+        )
+        try:
+            products = wcapi.get("products", params={"page": 1, "per_page": 1}).json()
+            upload_thread = ProductUploadThread(request)
+            upload_thread.start()
+
+            thread_dict[upload_thread.ident] = upload_thread
+            productUploadThreadStatus = UploadProductThreadStatus.objects.create(apidata = apidata, count = 0, thread_id=upload_thread.ident)
+            productUploadThreadStatus.save()
+
+
+            request.session['upload_thread_id'] = productUploadThreadStatus.id
+            res['status'] = 'success'
+            res['message'] = UPLOAD_START
+
+        except Exception as e:
+            # Handle any errors from the Stripe API
+            print(e)
+            res['status'] = STATUS_FAIL
+            res['message'] = INVALID_API
+
+    return JsonResponse(res)
+
+def productUploadStop(request):
+    res = {}
+
+    email = request.session.get('email')
+    user = Users.objects.get(email = email)
+    apidata = ApiData.objects.get(users = user) 
+    is_exist = UploadProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
+    if is_exist:
+        uploadProductThreadStatus = UploadProductThreadStatus.objects.get(apidata = apidata, is_completed = False)
+        uploadProductThreadStatus.is_completed = True
+        uploadProductThreadStatus.save()
+        res['status'] = 'success'
+        res['message'] = UPLOAD_STOP
+    else:
+        res['message'] = NO_UPLOAD_THREAD
+    
+    return JsonResponse(res)
+
+
+def productUploadStatus(request):
+    res = {}
+
+    email = request.session.get('email')
+    user = Users.objects.get(email = email)
+    apidata = ApiData.objects.get(users = user) 
+    is_exist = UploadProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
+    if is_exist:
+        uploadProductThreadStatus = UploadProductThreadStatus.objects.get(apidata = apidata, is_completed = False)
+        res['total'] = uploadProductThreadStatus.count
+        res['upload_status'] = True # true: thread is alive
+    else:
+        res['upload_status'] = False
+
+    return JsonResponse(res)
+
 
     
 

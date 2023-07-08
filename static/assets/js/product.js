@@ -21,7 +21,9 @@ var filterCategoryValue = 0;
 var orderQueue = ['product_title','product_sku','stockstatus_id', 'category_id', 'product_status'];
 
 var hide = false;
+var hide_upload = false;
 var downloadInterval;
+var uploadInterval;
 var originalDescription;
 var currentProductId;
 
@@ -94,13 +96,67 @@ $(document).ready(function(){
         console.log(response);
         response = await product_download_status();
         */
+        
+        $('#product_upload_modal').modal({
+            backdrop: 'static',
+            keyboard: false // disable keyboard navigation as well
+        })
+
+        $('#backdrop').show();
+        response = await product_upload_start();
+        $('#backdrop').hide();
+        console.log(response);
+        if (response.status === 'success')
+        {
+            $("#product_upload_modal").modal('show');
+            uploadInterval = setInterval(getUploadStatus, 3000);
+        }
+        else{
+            toastr.options = {
+                "positionClass": "toast-top-right",
+                "timeOut": "3000"
+              }
+            toastr.error(response.message);
+        }
+    })
+
+    $("#productUploadHide").click(function (event) {
+        $("#product_upload_modal").modal('hide');    
+        hide_upload = true;
+    })
+    
+    $("#productUploadStop").click(async function (event) {
+        response = await product_upload_stop();
+        response = await product_upload_status();
+        total = response.total;
+        
+        if (response.upload_status === false)
+        {
+            // do nothing..
+            $("#product_upload_modal").modal('hide');
+            $('#upload_gif').hide();    
+            if (uploadInterval !== undefined)
+                clearInterval(uploadInterval);
+            toastr.options = {
+                "positionClass": "toast-top-right",
+                "timeOut": "3000"
+                }
+            toastr.success(total +  ' products uploaded..');
+        }
+        else
+        {
+            $('#product_upload_modal').modal({
+                backdrop: 'static',
+                keyboard: false // disable keyboard navigation as well
+            })
+            $("#product_upload_modal").modal('show');
+            $('#upload_gif').show();    
+        }
+        
     })
 
     $("#optimizeButton").click(async function (event) {
-        /*
-        response = await product_download_status();
-        console.log(response); 
-        */
+        
     })
     
     $("#productDownloadSettingCancel").click(function (event) {
@@ -251,6 +307,50 @@ function enableSaveButton() {
     $('#saveProductButton').prop("disabled", false);
 }
 
+function getUploadStatus() {
+    fetch("/product/productUploadStatus", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: {}
+    }).then(response => response.json()).then(
+        
+        response => {
+            console.log(response);
+            if (response.upload_status === false)
+            {
+                // do nothing..
+                $("#product_upload_modal").modal('hide');
+                $('#upload_gif').hide();  
+                if (uploadInterval !== undefined)
+                {  
+                    clearInterval(uploadInterval)
+                }
+            }
+            else
+            {
+                if (hide_upload === false)
+                {
+                    $('#product_upload_modal').modal({
+                        backdrop: 'static',
+                        keyboard: false // disable keyboard navigation as well
+                    })
+                    $("#product_upload_modal").modal('show');   
+    
+                    $('#totalUploadCount').text(response.total);
+                }
+                $('#upload_gif').show(); 
+                if (uploadInterval === undefined)
+                {
+                    uploadInterval = setInterval(getUploadStatus, 3000);
+                }
+            }
+        }
+    )
+}
+
 function getDownloadStatus() {
     fetch("/product/productDownloadStatus", { 
         method: 'POST',
@@ -294,6 +394,20 @@ function getDownloadStatus() {
         }
     )
 }
+
+async function product_upload_start(){
+    response = await fetch("/product/productUploadStart", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: {}
+    });
+    response = await(response.json());
+    
+    return response;
+}
 async function product_download_start(downloadFrom){
     response = await fetch("/product/productDownloadStart", { 
         method: 'POST',
@@ -310,8 +424,36 @@ async function product_download_start(downloadFrom){
     return response;
 }
 
+async function product_upload_stop(){
+    response = await fetch("/product/productUploadStop", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: {}
+    });
+    response = await(response.json());
+    
+    return response;
+}
+
 async function product_download_stop(){
     response = await fetch("/product/productDownloadStop", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: {}
+    });
+    response = await(response.json());
+    
+    return response;
+}
+
+async function product_upload_status(){
+    response = await fetch("/product/productUploadStatus", { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -628,7 +770,7 @@ async function getProductDataById(product_id){
         $('#productDescription').append(response.product_updated_description);
     else
         $('#productDescription').append(response.product_description);
-        
+
     $('#productSKU').val(response.product_sku);
     $('#productPrice').val(response.product_price);
     $('#productStockStatus').val(getStockStatusValue(response.stockstatus_id));

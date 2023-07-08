@@ -26,6 +26,13 @@ DOWNLOAD_STOP = "Download stopped.."
 DOWNLOAD_THREAD_ALREADY_EXIST = "Download thread already exists.."
 NO_DOWNLOAD_THREAD ="There is no download thread.."
 
+
+UPLOAD_START = "Upload started.."
+UPLOAD_STOP = "Upload stopped.."
+UPLOAD_THREAD_ALREADY_EXIST = "Upload thread already exists.."
+NO_UPLOAD_THREAD ="There is no upload thread.."
+
+
 STATUS_SUCCESS = "success"
 STATUS_FAIL = "fail"
 

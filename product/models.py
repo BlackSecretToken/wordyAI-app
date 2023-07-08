@@ -65,6 +65,15 @@ class DownloadProductThreadStatus(models.Model):
     count = models.IntegerField(default = 0)
     is_completed = models.BooleanField(default=False)
     apidata = models.ForeignKey(ApiData, on_delete=models.CASCADE)
+
+class UploadProductThreadStatus(models.Model):
+    id =  models.BigAutoField(primary_key=True, auto_created=True)
+    thread_id = models.PositiveBigIntegerField(null=True)
+    started_at = models.DateTimeField(auto_now_add=True)
+    stopped_at = models.DateTimeField(auto_now=True, null= True)
+    count = models.IntegerField(default = 0)
+    is_completed = models.BooleanField(default=False)
+    apidata = models.ForeignKey(ApiData, on_delete=models.CASCADE)
     
 
 
