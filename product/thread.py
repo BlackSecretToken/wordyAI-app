@@ -149,7 +149,7 @@ class ProductUploadThread(threading.Thread):
                 break
             self.count = self.count + 1
             try:
-                data = { "description" : product.product_description }
+                data = { "description" : product.product_updated_description }
                 wcapi.put( "products/" + str(product.product_id) , data).json()
                 product.is_uploaded = True
                 product.save()
