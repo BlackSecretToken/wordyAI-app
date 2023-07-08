@@ -132,7 +132,7 @@ class ProductUploadThread(threading.Thread):
         apiData = ApiData.objects.get(users = user)
         self.apiData = apiData
         super().__init__()
-        
+
     def run(self):
         wcapi = API(
             url= self.apiData.api_url,
@@ -142,27 +142,26 @@ class ProductUploadThread(threading.Thread):
             timeout = 100
         )
         
-        while self.do_run:
-            cnt=0
-            products = Product.objects.filter(apidata_id = self.apiData.id, product_status = PRODUCTSTATUS.OPTIMIZED.value, is_uploaded = False).all()
+        products = Product.objects.filter(apidata_id = self.apiData.id, product_status = PRODUCTSTATUS.OPTIMIZED.value, is_uploaded = False).all()
+        print(products.count())
+        for product in products:
+            if self.do_run == False:
+                break
+            self.count = self.count + 1
+            try:
+                data = { "description" : product.product_description }
+                wcapi.put( "products/" + str(product.product_id) , data).json()
+                product.is_uploaded = True
+                product.save()
+                
+            except Exception as e:
+                # Handle any errors from the Stripe API
+                print('error', e)
 
-            for product in products:
-                self.count = self.count + 1
-                try:
-                    data = { "description" : product.product_description }
-                    wcapi.put( "products/" + product.product_id , data).json()
-                    product.is_uploaded = True
-                    product.save()
-                    
-                except Exception as e:
-                    # Handle any errors from the Stripe API
-                    print('error', e)
-
-                self.setCount()
-                self.check()
-                time.sleep(0.1)
+            self.setCount()
+            self.check()
+            time.sleep(0.1)
             
-            break
         # thread is terminated..
         is_exist = UploadProductThreadStatus.objects.filter(apidata = self.apiData, is_completed = False).exists()
         if is_exist:
@@ -185,5 +184,5 @@ class ProductUploadThread(threading.Thread):
             self.do_run = False
     def setCount(self):
         uploadProductThreadStatus = UploadProductThreadStatus.objects.filter(apidata = self.apiData).latest('id')
-        uploadProductThreadStatus.count = self.total
+        uploadProductThreadStatus.count = self.count
         uploadProductThreadStatus.save()

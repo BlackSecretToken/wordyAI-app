@@ -126,9 +126,10 @@ $(document).ready(function(){
     })
     
     $("#productUploadStop").click(async function (event) {
-        response = await product_upload_stop();
         response = await product_upload_status();
         total = response.total;
+        response = await product_upload_stop();
+        response = await product_upload_status();
         
         if (response.upload_status === false)
         {
