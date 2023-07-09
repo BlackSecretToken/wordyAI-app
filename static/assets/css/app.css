@@ -5687,6 +5687,14 @@ input::placeholder {
 
 
 @media screen and (max-width: 767px) {
+	.tab-item-body {
+		padding: 12px 6px;
+	}
+
+	.tab-item-icon {
+		margin-right: 4px;
+		margin-left: 4px;
+	}
 
 	.back-to-top{
 		bottom: 80px;
