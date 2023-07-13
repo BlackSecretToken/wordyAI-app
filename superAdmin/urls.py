@@ -25,5 +25,9 @@ urlpatterns = [
 
     path('user/user', views.get_user, name="user_user_view"),
     path('user/get_user_data', views.get_user_data, name="get_user_data_view"),
-    
+    path('user/get_user_data_by_id', views.get_user_data_by_id, name="get_user_data_by_id_view"),
+    path('user/delete_user_data_by_id', views.delete_user_data_by_id, name="delete_user_data_by_id_view"),
+    path('user/delete_user_bulk', views.delete_user_bulk, name="delete_user_bulk_view"),
+    path('user/activate_user_data_by_id', views.activate_user_data_by_id, name="activate_user_data_by_id_view"),
+    path('user/toggle_user_role', views.toggle_user_role, name="toggle_user_role_view"),
 ]

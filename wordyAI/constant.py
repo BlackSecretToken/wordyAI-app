@@ -44,3 +44,5 @@ Role_Admin = 'Admin'
 ProductStatus_Optimized = 'OPTIMIZED'
 ProductStatus_Unoptimized = 'UNOPTIMIZED'
 ProductStatus_Rejected = 'REJECTED'
+ACTIVATE = 1
+DEACTIVATE = 0
