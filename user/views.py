@@ -9,6 +9,12 @@ from django.contrib.auth.hashers import make_password, check_password
 import json
 # Create your views here.
 
+@admin_login_required
+def get_users(request):
+    context = {}
+    context = default_context(request, context)
+    return render(request, 'admin/user/user.html', context)
+
 def test(request):
     context = {}
     context = default_context(request, context)

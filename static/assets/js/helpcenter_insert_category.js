@@ -20,7 +20,7 @@ $(document).ready(function(){
 
 function getCategoryData(){
     $('#backdrop').show();
-    fetch("/helpcenter/get_category_data", { 
+    fetch(admin_app_url + "/helpcenter/get_category_data", { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ function createCategory() {
         toastr.error("Please insert category name..");   
         return;
     }
-    fetch("/helpcenter/insert_category", { 
+    fetch(admin_app_url + "/helpcenter/insert_category", { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -102,7 +102,7 @@ function createCategory() {
 function deleteCategory(id){
     confirmToast(' Are you going to delete category?', 
         function() { // confirm ok
-            fetch("/helpcenter/delete_category", { 
+            fetch(admin_app_url + "/helpcenter/delete_category", { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ function deleteCategory(id){
 
 function editCategory(id)
 {
-    fetch("/helpcenter/edit_category", { 
+    fetch(admin_app_url + "/helpcenter/edit_category", { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -182,7 +182,7 @@ function updateCategory(id){
         return;  
     }
 
-    fetch("/helpcenter/update_category", { 
+    fetch(admin_app_url + "/helpcenter/update_category", { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -234,7 +234,7 @@ function deleteCategoryBulk()
         }    
     });
     
-    fetch("/helpcenter/delete_category_bulk", { 
+    fetch(admin_app_url + "/helpcenter/delete_category_bulk", { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

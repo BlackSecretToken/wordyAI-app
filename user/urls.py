@@ -10,5 +10,6 @@ urlpatterns = [
     path('saveProfile', views.saveProfile, name='saveProfile'),
     path('security', views.security, name='security_view'),
     path('deactivate_account', views.deactivate_account, name='deactivate_account'),
-    path('update_password', views.update_password, name='update_password')
+    path('update_password', views.update_password, name='update_password'),
+    path('admin/get_users', views.get_users, name='admin_get_users'),
 ]

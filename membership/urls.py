@@ -20,8 +20,6 @@ urlpatterns = [
     path('get_invoice_data', views.get_invoice_data, name="get_invoice_data"),
     path('get_customer_data', views.get_customer_data, name="get_customer_data"),
     path('get_customer_data_by_id', views.get_customer_data_by_id, name="get_customer_data_by_id"),
-    path('admin/billing/customer', views.admin_billing_customer, name="admin_billing_customer_view"),
-    path('admin/billing/subsciptions', views.admin_billing_subscriptions, name="admin_billing_subscriptions_view"),
     path('get_subscription_data', views.get_subscription_data, name="get_subscription_data"),
     
 ]

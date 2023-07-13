@@ -19,9 +19,9 @@
                 <div class="menu-title">Help Center</div>
             </a>
             <ul>
-                <li> <a href="{% url 'helpcenter:insert_category_view' %}"><i class="bx bx-right-arrow-alt">Insert Category</i></a>
+                <li> <a href="{% url 'superAdmin:helpcenter_insert_category_view' %}"><i class="bx bx-right-arrow-alt">Insert Category</i></a>
                 </li>
-                <li> <a href="{% url 'helpcenter:insert_content_view' %}"><i class="bx bx-right-arrow-alt">Insert Content</i></a>
+                <li> <a href="{% url 'superAdmin:helpcenter_insert_content_view' %}"><i class="bx bx-right-arrow-alt">Insert Content</i></a>
                 </li>
             </ul>
         </li>
@@ -32,9 +32,20 @@
                 <div class="menu-title">Billing</div>
             </a>
             <ul>
-                <li> <a href="{% url 'membership:admin_billing_customer_view' %}"><i class="bx bx-right-arrow-alt">Customer</i></a>
+                <li> <a href="{% url 'superAdmin:billing_customer_view' %}"><i class="bx bx-right-arrow-alt">Customer</i></a>
                 </li>
-                <li> <a href="{% url 'membership:admin_billing_subscriptions_view' %}"><i class="bx bx-right-arrow-alt">Subscriptions</i></a>
+                <li> <a href="{% url 'superAdmin:billing_subscriptions_view' %}"><i class="bx bx-right-arrow-alt">Subscriptions</i></a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-user'></i>
+                </div>
+                <div class="menu-title">Users</div>
+            </a>
+            <ul>
+                <li> <a href="{% url 'superAdmin:user_user_view' %}"><i class="bx bx-right-arrow-alt">User</i></a>
                 </li>
             </ul>
         </li>

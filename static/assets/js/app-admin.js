@@ -1,3 +1,4 @@
+var admin_app_url='/admin_yuriimorigs_qweerrtrtty'
 
 $(function () {
 	"use strict";

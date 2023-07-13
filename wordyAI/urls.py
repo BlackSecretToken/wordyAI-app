@@ -27,7 +27,7 @@ urlpatterns = [
     path('product/', include('product.urls')),
     path('test/', include('fileuploadtest.urls')),
     path('membership/', include('membership.urls')),
-    path('superAdmin/', include('superAdmin.urls')),
+    path('admin_yuriimorigs_qweerrtrtty/', include('superAdmin.urls')),
     path('helpcenter/', include('helpcenter.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -9,7 +9,7 @@ $(document).ready(async function(){
 async function getCustomerData() {
     $('#page1').show();
     $('#page2').hide();
-    response = await fetch("/membership/get_customer_data", {
+    response = await fetch(admin_app_url + "/billing/get_customer_data", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ async function getCustomerData() {
 
 async function showCustomer(id) {
     $('#backdrop').show();
-    response = await fetch("/membership/get_customer_data_by_id", {
+    response = await fetch(admin_app_url + "/billing/get_customer_data_by_id", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

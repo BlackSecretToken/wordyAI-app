@@ -1,6 +1,17 @@
 var categoryData = [];
+var editorData;
 
 $(document).ready(async function(){
+    //editorData = new FroalaEditor('#content');
+    ClassicEditor
+        .create( document.querySelector( '#content' ) )
+        .then( editor => {
+                editorData = editor;
+        } )
+        .catch( error => {
+                console.error( error );
+        } );
+    
     $('#backdrop').hide();
     $('#content_table').DataTable();
     await getCategoryData();
@@ -24,7 +35,7 @@ $(document).ready(async function(){
 })
 
 async function getCategoryData(){
-    data = await fetch("/helpcenter/get_category_data", { 
+    data = await fetch(admin_app_url + "/helpcenter/get_category_data", { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -46,7 +57,7 @@ async function getCategoryData(){
 
 function getContentData(){
     $('#backdrop').show();
-    fetch("/helpcenter/get_content_data", { 
+    fetch(admin_app_url + "/helpcenter/get_content_data", { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -94,7 +105,9 @@ function getCategoryName(id) {
 }
 
 function createContent() {
-    content = $('#content').html();
+    //content = editorData.html.get();
+    content = editorData.getData();
+    //content = $('#content').html();
     contentName = $('#contentName').val();
     category = parseInt($('#filterCategory').val());
     if (category === 0)
@@ -124,7 +137,7 @@ function createContent() {
         toastr.error("Please insert content..");   
         return;
     }
-    fetch("/helpcenter/insert_content", { 
+    fetch(admin_app_url + "/helpcenter/insert_content", { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -147,7 +160,8 @@ function createContent() {
                   }
                 toastr.success(response.message);
                 $('#filterCategory').val(0);
-                $('#content').html('');
+                editorData.setData('');
+                //$('#content').html('');
                 $('#contentName').val('');
                 getContentData();
             }
@@ -166,7 +180,7 @@ function createContent() {
 function deleteContent(id){
     confirmToast(' Are you going to delete content?', 
         function() { // confirm ok
-            fetch("/helpcenter/delete_content", { 
+            fetch(admin_app_url + "/helpcenter/delete_content", { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -205,7 +219,7 @@ function deleteContent(id){
 
 function editContent(id)
 {
-    fetch("/helpcenter/edit_content", { 
+    fetch(admin_app_url + "/helpcenter/edit_content", { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -223,8 +237,11 @@ function editContent(id)
             contentID = response[0].pk;
             categoryID = response[0].fields.helpcategory;
 
+            console.log(content);
             $('#filterCategory').val(categoryID);
-            $('#content').html(content);
+            //editorData.html.set(content);
+            editorData.setData(content);
+            //$('#content').html(content);
             $('#contentName').val(contentName);
 
             $('#createButton').hide();
@@ -240,7 +257,8 @@ function editContent(id)
 }
 
 function updateContent(id){
-    content = $('#content').html();
+    //content = editorData.html.get();
+    content = editorData.getData();
     contentName = $('#contentName').val();
     category = parseInt($('#filterCategory').val());
     if (category === 0)
@@ -270,7 +288,7 @@ function updateContent(id){
         toastr.error("Please insert content..");   
         return;
     }
-    fetch("/helpcenter/update_content", { 
+    fetch(admin_app_url + "/helpcenter/update_content", { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -312,7 +330,7 @@ function cancel()
     $('#createButton').show();
     $('#updateContent').empty();
     $('#filterCategory').val(0);
-    $('#content').html('');
+    editorData.setData('');
     $('#contentName').val('');
 }
 
@@ -327,7 +345,7 @@ function deleteContentBulk()
         }    
     });
     
-    fetch("/helpcenter/delete_content_bulk", { 
+    fetch(admin_app_url + "/helpcenter/delete_content_bulk", { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -435,18 +435,6 @@ def get_customer_data_by_id(request):
     }
     return JsonResponse(res)
 
-@admin_login_required
-def admin_billing_customer(request):
-    context = {}
-    context = default_context(request, context)
-    return render(request, 'admin/billing/customer.html', context)
-
-@admin_login_required
-def admin_billing_subscriptions(request):
-    context = {}
-    context = default_context(request, context)
-    return render(request, 'admin/billing/subscriptions.html', context)
-
 def get_subscription_data(request):
     stripecustomers = StripeCustomer.objects.select_related('user').all()
     res = []

@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     'membership',
     'superAdmin',
     'helpcenter',
-    
 ]
 
 MIDDLEWARE = [

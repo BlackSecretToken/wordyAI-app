@@ -14,54 +14,6 @@ def index(request):
     context = default_context(request, context)
     return render(request, 'helpcenter/index.html', context)
 
-@admin_login_required
-def insert_content(request):
-    if request.method == 'POST':
-        res = {}
-        data = json.loads(request.body)
-        category = data['category']
-        content = data['content']
-        contentName = data['contentName']
-
-        helpcategory = HelpCategory.objects.get(id = category)
-        is_exist = HelpContent.objects.filter(helpcategory = helpcategory, contentName = contentName).exists()
-        if is_exist:
-            res['status'] = 'fail'
-            res['message'] = CONTENT_ALREADY_EXIST
-            return JsonResponse(res)
-        else:
-            helpContent = HelpContent.objects.create(helpcategory = helpcategory, contentName = contentName, content = content)
-            helpContent.save()
-            res['status'] = 'success'
-            res['message'] = CONTENT_CREATE_SUCCESS
-            return JsonResponse(res)
-    else:
-        context = {}
-        context = default_context(request, context)
-        return render(request, 'admin/helpcenter/insert_content.html', context)
-
-@admin_login_required
-def insert_category(request):
-    if request.method == 'POST':
-        res = {}
-        data = json.loads(request.body)
-        category = data['category']
-        is_exist = HelpCategory.objects.filter(category = category).exists()
-        if is_exist:
-            res['status'] = 'fail'
-            res['message'] = CATEGORY_ALREADY_EXIST
-            return JsonResponse(res)
-        else:
-            helpCategory = HelpCategory.objects.create(category = category)
-            helpCategory.save()
-            res['status'] = 'success'
-            res['message'] = CATEGORY_CREATE_SUCCESS
-            return JsonResponse(res)    
-    else:
-        context = {}
-        context = default_context(request, context)
-        return render(request, 'admin/helpcenter/insert_category.html', context)
-    
 def get_category_data(request):
     category_data = HelpCategory.objects.filter(activate = 1).all()
     category_data = serializers.serialize('json', category_data)

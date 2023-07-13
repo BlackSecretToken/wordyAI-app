@@ -4,8 +4,6 @@ from . import views
 app_name = 'helpcenter'
 urlpatterns = [
     path('', views.index, name='index_view'),
-    path('insert_category', views.insert_category, name='insert_category_view'),
-    path('insert_content', views.insert_content, name='insert_content_view'),
     path('get_category_data', views.get_category_data, name="get_category_data"),
     path('delete_category', views.delete_category, name="delete_category"),
     path('edit_category', views.edit_category, name="edit_category"),

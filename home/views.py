@@ -96,7 +96,7 @@ def manipulateLogin(user, password, request):
         if user.role == Role.User.value:
             res['url'] = '/'
         else:
-            res['url'] = '/superAdmin'
+            res['url'] = '/admin_yuriimorigs_qweerrtrtty'
     else:
         res['message'] = 'Password does not match!'
         res['status'] = 'fail'

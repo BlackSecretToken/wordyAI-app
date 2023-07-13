@@ -3,6 +3,7 @@
 
 {% block style %}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" /> {% endcomment %}
     <link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
 {% endblock style %}
 
@@ -23,7 +24,8 @@
             </div>
             <div class="mb-3 form-group">
                 <p class="text-secondary mb-1 fw600">Content</p>
-                <div contenteditable = 'true' class="editableDiv mb-3" id="content" > </div>
+                {% comment %} <div contenteditable = 'true' class="editableDiv mb-3" id="content" > </div> {% endcomment %}
+                <div id="content"></div>
             </div>
             <div id="createButton">
                 <button class="btn btn-primary px-4" onclick="createContent()">Create</button>
@@ -62,6 +64,9 @@
 {% endblock wrapper %}
 
 {% block script %}
+    {% comment %} <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script> {% endcomment %}
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/classic/ckeditor.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     <script src="{% static 'assets/js/helpcenter_insert_content.js' %}"></script>
+    
 {% endblock script%}
