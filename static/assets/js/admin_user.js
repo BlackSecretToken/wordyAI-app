@@ -69,9 +69,9 @@ async function getUserData() {
       '</td>' +
       '<td>' + response[i].username+ '</td>' +
       '<td>' + response[i].email + '</td>' +
-      '<td>' + ROLE[response[i].role -1 ] + '</td>' +
+      '<td class="fw700">' + ROLE[response[i].role -1 ] + '</td>' +
       '<td class="'+ statusStyle + '">' + status + '</td>' +
-      '<td><i title="change user role" class="bx bx-edit-alt text-primary ft24 cursor-pointer me-3" onclick=toggleUserRole("'+ response[i].id + '")></i><i '+ statusTitle + 'class="bx ' + statusIcon + ' text-danger ft24 cursor-pointer" onclick=' + statusMethod + '("'+ response[i].id + '")></i></td>'
+      '<td><i class="bx bx-show text-primary ft24 cursor-pointer me-3" onclick="showUser(' + response[i].id + ')"></i><i title="change user role" class="bx bx-edit-alt text-primary ft24 cursor-pointer me-3" onclick=toggleUserRole("'+ response[i].id + '")></i><i '+ statusTitle + 'class="bx ' + statusIcon + ' text-danger ft24 cursor-pointer" onclick=' + statusMethod + '("'+ response[i].id + '")></i></td>'
       '</tr>';
   }   
   $('#custom_data_table tbody').append(data);
@@ -79,7 +79,7 @@ async function getUserData() {
 
 }
 
-async function showCustomer(id) {
+async function showUser(id) {
   $('#backdrop').show();
   response = await fetch(admin_app_url + "/user/get_user_data_by_id", {
       method: 'POST',
@@ -93,34 +93,21 @@ async function showCustomer(id) {
   })
   response = await(response.json());
   console.log(response);
-  /*
-  data = '<p class="text-secondary fw700 ft24">'+ response.customerid +'</p>' +
-       +'<p class="text-secondary fw700 ft24">'+ response.customerid +'</p>' +
-       +'<p class="text-secondary fw700">'+ response.email +'</p>' +
-       +'<p class="text-secondary fw700">'+ response.company +'</p>' +
-       +'<p class="text-secondary fw700">'+ response.country +'</p>' +
-       +'<p class="text-secondary fw700">'+ response.state +'</p>' +
-       +'<p class="text-secondary fw700">'+ response.zipcode +'</p>' +
-       +'<p class="text-secondary fw700">'+ response.taxid +'</p>' +
-       +'<p class="text-secondary fw700">'+ response.vatnum +'</p>' +
-       +'<p class="text-secondary fw700">'+ response.bill_address +'</p>' +
-       +'<p class="text-secondary fw700">'+ response.mobile +'</p>';
-  */
-       data = '<div class="d-flex flex-row justify-content-between mb-4">' +
-       '<p class="text-secondary fw700 ft24 mb-0">'+ response.customerid +'</p>' +
-       '<button class="btn btn-primary px-3" onclick="goBack()">Back</button>'+
-       '</div>'+ 
-       '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Email: </span>' + response.email +'</p>' +
-       '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Company: </span>' + response.company +'</p>' +
-       '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Country: </span>' + response.country +'</p>'+
-       '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">State: </span>' + response.state +'</p>'+
-       '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Zipcode: </span>' + response.zipcode +'</p>'+
-       '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Taxid: </span>' + response.taxid +'</p>'+
-       '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Vatnum: </span>' + response.vatnum +'</p>'+
-       '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">BillAddress: </span>' + response.bill_address +'</p>'+
-       '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Mobile: </span>' + response.mobile +'</p>'+
-       '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Created Time: </span>' + new Date(Date.parse(response.created_at)) +'</p>'+
-       '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Updated Time: </span>' + new Date(Date.parse(response.updated_at)) +'</p>';
+
+  data = '<div class="d-flex flex-row justify-content-between mb-4">' +
+  '<p class="text-secondary fw700 ft24 mb-0">'+ 'User '+ response.id +'</p>' +
+  '<button class="btn btn-primary px-3" onclick="goBack()">Back</button>'+
+  '</div>'+ 
+  '<img class="ms-3 mb-3" style="width:200px;height:200px;border-radius:100px" src="'+ response.avatar +'"/>'+
+  '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Username: </span>' + response.username +'</p>' +
+  '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Firstname: </span>' + response.firstname +'</p>' +
+  '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Lastname: </span>' + response.lastname +'</p>'+
+  '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Address: </span>' + response.address +'</p>'+
+  '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Mobile: </span>' + response.mobile +'</p>'+
+  '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Language: </span>' + response.language +'</p>'+
+  '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Timezone: </span>' + response.timezone +'</p>'+
+  '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Created Time: </span>' + new Date(Date.parse(response.created_at)) +'</p>'+
+  '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Updated Time: </span>' + new Date(Date.parse(response.updated_at)) +'</p>';
 
 
   $('#page2').show();
@@ -128,6 +115,7 @@ async function showCustomer(id) {
   $('#page2').append(data);
   $('#page1').hide();
   $('#backdrop').hide();
+  
 }
 
 function deleteUserDataById(id){
@@ -153,7 +141,7 @@ function deleteUserDataById(id){
                         }
                       toastr.success(response.message);
                       $('#category').val('');
-                      getCategoryData();
+                      getUserData();
                   }
                   else
                   {
@@ -173,7 +161,7 @@ function deleteUserDataById(id){
 function toggleUserRole(id){
   confirmToast(' Are you going to change the user role?', 
       function() { // confirm ok
-          fetch(admin_app_url + "/user/change_user_role", { 
+          fetch(admin_app_url + "/user/toggle_user_role", { 
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
@@ -193,7 +181,7 @@ function toggleUserRole(id){
                         }
                       toastr.success(response.message);
                       $('#category').val('');
-                      getCategoryData();
+                      getUserData();
                   }
                   else
                   {
@@ -233,7 +221,7 @@ function activateUserDataById(id){
                         }
                       toastr.success(response.message);
                       $('#category').val('');
-                      getCategoryData();
+                      getUserData();
                   }
                   else
                   {
@@ -282,7 +270,7 @@ function deleteUserBulk(){
                         }
                       toastr.success(response.message);
                       $('#category').val('');
-                      getCategoryData();
+                      getUserData();
                   }
                   else
                   {

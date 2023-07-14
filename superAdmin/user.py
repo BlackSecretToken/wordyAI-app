@@ -30,9 +30,32 @@ def get_user_data_by_id(request):
     res = {}
     data = json.loads(request.body)
     id = data['id']
-    user = Users.objects.filter(id = id).get()
-    content_data = serializers.serialize('json', user)
-    return JsonResponse(content_data, safe = False)
+    user = Users.objects.get(id = id)
+    
+    avatar_url = ''
+    if str(user.avatar) == '':
+        avatar_url='../static/assets/images/avatars/default.png'
+    else:   
+        avatar_url = 'media/'+ str(user.avatar)
+    count = request.path.count('/')
+    for i in range(count-1):
+        avatar_url = '../' + avatar_url
+    
+    res = {
+        "id": user.id,
+        "username": user.username,
+        "email": user.email,
+        "avatar": avatar_url,
+        "firstname": user.firstname,
+        "lastname": user.lastname,
+        "address": user.address,
+        "mobile": user.mobile,
+        "language": user.language,
+        "timezone": user.timezone,
+        "created_at": user.created_at,
+        "updated_at": user.created_at,
+    }
+    return JsonResponse(res)
 
 def delete_user_data_by_id(request):
     res = {}
