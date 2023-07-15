@@ -27,7 +27,7 @@ def delete_category(request):
     helpcategory.activate = 0
     helpcategory.save()
 
-    res['status'] = 'success'
+    res['status'] = STATUS_SUCCESS
     res['message'] = CATEGORY_DLETEL_SUCCESS
     return JsonResponse(res)
 
@@ -41,7 +41,7 @@ def delete_category_bulk(request):
         helpcategory.activate = 0
         helpcategory.save()
 
-    res['status'] = 'success'
+    res['status'] = STATUS_SUCCESS
     res['message'] = CATEGORY_DLETEL_SUCCESS
     return JsonResponse(res)
 
@@ -60,14 +60,14 @@ def update_category(request):
     category = data['category']
     is_exist = HelpCategory.objects.filter(category = category).exists()
     if is_exist:
-        res['status'] = 'fail'
+        res['status'] = STATUS_FAIL
         res['message'] = CATEGORY_ALREADY_EXIST
         return JsonResponse(res)
     else:
         category_data = HelpCategory.objects.get(id = id)
         category_data.category = category
         category_data.save()
-        res['status'] = 'success'
+        res['status'] = STATUS_SUCCESS
         res['message'] = CATEGORY_UPDATE_SUCCESS
         return JsonResponse(res)
     
@@ -84,7 +84,7 @@ def delete_content(request):
     helpcontent.activate = 0
     helpcontent.save()
 
-    res['status'] = 'success'
+    res['status'] = STATUS_SUCCESS
     res['message'] = CONTENT_DLETEL_SUCCESS
     return JsonResponse(res)
 
@@ -98,7 +98,7 @@ def delete_content_bulk(request):
         helpcontent.activate = 0
         helpcontent.save()
 
-    res['status'] = 'success'
+    res['status'] = STATUS_SUCCESS
     res['message'] = CONTENT_DLETEL_SUCCESS
     return JsonResponse(res)
 
@@ -121,7 +121,7 @@ def update_content(request):
     helpcategory = HelpCategory.objects.get(id = category)
     is_exist = HelpContent.objects.filter(helpcategory = helpcategory, contentName = contentName, content = content).exists()
     if is_exist:
-        res['status'] = 'fail'
+        res['status'] = STATUS_FAIL
         res['message'] = CONTENT_ALREADY_EXIST
         return JsonResponse(res)
     else:
@@ -130,7 +130,7 @@ def update_content(request):
         helpContent.content = content
         helpContent.contentName = contentName
         helpContent.save()
-        res['status'] = 'success'
+        res['status'] = STATUS_SUCCESS
         res['message'] = CONTENT_CREATE_SUCCESS
         return JsonResponse(res)
     
@@ -157,7 +157,7 @@ def change_audience(request):
     helpcontent.like = likeNum
     helpcontent.dislike = dislikeNum
 
-    res['status'] = 'success'
+    res['status'] = STATUS_SUCCESS
     res['message'] = REQUEST_HANDLE_SUCCESS
     res['data'] = likeNum
 

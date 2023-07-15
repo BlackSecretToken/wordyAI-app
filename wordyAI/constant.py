@@ -9,6 +9,7 @@ class Gender(Enum):
 class Role(Enum):
     User = 1
     Admin = 2
+    Test = 3
 
 class Category(Enum):
     CSV = 1

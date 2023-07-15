@@ -551,6 +551,19 @@ input:checked+.slider:before {
     background: #acaaaa;
 }
 
+.role-card{
+    padding-left: 12px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.role-card:hover{
+    background-color: rgb(224, 223, 223);
+}
+
+.role-card-remover{
+    display: none !important;
+}
 
 @keyframes dot-flashing {
     0% {

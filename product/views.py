@@ -259,7 +259,7 @@ def productDownloadStart(request):
 
 
             request.session['download_thread_id'] = productDownloadThreadStatus.id
-            res['status'] = 'success'
+            res['status'] = STATUS_SUCCESS
             res['message'] = DOWNLOAD_START
 
         except Exception as e:
@@ -281,7 +281,7 @@ def productDownloadStop(request):
         downloadProductThreadStatus = DownloadProductThreadStatus.objects.get(apidata = apidata, is_completed = False)
         downloadProductThreadStatus.is_completed = True
         downloadProductThreadStatus.save()
-        res['status'] = 'success'
+        res['status'] = STATUS_SUCCESS
         res['message'] = DOWNLOAD_STOP
     else:
         res['message'] = NO_DOWNLOAD_THREAD
@@ -416,7 +416,7 @@ def productUploadStop(request):
         uploadProductThreadStatus = UploadProductThreadStatus.objects.get(apidata = apidata, is_completed = False)
         uploadProductThreadStatus.is_completed = True
         uploadProductThreadStatus.save()
-        res['status'] = 'success'
+        res['status'] = STATUS_SUCCESS
         res['message'] = UPLOAD_STOP
     else:
         res['message'] = NO_UPLOAD_THREAD

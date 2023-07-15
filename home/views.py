@@ -12,6 +12,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
 from wordyAI.utils import *
+from wordyAI.message import *
 
 
 def test(request):
@@ -54,13 +55,13 @@ def registerUser(request):
     user_existance = Users.objects.filter(email = email).exists()
 
     if user_existance:
-        res['message'] = 'User already exists!'
-        res['status'] = 'warning'
+        res['message'] = USER_EXIST
+        res['status'] = STATUS_FAIL
     else:
         user = Users.objects.create(username = username, email = email, password = make_password(password), activate = True, email_verification = False, gdpr = False, gender = Gender.NONE.value)        
         user.save()
-        res['message'] = 'User successfuly registered!'
-        res['status'] = 'success'
+        res['message'] = USER_REGISTER_SUCCESS
+        res['status'] = STATUS_SUCCESS
         request.session['email'] = email
     return JsonResponse(res)
 
@@ -80,26 +81,26 @@ def loginUser(request):
         else:
             request.session.set_expiry(0)
     else:
-        res['message'] = 'User does not exist!'
-        res['status'] = 'fail'
+        res['message'] = USER_NOT_EXIST
+        res['status'] = STATUS_FAIL
     
     return JsonResponse(res)
 
 def manipulateLogin(user, password, request):
     res = {}
     if check_password(password, user.password):
-        res['message'] = 'Successfully logged in!'
-        res['status'] = 'success'
+        res['message'] = USER_LOGIN_SUCCESS
+        res['status'] = STATUS_SUCCESS
         ####### register login  #######
         request.session['email'] = user.email
         request.session['is_login'] = user.role
-        if user.role == Role.User.value:
-            res['url'] = '/'
-        else:
+        if user.role == Role.Admin.value:
             res['url'] = '/admin_yuriimorigs_qweerrtrtty'
+        else:
+            res['url'] = '/'
     else:
-        res['message'] = 'Password does not match!'
-        res['status'] = 'fail'
+        res['message'] = PASSWORD_NOT_MATCH
+        res['status'] = STATUS_FAIL
 
     return res
 
@@ -107,8 +108,8 @@ def logoutUser(request):
     res = {}
     del request.session['is_login']
     del request.session['email']
-    res['message'] = 'Successfully logged out!'
-    res['status'] = 'success'
+    res['message'] = USER_LOGOUT_SUCCESS
+    res['status'] = STATUS_SUCCESS
     res['url'] = '/'
     return redirect('home:login_view')
 
@@ -122,13 +123,13 @@ def forgotPassword(request):
         email = data['email']
         user_existance = Users.objects.filter(email = email).exists()
         if user_existance:
-            res['message'] = 'Email successfully sent.. Please check your email box'
-            res['status'] = 'success'
+            res['message'] = USER_EMAIL_SENT
+            res['status'] = STATUS_SUCCESS
             user = Users.objects.get(email = email)
             activatePasswordEmail(request, user, email)
         else:
-            res['message'] = 'User does not exist!'
-            res['status'] = 'fail'
+            res['message'] = USER_NOT_EXIST
+            res['status'] = STATUS_FAIL
         return JsonResponse(res)
 
 def resetPassword(request):
@@ -139,7 +140,7 @@ def resetPassword(request):
         user = Users.objects.get(email = request.session.get('email'))
         user.password = make_password(password)
         user.save()
-        res['status']='success'
+        res['status'] = STATUS_SUCCESS
         return JsonResponse(res)
     else:
         context = {
@@ -173,15 +174,15 @@ def resendEmailVerification(request):
         email = request.session.get('email')
         user = Users.objects.get(email = email)
         activateEmailVerification(request, user, email)
-        res['status'] = 'success'
-        res['message'] = 'Successfully sent the email. Please check your email box!'
+        res['status'] = STATUS_SUCCESS
+        res['message'] = USER_EMAIL_SENT
     else:
-        res['status'] = 'fail'
-        res['message'] = 'Not registered user!'
+        res['status'] = STATUS_FAIL
+        res['message'] = NOT_REGISTERED_USER
 
 def activateEmailVerification(request, user, to_email):
     print(to_email)
-    mail_subject = 'Activate your user account.'
+    mail_subject = MAIL_SUBJECT
     message = render_to_string('home/template_email_verification.html', {
         'user': user.username,
         'domain': get_current_site(request).domain,
@@ -194,7 +195,7 @@ def activateEmailVerification(request, user, to_email):
 
 def activatePasswordEmail(request, user, to_email):
     print(to_email)
-    mail_subject = 'Activate your user account.'
+    mail_subject = MAIL_SUBJECT
     message = render_to_string('home/template_activate_password.html', {
         'user': user.username,
         'domain': get_current_site(request).domain,

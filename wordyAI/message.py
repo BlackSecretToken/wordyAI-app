@@ -37,3 +37,14 @@ STATUS_SUCCESS = "success"
 STATUS_FAIL = "fail"
 
 INVALID_API = "Invalid Api.. Please check again!"
+
+USER_EXIST = 'User already exists!'
+USER_CREATE_SUCCESS = 'User successfully created!'
+USER_REGISTER_SUCCESS = 'User successfully created!'
+USER_NOT_EXIST = 'User does not exist!'
+USER_LOGIN_SUCCESS = 'User successfully logged in!'
+PASSWORD_NOT_MATCH = 'Password does not match!'
+USER_LOGOUT_SUCCESS = 'User successfully logged out!'
+USER_EMAIL_SENT = 'Email successfully sent.. Please check your email box'
+NOT_REGISTERED_USER = 'Not registered user!'
+MAIL_SUBJECT = 'Activate your user account..'

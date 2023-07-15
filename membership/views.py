@@ -121,13 +121,13 @@ def create_customer(request):
             )        
             stripecustomer.save()
 
-            res['status'] = 'success'
+            res['status'] = STATUS_SUCCESS
             res['message'] = REQUEST_HANDLE_SUCCESS
         else:
-            res['status'] = 'fail'
+            res['status'] = STATUS_FAIL
             res['message'] = STRIPE_ERROR
     except Exception as e:
-        res['status'] = 'fail'
+        res['status'] = STATUS_FAIL
         res['message'] = STRIPE_ERROR
 
     return JsonResponse(res)
@@ -146,13 +146,13 @@ def create_card(request):
                 stripecustomer.customerid,
                 source = token_id,
             )
-            res['status'] = 'success'
+            res['status'] = STATUS_SUCCESS
             res['message'] = REQUEST_HANDLE_SUCCESS
         except Exception as e:
-            res['status'] = 'fail'
+            res['status'] = STATUS_FAIL
             res['message'] = STRIPE_ERROR
     else:
-        res['status'] = 'fail'
+        res['status'] = STATUS_FAIL
         res['message'] = CUSTOMER_NOT_REGISTERED
 
     return JsonResponse(res)
@@ -188,10 +188,10 @@ def set_card_primary(request):
                 stripecustomer.customerid,
                 default_source = card_id,
             )
-            res['status'] = 'success'
+            res['status'] = STATUS_SUCCESS
             res['message'] = REQUEST_HANDLE_SUCCESS
         except Exception as e:
-            res['status'] = 'fail'
+            res['status'] = STATUS_FAIL
             res['message'] = STRIPE_ERROR
     
     return JsonResponse(res)
@@ -210,10 +210,10 @@ def delete_card(request):
                 stripecustomer.customerid,
                 card_id,
             )
-            res['status'] = 'success'
+            res['status'] = STATUS_SUCCESS
             res['message'] = REQUEST_HANDLE_SUCCESS
         except Exception as e:
-            res['status'] = 'fail'
+            res['status'] = STATUS_FAIL
             res['message'] = STRIPE_ERROR
     
     return JsonResponse(res)
@@ -226,16 +226,16 @@ def do_free_trial(request):
         stripe_customer = StripeCustomer.objects.get(user=user)
         is_exist =  BillingHistory.objects.filter(stripecustomer = stripe_customer, method = BILLINGMETHOD.FREE.value).exists()
         if is_exist:
-            res['status'] = 'fail'
+            res['status'] = STATUS_FAIL
             res['message'] = REQUEST_HANDLE_REJECT
         else:
             billing_history = BillingHistory.objects.create(method = BILLINGMETHOD.FREE.value, stripecustomer = stripe_customer)
             billing_history.save()
-            res['status'] = 'success'
+            res['status'] = STATUS_SUCCESS
             res['message'] = REQUEST_HANDLE_SUCCESS
 
     else:
-        res['status'] = 'fail'
+        res['status'] = STATUS_FAIL
         res['message'] = CUSTOMER_NOT_REGISTERED  
 
     return JsonResponse(res)
@@ -277,7 +277,7 @@ def choose_plan(request):
                 object="card",
             )
             if (res.data == []):
-                res['status'] ='fail'
+                res['status'] = STATUS_FAIL
                 res['message'] = CARD_NOT_REGISTERED
                 return JsonResponse(res)
             else:
@@ -309,12 +309,12 @@ def choose_plan(request):
 
                         billing_history.save()
 
-                        res['status'] ='success'
+                        res['status'] = STATUS_SUCCESS
                         res['message'] = REQUEST_HANDLE_SUCCESS
                         return JsonResponse(res)
 
                     except Exception as e:
-                        res['status'] ='fail'
+                        res['status'] = STATUS_FAIL
                         res['message'] = STRIPE_ERROR
                         return JsonResponse(res)
 
@@ -338,22 +338,22 @@ def choose_plan(request):
 
                         billing_history.save()
                         
-                        res['status'] ='success'
+                        res['status'] = STATUS_SUCCESS
                         res['message'] = REQUEST_HANDLE_SUCCESS
                         return JsonResponse(res)
                     
                     except Exception as e:
-                        res['status'] ='fail'
+                        res['status'] = STATUS_FAIL
                         res['message'] = STRIPE_ERROR
                         return JsonResponse(res)
 
         except Exception as e:
-            res['status'] ='fail'
+            res['status'] = STATUS_FAIL
             res['message'] = STRIPE_ERROR
             return JsonResponse(res)
         
     else:
-        res['status'] ='fail'
+        res['status'] = STATUS_FAIL
         res['message'] = CUSTOMER_NOT_REGISTERED
         return JsonResponse(res)
     

@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from wordyAI.message import *
 from home.models import *
 from django.core import serializers
+from django.contrib.auth.hashers import make_password, check_password
 
 @admin_login_required
 def get_user(request):
@@ -64,7 +65,7 @@ def delete_user_data_by_id(request):
     user = Users.objects.filter(id = id).get()
     user.activate = DEACTIVATE
     user.save()
-    res['status'] = 'success'
+    res['status'] = STATUS_SUCCESS
     res['message'] = REQUEST_HANDLE_SUCCESS
     return JsonResponse(res)
 
@@ -78,7 +79,7 @@ def delete_user_bulk(request):
         user.activate = DEACTIVATE
         user.save()
 
-    res['status'] = 'success'
+    res['status'] = STATUS_SUCCESS
     res['message'] = CONTENT_DLETEL_SUCCESS
     return JsonResponse(res)
 
@@ -89,21 +90,44 @@ def activate_user_data_by_id(request):
     user = Users.objects.filter(id = id).get()
     user.activate = ACTIVATE
     user.save()
-    res['status'] = 'success'
+    res['status'] = STATUS_SUCCESS
     res['message'] = REQUEST_HANDLE_SUCCESS
     return JsonResponse(res)
 
-def toggle_user_role(request):
+def change_user_role(request):
     res = {}
     data = json.loads(request.body)
     id = data['id']
+    role = data['role']
     user = Users.objects.filter(id = id).get()
-    if  user.role == Role.Admin.value:
-        user.role = Role.User.value
-    else:
-        user.role = Role.Admin.value
+    user.role = role
+    
     user.save()
-    res['status'] = 'success'
+    res['status'] = STATUS_SUCCESS
     res['message'] = REQUEST_HANDLE_SUCCESS
     return JsonResponse(res)
+
+def create_user(request):
+    res = {}
+    data = json.loads(request.body)
+    username = data['username']
+    password = data['password']
+    email = data['email']
+    firstname = data['firstname']
+    lastname = data['lastname']
+    company = data['company']
+
+    user_existance = Users.objects.filter(email = email).exists()
+
+    if user_existance:
+        res['message'] = USER_EXIST
+        res['status'] = STATUS_FAIL
+    else:
+        user = Users.objects.create(username = username, email = email, password = make_password(password), activate = True, email_verification = False, gdpr = False, gender = Gender.NONE.value, firstname = firstname, lastname= lastname, organization = company)        
+        user.save()
+        res['message'] = USER_CREATE_SUCCESS
+        res['status'] = STATUS_SUCCESS
+
+    return JsonResponse(res)
+    
 

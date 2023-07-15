@@ -1,4 +1,5 @@
-const ROLE = ['User', 'Admin'];
+const ROLE = ['User', 'Admin', 'Test'];
+var selectedId;
 
 $(document).ready(async function(){
   $('#backdrop').hide();
@@ -19,6 +20,7 @@ $(document).ready(async function(){
         });
     }
   });
+
 
 })
 
@@ -77,6 +79,14 @@ async function getUserData() {
   $('#custom_data_table tbody').append(data);
   $('#custom_data_table').DataTable()
 
+  $('.bx-edit-alt').click(function(event) {
+    const x= event.clientX;
+    const y= event.clientY;
+    $('#role-card').removeClass('role-card-remover');
+    $('#role-card').css('left', `${x - 100}px`);
+    $('#role-card').css('top', `${y}px`);
+  })
+
 }
 
 async function showUser(id) {
@@ -92,7 +102,6 @@ async function showUser(id) {
       })
   })
   response = await(response.json());
-  console.log(response);
 
   data = '<div class="d-flex flex-row justify-content-between mb-4">' +
   '<p class="text-secondary fw700 ft24 mb-0">'+ 'User '+ response.id +'</p>' +
@@ -157,18 +166,23 @@ function deleteUserDataById(id){
       function() {} // confirm cancel           
   );
 }
+function toggleUserRole(id) {
+    selectedId = id;
+}
 
-function toggleUserRole(id){
-  confirmToast(' Are you going to change the user role?', 
+function changeUserRole(role){
+    $('#role-card').addClass('role-card-remover');
+  confirmToast(' Are you going to change the user role?',   
       function() { // confirm ok
-          fetch(admin_app_url + "/user/toggle_user_role", { 
+          fetch(admin_app_url + "/user/change_user_role", { 
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
                   'X-CSRFToken': getCookie('csrftoken'),
               },
               body: JSON.stringify({
-                  'id': parseInt(id),
+                  'id': parseInt(selectedId),
+                  'role': role,
               })
           }).then(response => response.json()).then(
               
@@ -257,7 +271,7 @@ function deleteUserBulk(){
                   'X-CSRFToken': getCookie('csrftoken'),
               },
               body: JSON.stringify({
-                  'ids': parseInt(ids),
+                  'ids': arr,
               })
           }).then(response => response.json()).then(
               
@@ -287,6 +301,118 @@ function deleteUserBulk(){
   );
 }
 
+function createUser() {
+    username= $('#username').val();
+    password= $('#password').val();
+    confirm_password = $('#confirm_password').val();
+    company= $('#company').val();
+    email= $('#email').val();
+    firstname= $('#firstname').val();
+    lastname= $('#lastname').val();
+
+    if (username === '')
+    {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+          }
+        toastr.error('Please insert username!');
+        return;
+    }
+    if (company === '')
+    {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+          }
+        toastr.error('Please insert company name!');
+        return;
+    }
+    if (email === '')
+    {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+          }
+        toastr.error('Please insert email address!');
+        return;
+    }
+    if (firstname === '')
+    {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+          }
+        toastr.error('Please insert firstname!');
+        return;
+    }
+    if (lastname === '')
+    {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+          }
+        toastr.error('Please insert lastname!');
+        return;
+    }
+    if (password === '')
+    {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+          }
+        toastr.error('Please insert password!');
+        return;
+    }
+    if (password !== confirm_password)
+    {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+          }
+        toastr.error('Password does not match!');
+        return;
+    }
+
+    fetch(admin_app_url + "/user/create_user", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+            'username': username,
+            'email': email,
+            'password': password,
+            'company': company,
+            'lastname': lastname,
+            'firstname': firstname
+        })
+    }).then(response => response.json()).then(
+        
+        response => {
+            if (response.status === 'success')
+            {
+                getUserData();
+                $('#username').val('');
+                $('#password').val('');
+                $('#confirm_password').val('');
+                $('#company').val('');
+                $('#email').val('');
+                $('#firstname').val('');
+                $('#lastname').val('');
+            }
+            else
+            {
+                toastr.options = {
+                    "positionClass": "toast-top-right",
+                    "timeOut": "3000"
+                  }
+                toastr.error(response.message);
+            }
+        }
+    )
+}
 
 function goBack(){
   $('#page1').show();

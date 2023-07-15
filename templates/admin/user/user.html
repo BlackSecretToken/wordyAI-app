@@ -9,8 +9,63 @@
 {% block wrapper %}
 <div class="page-wrapper">
     <div class="page-content">
+        <div id="role-card" class="card role-card-remover" style="position:fixed; width: 100px; height:113px; z-index: 100;">
+            <div class="role-card text-primary" onclick = "changeUserRole(1)">
+                User Role
+            </div>
+            <div class="dropdown-divider m-0"></div>
+            <div class="role-card text-primary" onclick = "changeUserRole(2)">
+                Admin Role
+            </div>
+            <div class="dropdown-divider m-0"></div>
+            <div class="role-card text-primary" onclick = "changeUserRole(3)">
+                Test Role
+            </div>
+        </div>
         <div class="card p-4" id="page1">
-            <p class="text-secondary fw700 ft24">User Data</p>
+            <div class="mb-4">
+                <p class="text-secondary fw700 ft24">Insert User Data</p>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="mb-1 fw600">Username</p>
+                            <input type="text" class="form-control"  name="username" id="username" required/>
+                        </div>
+                        <div class="mb-3 form-group">
+                            <p class="mb-1 fw600">Password</p>
+                            <input type="password" class="form-control"  name="password" id="password" required>
+                        </div>
+                        <div class="mb-3 form-group">
+                            <p class="mb-1 fw600">Confirm Password</p>
+                            <input type="password" class="form-control"  name="confirm_password" id="confirm_password" required>
+                        </div>
+                        <div class="mb-3 form-group">
+                            <p class="mb-1 fw600">Company</p>
+                            <input type="company" class="form-control" name="company" id="company" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="mb-1 fw600">Email</p>
+                            <input type="email" class="form-control" name="email" id="email" required>
+                        </div>
+                        <div class="mb-3 form-group">
+                            <p class="mb-1 fw600">First Name</p>
+                            <input type="text" class="form-control" name="firstname" id="firstname" required>
+                        </div>
+                        <div class="mb-3 form-group">
+                            <p class="mb-1 fw600">Last Name</p>
+                            <input type="text" class="form-control" name="lastname" id="lastname" required>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary px-4 py-2" onclick="createUser()">Create</button>
+            </div>
+            <div class="d-flex flex-row justify-content-between my-4 mb-4">
+                <p class="text-secondary fw700 ft24">User Data List</p>
+                <button class="btn btn-danger px-4 py-2" onclick="deleteUserBulk()">Delete</button>
+            </div>
             <div class="custom-table-div1">
                 <table id="custom_data_table" class="table table-hover custom-table-800">
                     <thead>
