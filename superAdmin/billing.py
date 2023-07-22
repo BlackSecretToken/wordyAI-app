@@ -58,3 +58,20 @@ def billing_get_subscription_data(request):
                   "email": stripecustomer.email,
                   "customerid": stripecustomer.customerid})
     return JsonResponse(res, safe = False)
+
+def billing_get_customer_data_by_user_id(request):
+    data = json.loads(request.body)
+    user_id = data['id']
+    res = []
+    user = Users.objects.filter(id = user_id).get()
+    is_exist = StripeCustomer.objects.filter(user = user).exists()
+    if is_exist:
+        stripeCustomer = StripeCustomer.objects.filter(user = user).get()
+        res.append({"id": stripeCustomer.id,
+                  "country": stripeCustomer.country,
+                  "email": stripeCustomer.email,
+                  "customerid": stripeCustomer.customerid,
+                  "bill_address": stripeCustomer.bill_address,
+                  "created_at": stripeCustomer.created_at,
+                  'updated_at': stripeCustomer.updated_at})
+    return JsonResponse(res, safe = False)
