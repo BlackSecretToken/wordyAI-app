@@ -120,8 +120,8 @@ async function showUser(id) {
 
 
   $('#page2').show();
-  $('#page2').empty();
-  $('#page2').append(data);
+  $('#page2_detail').empty();
+  $('#page2_detail').append(data);
   $('#page1').hide();
   $('#backdrop').hide();
   

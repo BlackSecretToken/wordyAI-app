@@ -1,5 +1,6 @@
 
-var stripe = Stripe('pk_test_51NHL0QGEiSoaHuuvoPClucNKSoS04g4NJhr2VCF05qhsxS6mlmZWOqXDeqR5a3tuh254sm3SOJZnuw9r1MTiD7di00RLiTxlPF');
+var stripe = Stripe('pk_test_51NEPvmA2amj9Vq4Wwg0AwR9LqTHJ1FlvyKMu0Wur1iup7h8AIhLk6DZ2IdWXJWQqLRzK6iTWYXNI82NsKpXomCCG00Dq88YF1M');
+
 var elements = stripe.elements();
 var card = elements.create('card', {
     style: {
