@@ -111,3 +111,23 @@ def get_subscription_status_id(request):
         except stripe.error.StripeError as e:
             print('Error:', e)
     return JsonResponse(res, safe = False)
+
+def get_invoice_data_id(request):
+    data = json.loads(request.body)
+    user_id = data['id']
+    res = []
+    user = Users.objects.filter(id = user_id).get()
+    is_exist = StripeCustomer.objects.filter(user = user).exists()
+    if is_exist:
+        stripeCustomer = StripeCustomer.objects.filter(user = user).get()
+        try:
+            # Retrieve all invoices for the specified customer
+            invoices = stripe.Invoice.list(
+                customer = stripeCustomer.customerid,
+            )
+            return JsonResponse(invoices)
+        except Exception as e:
+            # Handle any errors from the Stripe API
+            return JsonResponse(res)
+        
+    return JsonResponse(res)

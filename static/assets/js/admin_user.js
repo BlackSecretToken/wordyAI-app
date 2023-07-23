@@ -6,6 +6,7 @@ $(document).ready(async function(){
     $('#backdrop').hide();
     $('#custom_data_table').DataTable();
     $('#subscription_data_table').DataTable();
+    $('#invoice_data_table').DataTable();
 
     $('#backdrop').show();
     await getUserData();
@@ -13,12 +14,12 @@ $(document).ready(async function(){
 
     $('#main-check').change(function() {
         if ($('#main-check').prop('checked')){
-            $(':checkbox').each(function() {
+            $('.user_main:checkbox').each(function() {
                 $(this).prop('checked', true);
             });
         }
         else{
-            $(':checkbox').each(function() {
+            $('.user_main:checkbox').each(function() {
                 $(this).prop('checked', false);
             });
         }
@@ -74,7 +75,7 @@ async function getUserData() {
         }
         data = data + '<tr>'+
         '<td>'+
-        '<input type="checkbox" data_id="'+ response[i].id +'">' +
+        '<input type="checkbox" class="user_main" data_id="'+ response[i].id +'">' +
         '</td>' +
         '<td>' + response[i].username+ '</td>' +
         '<td>' + response[i].email + '</td>' +
@@ -217,7 +218,50 @@ async function showSubscription(id) {
 }
 
 async function showInvoice(id) {
+    
+    response = await fetch(admin_app_url + "/billing/get_invoice_data_id", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+            'id': id,
+        })
+    })
+    response = await(response.json());
+    response = response.data;
+    console.log(response);
 
+    $('#invoice_data_table').DataTable().destroy();
+    $('#invoice_data_table tbody').empty();
+
+    if (response !== undefined){
+        data ="";
+        for(let i=0;i<response.length;i++)
+        {
+            id = response[i].id;
+            amount = response[i].amount_paid / 100;
+            period_start = response[i].period_start;
+            period_end = response[i].period_end;
+            pdf = response[i].invoice_pdf;
+            currency = response[i].currency;
+            period_start = getDateString(period_start);
+            period_end = getDateString(period_end);
+            data = data + '<tr>'+
+            '<td>'+
+            '<input type="checkbox" data_id="'+id+'">' +
+            '</td>' +
+            '<td>' + id+ '</td>' +
+            '<td>' + amount  + currency + '</td>' +
+            '<td>' + period_start + '</td>' +
+            '<td><a href="'+ pdf + '" title="Download invoice pdf"><i class="bx bx-download text-primary ft24 cursor-pointer me-3"></i></a></td>'
+            '</tr>';
+        }   
+        $('#invoice_data_table tbody').append(data);
+        $('#invoice_data_table').DataTable();
+    }
+        
 }
 
 function deleteUserDataById(id){
