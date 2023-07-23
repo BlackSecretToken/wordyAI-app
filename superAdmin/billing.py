@@ -1,10 +1,13 @@
 import json
+import os
 from django.shortcuts import render
 from wordyAI.decorators import *
 from wordyAI.utils import *
 from django.http import JsonResponse
 from wordyAI.message import *
 from membership.models import *
+import stripe
+stripe.api_key = os.getenv("STRIPE_PRIVATE_KEY")
 
 @admin_login_required
 def billing_customer(request):
@@ -74,4 +77,37 @@ def billing_get_customer_data_by_user_id(request):
                   "bill_address": stripeCustomer.bill_address,
                   "created_at": stripeCustomer.created_at,
                   'updated_at': stripeCustomer.updated_at})
+    return JsonResponse(res, safe = False)
+
+def get_subscription_status_id(request):
+    data = json.loads(request.body)
+    user_id = data['id']
+    status = data['status']
+    res = []
+    user = Users.objects.filter(id = user_id).get()
+    is_exist = StripeCustomer.objects.filter(user = user).exists()
+    if is_exist:
+        stripeCustomer = StripeCustomer.objects.filter(user = user).get()
+        try:
+            subscriptions = stripe.Subscription.list(customer=stripeCustomer.customerid, status=status)
+            
+            for subscription in subscriptions.data:
+                product_id = subscription["items"]["data"][0]["price"]["id"]
+                
+                stripeProduct = StripeProduct.objects.filter(productid = product_id).get()
+                res.append({"id": subscription["id"],
+                  "status": subscription["status"],
+                  "created_at": subscription["created"],
+                  "currency": subscription["currency"],
+                  "period_end": subscription["current_period_end"],
+                  "period_start": subscription["current_period_start"],
+                  "canceled_at": subscription["canceled_at"],
+                  "product_price": stripeProduct.price,
+                  "product_mode": stripeProduct.mode,
+                  "product_name": stripeProduct.name,
+                  "product_type": subscription["items"]["data"][0]["price"]["type"]
+                  })
+
+        except stripe.error.StripeError as e:
+            print('Error:', e)
     return JsonResponse(res, safe = False)

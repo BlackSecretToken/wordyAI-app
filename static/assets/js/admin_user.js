@@ -1,9 +1,12 @@
 const ROLE = ['User', 'Admin', 'Test'];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 var selectedId;
 
 $(document).ready(async function(){
     $('#backdrop').hide();
     $('#custom_data_table').DataTable();
+    $('#subscription_data_table').DataTable();
+
     $('#backdrop').show();
     await getUserData();
     $('#backdrop').hide();
@@ -20,6 +23,11 @@ $(document).ready(async function(){
             });
         }
     });
+
+    $('#subscriptionStatus').change(async function() {
+        await showSubscription(selectedId);
+    });
+
 
 })
 
@@ -89,6 +97,7 @@ async function getUserData() {
 }
 
 async function showUser(id) {
+    selectedId = id;
     $('#backdrop').show();
     response = await fetch(admin_app_url + "/user/get_user_data_by_id", {
         method: 'POST',
@@ -166,7 +175,45 @@ async function showBilling(id) {
 }
 
 async function showSubscription(id) {
+    var status = $("#subscriptionStatus").val();
+    response = await fetch(admin_app_url + "/billing/get_subscription_status_id", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+            'id': id,
+            'status': status
+        })
+    })
+    response = await(response.json());
+    console.log(response);
+
     
+    $('#subscription_data_table').DataTable().destroy();
+    $('#subscription_data_table tbody').empty();
+
+    data ='';
+    for(let i=0;i<response.length;i++)
+    {
+        statusStyle = ''
+        data = data + '<tr>'+
+        '<td>'+
+        '<input type="checkbox" data_id="'+ response[i].id +'">' +
+        '</td>' +
+        '<td>' + response[i].id + '</td>' +
+        '<td>' + response[i].status + '</td>' +
+        '<td class="fw700">' + response[i].product_price + response[i].currency + '</td>' +
+        '<td>' + response[i].product_name+ ' Membership' + '</td>' +
+        '<td>' + getDateString(response[i].period_start) + '</td>' +
+        '<td>' + getDateString(response[i].period_end) + '</td>' +
+        '<td><i class="bx bx-show text-primary ft24 cursor-pointer me-3" onclick=""></td>'
+        '</tr>';
+    }   
+    $('#subscription_data_table tbody').append(data);
+    $('#subscription_data_table').DataTable();
+
 }
 
 async function showInvoice(id) {
@@ -463,4 +510,9 @@ function createUser() {
 function goBack(){
   $('#page1').show();
   $('#page2').hide();
+}
+
+function getDateString(date) {
+    date = new Date(date * 1000);
+    return `${months[date.getMonth()]} ${date.getDate()},${date.getFullYear()}`;
 }

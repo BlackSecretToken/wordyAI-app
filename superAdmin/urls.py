@@ -23,6 +23,7 @@ urlpatterns = [
     path('billing/get_customer_data', views.billing_get_customer_data, name="billing_get_customer_data"),
     path('billing/get_customer_data_by_id', views.billing_get_customer_data_by_id, name="billing_get_customer_data_by_id"),
     path('billing/get_customer_data_by_user_id', views.billing_get_customer_data_by_user_id, name="billing_get_customer_data_by_user_id"),
+    path('billing/get_subscription_status_id', views.get_subscription_status_id, name="get_subscription_status_id"),
 
     path('user/user', views.get_user, name="user_user_view"),
     path('user/get_user_data', views.get_user_data, name="get_user_data_view"),

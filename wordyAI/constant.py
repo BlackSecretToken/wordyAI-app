@@ -39,11 +39,24 @@ class BILLINGSTATUS(Enum):
     CREATE = 0
     UPDATE = 1
     DELETE = 2
+
     
 Role_User = 'User'
 Role_Admin = 'Admin'
 ProductStatus_Optimized = 'OPTIMIZED'
 ProductStatus_Unoptimized = 'UNOPTIMIZED'
 ProductStatus_Rejected = 'REJECTED'
+
+Subscription_Active = 'active'
+Subscription_Past_due = 'past_due'
+Subscription_Unpaid = 'unpaid'
+Subscription_Canceled = 'canceled'
+Subscription_Incomplete = 'incomplete'
+Subscription_Incomplete_expired = 'incomplete_expired'
+Subscription_Trialing = 'trialing'
+Subscription_Pased = 'pased'
+Subscription_All = 'all'
+Subscription_Ended = 'ended'
+
 ACTIVATE = 1
 DEACTIVATE = 0

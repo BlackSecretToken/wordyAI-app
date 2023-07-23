@@ -123,7 +123,42 @@
                         <p class="ft16">Not registered customer</p>
                     </div>
                     <div class="tab-pane fade" id="page2_subscription" role="tabpanel">
-                        
+                        <div class="d-flex flex-row justify-content-between mb-4">
+                            <div class="d-flex flex-row gap-2 align-items-center">
+                                <div class="ft20">Status:</div>
+                                <select class="form-select mx-1" aria-label="SubscriptionStatus" id="subscriptionStatus" name="subscriptionStatus">
+                                    <option selected value='all'>All</option>
+                                    <option value='active'>Active</option>
+                                    <option value='past_due'>Past Due</option>
+                                    <option value='unpaid'>Unpaid</option>
+                                    <option value='canceled'>Canceled</option>
+                                    <option value='incomplete'>Incomplete</option>
+                                    <option value='incomplete_expired'>Incomplete Expired</option>
+                                    <option value='trialing'>Trialing</option>
+                                    <option value='paused'>Paused</option>
+                                    <option value='ended'>Ended</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary px-3" onclick="goBack()">Back</button>
+                        </div>
+                        <div id="page2_subscription_body">
+                            <table id="subscription_data_table" class="table table-hover custom-table-800">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 5%"><input type="checkbox" id="subscription-check"></th>
+                                        <th style="width: 20%">Id</th>
+                                        <th style="width: 10%">Status</th>
+                                        <th style="width: 10%">Amount</th>
+                                        <th style="width: 15%">Type</th>
+                                        <th style="width: 15%">Start</th>
+                                        <th style="width: 15%">End</th>
+                                        <th style="width: 10%">Operation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="page2_invoice" role="tabpanel">
                         
