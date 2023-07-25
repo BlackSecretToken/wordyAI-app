@@ -128,6 +128,6 @@ def get_invoice_data_id(request):
             return JsonResponse(invoices)
         except Exception as e:
             # Handle any errors from the Stripe API
-            return JsonResponse(res)
+            return JsonResponse(res, safe = False)
         
-    return JsonResponse(res)
+    return JsonResponse(res, safe = False)
