@@ -2,14 +2,132 @@
 {% load static %}
 
 {% block style %}
-
+	<link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
 {% endblock style %}
 
 {% block wrapper %}
 		<div class="page-wrapper">
 			<div class="page-content">
-
-
+				<div class="row">
+					<div class="col-md-3 col-12">
+						<div class="card p-4">
+							<div class="text-dark ft24 fw700">
+								Congratulations {{username}} 🎉
+							</div>
+							<div class="ft16 fw700 text-secondary">Best seller of the month</div>
+							<div>
+								<button class="btn btn-primary px-4 py-2" style="margin-top:42px;">View Sales</button>
+							</div>
+						</div>
+						
+						
+					</div>
+					<div class="col-md-9 col-12">
+						<div class="card p-4">
+							<div class="ft24 fw700 text-dark mb-4">Statistics</div>
+							<div class="row mt-4">
+								<div class="col-md-3 col-6 d-flex flex-row align-items-center gap-3 mb-2">
+									<img src="{% static 'assets/images/dashboard/sales.png' %}" class="icon42" alt="statistics icon">
+									<div class="d-flex flex-column">
+										<div class="ft20 fw700 text-dark">{{sales_cnt}}</div>
+										<div class="ft16 text-secondary">Sales</div>
+									</div>
+								</div>
+								<div class="col-md-3 col-6 d-flex flex-row align-items-center gap-3 mb-2">
+									<img src="{% static 'assets/images/dashboard/customers.png' %}" class="icon42" alt="statistics icon">
+									<div class="d-flex flex-column">
+										<div class="ft20 fw700 text-dark">{{customers_cnt}}</div>
+										<div class="ft16 text-secondary">Customers</div>
+									</div>
+								</div>
+								<div class="col-md-3 col-6 d-flex flex-row align-items-center gap-3 mb-2">
+									<img src="{% static 'assets/images/dashboard/products.png' %}" class="icon42" alt="statistics icon">
+									<div class="d-flex flex-column">
+										<div class="ft20 fw700 text-dark">{{products_cnt}}</div>
+										<div class="ft16 text-secondary">Products</div>
+									</div>
+								</div>
+								<div class="col-md-3 col-6 d-flex flex-row align-items-center gap-3 mb-2">
+									<img src="{% static 'assets/images/dashboard/revenue.png' %}" class="icon42" alt="statistics icon">
+									<div class="d-flex flex-column">
+										<div class="ft20 fw700 text-dark">${{revenue}}</div>
+										<div class="ft16 text-secondary">Revenue</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-lg-3 col-12">
+						<div class="card p-4">
+							<div class="text-dark ft24 fw700">
+								Sales Report
+							</div>
+							<div id="sales_report_fragment">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-3 col-12">
+						<div class="card p-4">
+							<div class="text-dark ft24 fw700">
+								Earnings Report
+							</div>
+							<div id="earnings_report_fragment">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-3 col-12">
+						<div class="card p-4">
+							<div class="text-dark ft24 fw700">
+								Popular Products
+							</div>
+							<div id="popular_products_fragment" class="px-4">
+								{% for product in popular_products %}
+									<div class="d-flex flex-row gap-2">
+										<div class="text-secondary ft24 ">{{ product.Name }}</div>
+										<div class="text-primary ft24 fw700">{{ product.count }}</div>
+									</div>
+								{% endfor %} 
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-3 col-12">
+						<div class="card p-4">
+							<div class="text-dark ft24 fw700">
+								Sales by country
+							</div>
+							<div id="sales_by_country_fragment" class="px-4">
+								{% for sales in sales_by_country %}
+									<div class="d-flex flex-row gap-2">
+										<div class="text-secondary ft24 ">{{ sales.stripecustomer__country }}</div>
+										<div class="text-primary ft24 fw700">{{ sales.count }}</div>
+									</div>
+								{% endfor %} 
+							</div>
+						</div>
+					</div>	
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-12">
+						<div class="card p-4">
+							<div class="text-dark ft24 fw700">
+								Transactions
+							</div>
+							<div id="transactions_fragment">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-12">
+						<div class="card p-4">
+							<div class="text-dark ft24 fw700">
+								Last Invoices
+							</div>
+							<div id="invoices_fragment">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 {% endblock wrapper %}

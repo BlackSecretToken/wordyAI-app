@@ -565,6 +565,11 @@ input:checked+.slider:before {
     display: none !important;
 }
 
+.icon42 {
+    height: 42px;
+    width: 42px;
+}
+
 @keyframes dot-flashing {
     0% {
         background-color: #9880ff;

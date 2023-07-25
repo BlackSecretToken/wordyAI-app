@@ -4,6 +4,7 @@ from . import views
 app_name = 'superAdmin'
 urlpatterns = [
     path('', views.dashboard, name='dashboard_view'),
+
     path('helpcenter/insert_category', views.helpcenter_insert_category, name='helpcenter_insert_category_view'),
     path('helpcenter/insert_content', views.helpcenter_insert_content, name='helpcenter_insert_content_view'),
     path('helpcenter/get_category_data', views.helpcenter_get_category_data, name="helpcenter_get_category_data"),
