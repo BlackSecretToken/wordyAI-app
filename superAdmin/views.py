@@ -8,7 +8,11 @@ from helpcenter.models import *
 from .helpcenter import *
 from .billing import *
 from .user import *
+import stripe
+import datetime
 from django.db.models import Count
+
+stripe.api_key = os.getenv("STRIPE_PRIVATE_KEY")
 
 # Create your views here.
 @admin_login_required
@@ -56,7 +60,6 @@ def dashboard(request):
                   "count": popular_products['Enterprise']})
     
     ordered_products = sorted(products_set, key=lambda x: x['count'], reverse=True)
-    print(ordered_products)
     context['popular_products'] = ordered_products
 
     # get the sales report
@@ -67,7 +70,19 @@ def dashboard(request):
     context['sales_by_country'] = sales_by_country
 
     # get last invoices
-    
+    try:
+        invoices = stripe.Invoice.list(limit=5)
+        invoice_data = []
+        for invoice in invoices.data:
+            dt_object = datetime.datetime.fromtimestamp(invoice.created)
+            date = dt_object.date()
+            invoice_data.append({"id": invoice.id,
+                  "amount": str(invoice.amount_due / 100) + invoice.currency.upper(),
+                  "date": str(dt_object.date())})
+        context['invoices'] = invoice_data
+        
+    except Exception as e:
+        print(e)
 
     return render(request, 'admin/dashboard/dashboard.html', context)
 

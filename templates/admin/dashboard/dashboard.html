@@ -124,6 +124,24 @@
 								Last Invoices
 							</div>
 							<div id="invoices_fragment">
+								<table class="table">
+									<thead>
+										<tr>
+											<th scope="col">Id</th>
+											<th scope="col">First</th>
+											<th scope="col">Last</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for invoice in invoices %}
+											<tr>
+												<td>{{invoice.id}}</td>
+												<td>{{invoice.amount}}</td>
+												<td>{{invoice.date}}</td>
+											</tr>
+										{% endfor %} 
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
