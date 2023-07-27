@@ -97,7 +97,7 @@ function productOptimize(){
     contentStart = contentStart.replace(/<p>/g, "");
     contentStart = contentStart.replace(/<\/p>/g, " ");
 
-
+    console.log(contentStart);
     fetch("/product/productOptimize", { 
         method: 'POST',
         headers: {
