@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'wordyAI.wsgi.application'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'wordyai.io'  #'smtp.gmail.com'
 EMAIL_FROM = os.getenv('EMAIL_HOST')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
