@@ -17,6 +17,7 @@ def default_context(request, context):
     context['zipcode'] = user.zipcode
     context['language'] = user.language
     context['currency'] = user.currency
+    context['company'] = user.company
     context['phoneAlias'] = user.phone[-4:]
 
     if str(user.avatar) == '':

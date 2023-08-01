@@ -1,4 +1,6 @@
+var currentId;
 $(document).ready(async function(){
+    $('#editCustomer').hide();
     $('#backdrop').hide();
     $('#custom_data_table').DataTable();
     $('#backdrop').show();
@@ -33,12 +35,153 @@ async function getCustomerData() {
         '<td>' + response[i].customerid+ '</td>' +
         '<td>' + response[i].username + '</td>' +
         '<td>' + response[i].email + '</td>' +
-        '<td><i class="bx bx-show text-primary ft24 cursor-pointer me-3" onclick="showCustomer(' + response[i].id + ')"></i></td>' +
+        '<td><i class="bx bx-show text-primary ft24 cursor-pointer me-3" onclick="showCustomer(' + response[i].id + ')"></i><i title="edit customer data" class="bx bx-edit-alt text-primary ft24 cursor-pointer me-3" onclick=changeCustomerData("'+ response[i].id + '")></i></td>' +
         '</tr>';
     }   
     $('#custom_data_table tbody').append(data);
     $('#custom_data_table').DataTable()
 
+}
+
+function changeCustomerData(id) {
+    $('#editCustomer').show();
+    currentId = id;
+    fetch("/membership/get_customer_data_by_id", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+            'id': currentId,
+        })
+    }).then(response => response.json()).then(
+
+        response => {
+            console.log(response);
+            $('#taxid').val(response.taxid);
+            $('#vatnum').val(response.vatnum);
+            $('#mobile').val(response.mobile);
+            $('#bill_address').val(response.bill_address);
+            $('#state').val(response.state);
+            $('#zipcode').val(response.zipcode);
+            $('#countryList').val(response.country);
+        }
+    )
+}
+
+function updateCancel() {
+    $('#editCustomer').hide();
+}
+
+function updateCustomer() {
+    taxid = $('#taxid').val();
+    vatnum = $('#vatnum').val();
+    mobile = $('#mobile').val();
+    bill_address = $('#bill_address').val();
+    state = $('#state').val();
+    zipcode = $('#zipcode').val();
+    country = $('#countryList').val();
+
+    if (taxid === '') {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+        }
+        toastr.error("Please insert tax id..");
+        return;
+    }
+
+    if (vatnum === '') {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+        }
+        toastr.error("Please insert vat number..");
+        return;
+    }
+
+    if (mobile === '') {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+        }
+        toastr.error("Please insert mobile number..");
+        return;
+    }
+
+    if (country === '') {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+        }
+        toastr.error("Please select country..");
+        return;
+    }
+
+    if (bill_address === '') {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+        }
+        toastr.error("Please insert billing address..");
+        return;
+    }
+
+    if (state === '') {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+        }
+        toastr.error("Please insert state..");
+        return;
+    }
+
+    if (zipcode === '') {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+        }
+        toastr.error("Please insert zipcode..");
+        return;
+    }
+
+    fetch("/membership/update_customer", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+            'id': currentId,
+            'taxid': taxid,
+            'vatnum': vatnum,
+            'mobile': mobile,
+            'bill_address': bill_address,
+            'state': state,
+            'zipcode': zipcode,
+            'country': country
+        })
+    }).then(response => response.json()).then(
+
+        response => {
+            if (response.status === 'success') {
+                toastr.options = {
+                    "positionClass": "toast-top-right",
+                    "timeOut": "3000"
+                }
+                toastr.success(response.message);
+                window.location.href = admin_app_url + "/billing/customer";
+            }
+            else {
+                toastr.options = {
+                    "positionClass": "toast-top-right",
+                    "timeOut": "3000"
+                }
+                toastr.error(response.message);
+            }
+        }
+    )
 }
 
 async function showCustomer(id) {

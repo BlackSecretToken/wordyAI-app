@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from home.models import *
 from wordyAI.message import *
 from django.contrib.auth.hashers import make_password, check_password
-import json
+from membership.models import *
 # Create your views here.
 
 @admin_login_required
@@ -48,38 +48,39 @@ def profile(request):
 def billing(request):
     context = {}
     context = default_context(request, context)
+    stripeCustomers = StripeCustomer.objects.select_related('user').filter(user__email = request.session.get('email'))
+    if stripeCustomers.count() == 1:
+        for stripeCustomer in stripeCustomers:
+            context['billingAddress'] = stripeCustomer.bill_address
+            context['billingEmail'] = stripeCustomer.email
+            context['taxID'] = stripeCustomer.taxid
+            context['vatNumber'] = stripeCustomer.vatnum
+            context['mobileNumber'] = stripeCustomer.mobile
+            context['state'] = stripeCustomer.state
+            context['zipCode'] = stripeCustomer.zipcode
+            context['country'] = stripeCustomer.country
+            context['is_first'] = False
+    else:
+        context['is_first'] = True
     return render(request, 'user/billing.html', context)
 
 def saveProfile(request):
     image = request.FILES.get('image', None)
     firstname = request.POST.get('firstname')
-    phone = request.POST.get('phoneNumber')
-    state = request.POST.get('state')
+    company = request.POST.get('company')
     timezone = request.POST.get('timezone')
-    country = request.POST.get('country')
     lastname = request.POST.get('lastname')
-    organization = request.POST.get('organization')
-    address = request.POST.get('address')
-    zipcode = request.POST.get('zipcode')
-    language = request.POST.get('language')
     currency = request.POST.get('currency')
 
     user = Users.objects.get(email = request.session.get('email'))
     user.firstname = firstname
-    user.phone = phone
-    user.state = state
+    user.company = company
     user.timezone = timezone
-    user.country = country
     user.lastname = lastname
-    user.organization = organization
-    user.address = address
-    user.zipcode = zipcode
-    user.language = language
     user.currency = currency
     
     if image is not None:
         user.avatar = image  
-
     user.save()
 
     return redirect('user:profile_view')

@@ -9,6 +9,7 @@ urlpatterns = [
     path('join', views.join, name='join'),
     path('billing', views.billing, name="billing_view"),
     path('create_customer', views.create_customer, name="create_customer"),
+    path('update_customer', views.update_customer, name="update_customer"),
     path('create_card', views.create_card, name="create_card"),
     path('get_card_list', views.get_card_list, name="get_card_list"),
     path('set_card_primary', views.set_card_primary, name="set_card_primary"),

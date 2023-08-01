@@ -11,7 +11,60 @@
     <div class="page-content">
         <div class="card p-4" id="page1">
             <p class="text-secondary fw700 ft24">Stripe Customer</p>
-            <div class="custom-table-div1">
+            <div id="editCustomer">
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Billing Address</p>
+                            <input type="text" class="form-control" placeholder="Address" value="{{billingAddress}}" name="billingAddress" id="bill_address">
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Tax ID</p>
+                            <input type="text" class="form-control" placeholder="Enter Tax ID" value="{{taxID}}" name="taxID" id="taxid">
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Vat Number</p>
+                            <input type="text" class="form-control" placeholder="Enter Vat Number" value="{{vatNumber}}" name="vatNumber" id="vatnum">
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Mobile Number</p>
+                            <input type="text" class="form-control" placeholder="647 758 2648" value="{{mobileNumber}}" name="mobileNumber" id="mobile">
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Country</p>
+                            <select class="form-select mx-1" aria-label="Country" id="countryList" name="country">
+                                <option selected value=0>Select Country</option>
+                            </select>
+                        </div>    
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">State</p>
+                            <input type="text" class="form-control" placeholder="California" value="{{state}}" name="state" id="state">
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Zip Code</p>
+                            <input type="text" class="form-control" placeholder="63854" value="{{zipCode}}" name="zipCode" id="zipcode">
+                        </div>    
+                    </div>
+                </div>
+                <div class="d-flex flex-row">
+                    <button class="btn btn-primary px-4" onclick = "updateCustomer()">Save Changes</button>
+                    <button class="btn btn-danger px-4 ms-3" onclick = "updateCancel()">Cancel</button>
+                </div>
+            </div>
+            <div class="custom-table-div1 mt-4">
                 <table id="custom_data_table" class="table table-hover custom-table-800">
                     <thead>
                         <tr>
@@ -44,4 +97,15 @@
 {% block script %}
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     <script src="{% static 'assets/js/admin_billing_customer.js' %}"></script>
+    <script>
+        $.ajax({
+            url: "{% static 'assets/data/country.json' %}",
+            dataType: "json",
+            success: function(countryList) {
+                countryList.forEach((data) => {
+                    $('#countryList').append('<option value="'+data.name+'">'+ data.name + '</option>');    
+                })
+            }
+        });
+    </script>
 {% endblock script%}

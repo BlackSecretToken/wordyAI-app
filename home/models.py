@@ -28,6 +28,7 @@ class Users(models.Model):
     language = models.CharField(max_length=50, default = '')
     timezone = models.CharField(max_length=50, default = '')
     currency = models.CharField(max_length=50, default = '')
+    company = models.CharField(max_length=50, default = '')
     created_at = models.DateTimeField(auto_now_add = True, null= True)
     updated_at = models.DateTimeField(auto_now = True, null=True)
 

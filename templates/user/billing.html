@@ -75,68 +75,122 @@
         </div>
         <div class="card p-4">
             <p class="ft24 fwbold text-primary">Billing Address</p>
-            <div class="row">
-                <div class="col-md-6 col-12">
-                    <div class="mb-3 form-group">
-                        <p class="text-primary mb-1 fw600">Company Name</p>
-                        <input type="text" class="form-control" placeholder="PIXINVENT" name="companyName" id="company">
-                    </div>    
+            {% if is_first == True %}
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Billing Address</p>
+                            <input type="text" class="form-control" placeholder="Address" value="{{billingAddress}}" name="billingAddress" id="bill_address">
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Billing Email</p>
+                            <input type="text" class="form-control" placeholder="john.doe@gmail.com" value="{{billingEmail}}" name="billingEmail" id="email">
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Tax ID</p>
+                            <input type="text" class="form-control" placeholder="Enter Tax ID" value="{{taxID}}" name="taxID" id="taxid">
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Vat Number</p>
+                            <input type="text" class="form-control" placeholder="Enter Vat Number" value="{{vatNumber}}" name="vatNumber" id="vatnum">
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Mobile Number</p>
+                            <input type="text" class="form-control" placeholder="647 758 2648" value="{{mobileNumber}}" name="mobileNumber" id="mobile">
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Country</p>
+                            <select class="form-select mx-1" aria-label="Country" id="countryList" name="country">
+                                <option selected value=0>Select Country</option>
+                            </select>
+                        </div>    
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">State</p>
+                            <input type="text" class="form-control" placeholder="California" value="{{state}}" name="state" id="state">
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Zip Code</p>
+                            <input type="text" class="form-control" placeholder="63854" value="{{zipCode}}" name="zipCode" id="zipcode">
+                        </div>    
+                    </div>
                 </div>
-                <div class="col-md-6 col-12">
-                    <div class="mb-3 form-group">
-                        <p class="text-primary mb-1 fw600">Billing Email</p>
-                        <input type="text" class="form-control" placeholder="john.doe@gmail.com" name="billingEmail" id="email">
-                    </div>    
+            {% else %}
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Billing Address</p>
+                            <input type="text" class="form-control" placeholder="Address" value="{{billingAddress}}" name="billingAddress" id="bill_address" readonly>
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Billing Email</p>
+                            <input type="text" class="form-control" placeholder="john.doe@gmail.com" value="{{billingEmail}}" name="billingEmail" id="email" readonly>
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Tax ID</p>
+                            <input type="text" class="form-control" placeholder="Enter Tax ID" value="{{taxID}}" name="taxID" id="taxid" readonly>
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Vat Number</p>
+                            <input type="text" class="form-control" placeholder="Enter Vat Number" value="{{vatNumber}}" name="vatNumber" id="vatnum" readonly>
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Mobile Number</p>
+                            <input type="text" class="form-control" placeholder="647 758 2648" value="{{mobileNumber}}" name="mobileNumber" id="mobile" readonly>
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Country</p>
+                            <select class="form-select mx-1" aria-label="Country" id="countryList" name="country" hidden>
+                                <option selected value=0>Select Country</option>
+                            </select>
+                            <input type="text" class="form-control" placeholder="California" value="{{country}}" name="country" id="country" readonly>
+                        </div>    
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">State</p>
+                            <input type="text" class="form-control" placeholder="California" value="{{state}}" name="state" id="state" readonly>
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Zip Code</p>
+                            <input type="text" class="form-control" placeholder="63854" value="{{zipCode}}" name="zipCode" id="zipcode" readonly>
+                        </div>    
+                    </div>
                 </div>
-                <div class="col-md-6 col-12">
-                    <div class="mb-3 form-group">
-                        <p class="text-primary mb-1 fw600">Tax ID</p>
-                        <input type="text" class="form-control" placeholder="Enter Tax ID" name="taxID" id="taxid">
-                    </div>    
+            {% endif %} 
+            {% if is_first == True %}
+                <div class="d-flex flex-row">
+                    <button class="btn btn-primary px-4" onclick = "crateCustomer()">Save Changes</button>
+                    {% comment %} <button class="btn btn-danger px-4 ms-3">Discard</button> {% endcomment %}
                 </div>
-                <div class="col-md-6 col-12">
-                    <div class="mb-3 form-group">
-                        <p class="text-primary mb-1 fw600">Vat Number</p>
-                        <input type="text" class="form-control" placeholder="Enter Vat Number" name="vatNumber" id="vatnum">
-                    </div>    
-                </div>
-                <div class="col-md-6 col-12">
-                    <div class="mb-3 form-group">
-                        <p class="text-primary mb-1 fw600">Mobile Number</p>
-                        <input type="text" class="form-control" placeholder="647 758 2648" name="mobileNumber" id="mobile">
-                    </div>    
-                </div>
-                <div class="col-md-6 col-12">
-                    <div class="mb-3 form-group">
-                        <p class="text-primary mb-1 fw600">Country</p>
-                        <select class="form-select mx-1" aria-label="Country" id="countryList" name="country">
-                            <option selected value=0>Select Country</option>
-                        </select>
-                    </div>    
-                </div>
-                <div class="col-12">
-                    <div class="mb-3 form-group">
-                        <p class="text-primary mb-1 fw600">Billing Address</p>
-                        <input type="text" class="form-control" placeholder="Address" name="address" id="bill_address">
-                    </div>    
-                </div>
-                <div class="col-md-6 col-12">
-                    <div class="mb-3 form-group">
-                        <p class="text-primary mb-1 fw600">State</p>
-                        <input type="text" class="form-control" placeholder="California" name="state" id="state">
-                    </div>    
-                </div>
-                <div class="col-md-6 col-12">
-                    <div class="mb-3 form-group">
-                        <p class="text-primary mb-1 fw600">Zip Code</p>
-                        <input type="text" class="form-control" placeholder="63854" name="zipCode" id="zipcode">
-                    </div>    
-                </div>
-            </div>
-            <div class="d-flex flex-row">
-                <button class="btn btn-primary px-4" onclick = "crateCustomer()">Save Changes</button>
-                <button class="btn btn-danger px-4 ms-3">Discard</button>
-            </div>
+            {% endif %}            
         </div>
         <div class="card p-4">
             <p class="ft24 fwbold text-primary">Download Invoice</p>

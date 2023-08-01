@@ -87,7 +87,6 @@ def checkout(request):
 def create_customer(request):
     res = {}
     data = json.loads(request.body)
-    company = data['company']
     email = data['email']
     taxid = data['taxid']
     vatnum = data['vatnum']
@@ -108,7 +107,6 @@ def create_customer(request):
             customerid = response.id 
             stripecustomer = StripeCustomer.objects.create(
                 customerid = customerid,
-                company = company,
                 email = email,
                 taxid = taxid,
                 vatnum = vatnum,
@@ -130,6 +128,33 @@ def create_customer(request):
         res['status'] = STATUS_FAIL
         res['message'] = STRIPE_ERROR
 
+    return JsonResponse(res)
+
+def update_customer(request):
+    res = {}
+    data = json.loads(request.body)
+    id = data['id']
+    taxid = data['taxid']
+    vatnum = data['vatnum']
+    mobile = data['mobile']
+    country = data['country']
+    bill_address = data['bill_address']
+    state = data['state']
+    zipcode = data['zipcode']
+
+    user = Users.objects.get(email = request.session.get('email'))
+    stripeCustomer = StripeCustomer.objects.get(id = id)
+    stripeCustomer.taxid = taxid
+    stripeCustomer.vatnum = vatnum
+    stripeCustomer.mobile = mobile
+    stripeCustomer.country = country
+    stripeCustomer.bill_address = bill_address
+    stripeCustomer.state = state
+    stripeCustomer.zipcode = zipcode
+    stripeCustomer.save()
+
+    res['status'] = STATUS_SUCCESS
+    res['message'] = REQUEST_HANDLE_SUCCESS
     return JsonResponse(res)
 
 def create_card(request):

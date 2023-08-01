@@ -286,7 +286,6 @@ function deleteCard(id) {
 }
 
 function crateCustomer() {
-    company = $('#company').val();
     email = $('#email').val();
     taxid = $('#taxid').val();
     vatnum = $('#vatnum').val();
@@ -295,15 +294,6 @@ function crateCustomer() {
     state = $('#state').val();
     zipcode = $('#zipcode').val();
     country = $('#countryList').val();
-
-    if (company === '') {
-        toastr.options = {
-            "positionClass": "toast-top-right",
-            "timeOut": "3000"
-        }
-        toastr.error("Please insert company name..");
-        return;
-    }
 
     if (email === '') {
         toastr.options = {
@@ -384,7 +374,6 @@ function crateCustomer() {
             'X-CSRFToken': getCookie('csrftoken'),
         },
         body: JSON.stringify({
-            'company': company,
             'email': email,
             'taxid': taxid,
             'vatnum': vatnum,
@@ -403,6 +392,7 @@ function crateCustomer() {
                     "timeOut": "3000"
                 }
                 toastr.success(response.message);
+                window.location.href = "/user/billing";
             }
             else {
                 toastr.options = {

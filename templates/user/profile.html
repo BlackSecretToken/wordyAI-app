@@ -69,45 +69,6 @@
                                                 Please enter a first name.
                                             </div>
                                         </div>
-                                        <div class="mb-3 form-group">
-                                            <p class="text-primary mb-1 fw600">Email</p>
-                                            <input type="email" class="form-control" value="{{email}}" name="email" required>
-                                            <div class="invalid-feedback">
-                                                Please enter a valid email address.
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 form-group">
-                                            <p class="text-primary mb-1 fw600">Phone Number</p>
-                                            <input type="text" class="form-control" value="{{phoneNumber}}" name="phoneNumber" required/>
-                                            <div class="invalid-feedback">
-                                                Please enter a phone number.
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 form-group">
-                                            <p class="text-primary mb-1 fw600">State</p>
-                                            <input type="text" class="form-control" value="{{state}}" name="state" required/>
-                                            <div class="invalid-feedback">
-                                                Please enter a state.
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 form-group">
-                                            <p class="text-primary mb-1 fw600">Country</p>
-                                            <select class="form-select mx-1" aria-label="Country" id="countryList" name="country">
-                                                <option selected value=0>Select Country</option>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                Please enter a country.
-                                            </div>
-                                        </div>
-                                        <div class="mb-3 form-group">
-                                            <p class="text-primary mb-1 fw600">Timezone</p>
-                                            <select class="form-select mx-1" aria-label="Timezone" id="timezoneList" name="timezone">
-                                                <option selected value=0>Select Timezone</option>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                Please enter a timezone.
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <div class="mb-3 form-group">
@@ -117,34 +78,34 @@
                                                 Please enter a last name.
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
                                         <div class="mb-3 form-group">
-                                            <p class="text-primary mb-1 fw600">Organization</p>
-                                            <input type="text" class="form-control" value="{{organization}}" name="organization" required>
+                                            <p class="text-primary mb-1 fw600">Company</p>
+                                            <input type="text" class="form-control" value="{{company}}" name="company" required/>
                                             <div class="invalid-feedback">
-                                                Please enter a organization.
+                                                Please enter a company.
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
                                         <div class="mb-3 form-group">
-                                            <p class="text-primary mb-1 fw600">Address</p>
-                                            <input type="text" class="form-control" value="{{address}}" name="address" required/>
+                                            <p class="text-primary mb-1 fw600">Email</p>
+                                            <input type="email" class="form-control" value="{{email}}" name="email" required>
                                             <div class="invalid-feedback">
-                                                Please enter an address.
+                                                Please enter a valid email address.
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
                                         <div class="mb-3 form-group">
-                                            <p class="text-primary mb-1 fw600">Zip Code</p>
-                                            <input type="text" class="form-control" value="{{zipcode}}" name="zipcode" required/>
-                                            <div class="invalid-feedback">
-                                                Please enter a zip code.
-                                            </div>
+                                            <p class="text-primary mb-1 fw600">Timezone</p>
+                                            <select class="form-select mx-1" aria-label="Timezone" id="timezoneList" name="timezone">
+                                                <option selected value=0>Select Timezone</option>
+                                            </select>
                                         </div>
-                                        <div class="mb-3 form-group">
-                                            <p class="text-primary mb-1 fw600">Language</p>
-                                            <input type="text" class="form-control" value="{{language}}" name="language" required/>
-                                            <div class="invalid-feedback">
-                                                Please enter language.
-                                            </div>
-                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
                                         <div class="mb-3 form-group">
                                             <p class="text-primary mb-1 fw600">Currency</p>
                                             <select class="form-select mx-1" aria-label="Currency" id="currencyList" name="currency">
@@ -187,7 +148,7 @@
     <script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>
     <script src="{% static 'assets/js/product_download_status.js' %}"></script>
     <script>
-        $.ajax({
+        {% comment %} $.ajax({
             url: "{% static 'assets/data/country.json' %}",
             dataType: "json",
             success: function(countryList) {
@@ -195,7 +156,7 @@
                     $('#countryList').append('<option value="'+data.name+'">'+ data.name + '</option>');    
                 })
             }
-        });
+        }); {% endcomment %}
 
         $.ajax({
             url: "{% static 'assets/data/timezone.json' %}",
