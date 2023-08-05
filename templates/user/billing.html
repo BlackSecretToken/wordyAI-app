@@ -79,86 +79,117 @@
                 <div class="row">
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
-                            <p class="text-primary mb-1 fw600">Billing Address</p>
-                            <input type="text" class="form-control" placeholder="Address" value="{{billingAddress}}" name="billingAddress" id="bill_address">
+                            <p class="text-primary mb-1 fw600">First Name</p>
+                            <input type="text" class="form-control" value="{{firstName}}" name="firstName" id="first_name" readonly>
                         </div>    
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
-                            <p class="text-primary mb-1 fw600">Billing Email</p>
-                            <input type="text" class="form-control" placeholder="john.doe@gmail.com" value="{{billingEmail}}" name="billingEmail" id="email">
+                            <p class="text-primary mb-1 fw600">Last Name</p>
+                            <input type="text" class="form-control" value="{{lastName}}" name="lastName" id="last_name" readonly>
                         </div>    
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
-                            <p class="text-primary mb-1 fw600">Tax ID</p>
-                            <input type="text" class="form-control" placeholder="Enter Tax ID" value="{{taxID}}" name="taxID" id="taxid">
+                            <p class="text-primary mb-1 fw600">Company/Organisation</p>
+                            <input type="text" class="form-control" value="{{company}}" name="company" id="company" readonly>
                         </div>    
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
-                            <p class="text-primary mb-1 fw600">Vat Number</p>
-                            <input type="text" class="form-control" placeholder="Enter Vat Number" value="{{vatNumber}}" name="vatNumber" id="vatnum">
+                            <p class="text-primary mb-1 fw600">Email Address</p>
+                            <input type="text" class="form-control" value="{{email}}" name="email" id="email" readonly>
                         </div>    
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
-                            <p class="text-primary mb-1 fw600">Mobile Number</p>
+                            <p class="text-primary mb-1 fw600">Telephone number</p>
                             <input type="text" class="form-control" placeholder="647 758 2648" value="{{mobileNumber}}" name="mobileNumber" id="mobile">
                         </div>    
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
-                            <p class="text-primary mb-1 fw600">Country</p>
+                            <p class="text-primary mb-1 fw600">Position <span class="text-danger">*</span></p>
+                            <input type="text" class="form-control" placeholder="Enter a position" value="{{position}}" name="position" id="position">
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Address <span class="text-danger">*</span></p>
+                            <input type="text" class="form-control" placeholder="Enter billing address" value="{{billingAddress}}" name="billingAddress" id="bill_address">
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Country <span class="text-danger">*</span></p>
                             <select class="form-select mx-1" aria-label="Country" id="countryList" name="country">
                                 <option selected value=0>Select Country</option>
                             </select>
                         </div>    
                     </div>
-
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
-                            <p class="text-primary mb-1 fw600">State</p>
+                            <p class="text-primary mb-1 fw600">City <span class="text-danger">*</span></p>
+                            <input type="text" class="form-control" placeholder="Enter Vat Number" value="{{city}}" name="city" id="city">
+                        </div>    
+                    </div>
+                    
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">State <span class="text-danger">*</span></p>
                             <input type="text" class="form-control" placeholder="California" value="{{state}}" name="state" id="state">
                         </div>    
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
-                            <p class="text-primary mb-1 fw600">Zip Code</p>
+                            <p class="text-primary mb-1 fw600">Zip Code <span class="text-danger">*</span></p>
                             <input type="text" class="form-control" placeholder="63854" value="{{zipCode}}" name="zipCode" id="zipcode">
                         </div>    
                     </div>
+                    <div class="text-danger mb-3 fw-bold">* Required fields</div>
                 </div>
             {% else %}
                 <div class="row">
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
-                            <p class="text-primary mb-1 fw600">Billing Address</p>
-                            <input type="text" class="form-control" placeholder="Address" value="{{billingAddress}}" name="billingAddress" id="bill_address" readonly>
+                            <p class="text-primary mb-1 fw600">First Name</p>
+                            <input type="text" class="form-control" value="{{firstName}}" name="firstName" id="first_name" readonly>
                         </div>    
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
-                            <p class="text-primary mb-1 fw600">Billing Email</p>
-                            <input type="text" class="form-control" placeholder="john.doe@gmail.com" value="{{billingEmail}}" name="billingEmail" id="email" readonly>
+                            <p class="text-primary mb-1 fw600">Last Name</p>
+                            <input type="text" class="form-control" value="{{lastName}}" name="lastName" id="last_name" readonly>
                         </div>    
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
-                            <p class="text-primary mb-1 fw600">Tax ID</p>
-                            <input type="text" class="form-control" placeholder="Enter Tax ID" value="{{taxID}}" name="taxID" id="taxid" readonly>
+                            <p class="text-primary mb-1 fw600">Company/Organisation</p>
+                            <input type="text" class="form-control" value="{{company}}" name="company" id="company" readonly>
                         </div>    
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
-                            <p class="text-primary mb-1 fw600">Vat Number</p>
-                            <input type="text" class="form-control" placeholder="Enter Vat Number" value="{{vatNumber}}" name="vatNumber" id="vatnum" readonly>
+                            <p class="text-primary mb-1 fw600">Email Address</p>
+                            <input type="text" class="form-control" value="{{email}}" name="email" id="email" readonly>
                         </div>    
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
-                            <p class="text-primary mb-1 fw600">Mobile Number</p>
-                            <input type="text" class="form-control" placeholder="647 758 2648" value="{{mobileNumber}}" name="mobileNumber" id="mobile" readonly>
+                            <p class="text-primary mb-1 fw600">Telephone number</p>
+                            <input type="text" class="form-control" value="{{mobileNumber}}" name="mobileNumber" id="mobile" readonly>
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Position</p>
+                            <input type="text" class="form-control"  value="{{position}}" name="position" id="position" readonly>
+                        </div>    
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">Address</p>
+                            <input type="text" class="form-control" value="{{billingAddress}}" name="billingAddress" id="bill_address" readonly>
                         </div>    
                     </div>
                     <div class="col-md-6 col-12">
@@ -167,20 +198,26 @@
                             <select class="form-select mx-1" aria-label="Country" id="countryList" name="country" hidden>
                                 <option selected value=0>Select Country</option>
                             </select>
-                            <input type="text" class="form-control" placeholder="California" value="{{country}}" name="country" id="country" readonly>
+                            <input type="text" class="form-control" value="{{country}}" name="country" id="country" readonly>
                         </div>    
                     </div>
-
+                    <div class="col-md-6 col-12">
+                        <div class="mb-3 form-group">
+                            <p class="text-primary mb-1 fw600">City</p>
+                            <input type="text" class="form-control" value="{{city}}" name="city" id="city" readonly>
+                        </div>    
+                    </div>
+                    
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
                             <p class="text-primary mb-1 fw600">State</p>
-                            <input type="text" class="form-control" placeholder="California" value="{{state}}" name="state" id="state" readonly>
+                            <input type="text" class="form-control" value="{{state}}" name="state" id="state" readonly>
                         </div>    
                     </div>
                     <div class="col-md-6 col-12">
                         <div class="mb-3 form-group">
                             <p class="text-primary mb-1 fw600">Zip Code</p>
-                            <input type="text" class="form-control" placeholder="63854" value="{{zipCode}}" name="zipCode" id="zipcode" readonly>
+                            <input type="text" class="form-control" value="{{zipCode}}" name="zipCode" id="zipcode" readonly>
                         </div>    
                     </div>
                 </div>

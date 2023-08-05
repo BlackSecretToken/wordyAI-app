@@ -20,9 +20,11 @@ class StripeCustomer(models.Model):
     vatnum = models.CharField(max_length = 100)
     mobile = models.CharField(max_length = 20)
     country = models.CharField(max_length = 30)
-    bill_address = models.CharField(max_length = 50)
+    bill_address = models.CharField(max_length = 150)
     state = models.CharField(max_length = 50)
     zipcode = models.CharField(max_length = 50)
+    city = models.CharField(max_length = 50, null=True)
+    position = models.CharField(max_length =50, null=True)
     created_at = models.DateTimeField(auto_now_add = True, null= True)
     updated_at = models.DateTimeField(auto_now = True, null=True)
 

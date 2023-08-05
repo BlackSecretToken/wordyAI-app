@@ -8,11 +8,11 @@ def default_context(request, context):
     context['email'] = user.email
     context['phone'] = user.phone
     context['address'] = user.address
-    context['firstname'] = user.firstname
+    context['firstName'] = user.firstname
     context['state'] = user.state
     context['timezone'] = user.timezone
     context['country'] = user.country
-    context['lastname'] = user.lastname
+    context['lastName'] = user.lastname
     context['organization'] = user.organization
     context['zipcode'] = user.zipcode
     context['language'] = user.language

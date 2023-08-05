@@ -87,9 +87,8 @@ def checkout(request):
 def create_customer(request):
     res = {}
     data = json.loads(request.body)
-    email = data['email']
-    taxid = data['taxid']
-    vatnum = data['vatnum']
+    city = data['city']
+    position = data['position']
     mobile = data['mobile']
     country = data['country']
     bill_address = data['bill_address']
@@ -100,16 +99,16 @@ def create_customer(request):
     try:
         response = stripe.Customer.create(
             name = user.username,
-            email = email,
+            email = user.email,
             description= WORDYAI_CUSTOMER_CREATE_DESCRIPTION,
         )
         if (response.id):
             customerid = response.id 
             stripecustomer = StripeCustomer.objects.create(
                 customerid = customerid,
-                email = email,
-                taxid = taxid,
-                vatnum = vatnum,
+                email = user.email,
+                city = city,
+                position = position,
                 mobile = mobile,
                 country = country,
                 bill_address = bill_address,
@@ -134,8 +133,8 @@ def update_customer(request):
     res = {}
     data = json.loads(request.body)
     id = data['id']
-    taxid = data['taxid']
-    vatnum = data['vatnum']
+    city = data['city']
+    position = data['position']
     mobile = data['mobile']
     country = data['country']
     bill_address = data['bill_address']
@@ -144,8 +143,8 @@ def update_customer(request):
 
     user = Users.objects.get(email = request.session.get('email'))
     stripeCustomer = StripeCustomer.objects.get(id = id)
-    stripeCustomer.taxid = taxid
-    stripeCustomer.vatnum = vatnum
+    stripeCustomer.city = city
+    stripeCustomer.position = position
     stripeCustomer.mobile = mobile
     stripeCustomer.country = country
     stripeCustomer.bill_address = bill_address
@@ -451,8 +450,8 @@ def get_customer_data_by_id(request):
         "country": stripecustomer.country,
         "state": stripecustomer.state,
         "zipcode": stripecustomer.zipcode,
-        "taxid": stripecustomer.taxid,
-        "vatnum": stripecustomer.vatnum,
+        "city": stripecustomer.city,
+        "position": stripecustomer.position,
         "bill_address": stripecustomer.bill_address,
         "mobile": stripecustomer.mobile,
         "created_at": stripecustomer.created_at,

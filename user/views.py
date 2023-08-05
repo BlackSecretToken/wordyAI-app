@@ -53,8 +53,8 @@ def billing(request):
         for stripeCustomer in stripeCustomers:
             context['billingAddress'] = stripeCustomer.bill_address
             context['billingEmail'] = stripeCustomer.email
-            context['taxID'] = stripeCustomer.taxid
-            context['vatNumber'] = stripeCustomer.vatnum
+            context['city'] = stripeCustomer.city
+            context['position'] = stripeCustomer.position
             context['mobileNumber'] = stripeCustomer.mobile
             context['state'] = stripeCustomer.state
             context['zipCode'] = stripeCustomer.zipcode

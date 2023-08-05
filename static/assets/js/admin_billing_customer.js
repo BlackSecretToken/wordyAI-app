@@ -59,8 +59,8 @@ function changeCustomerData(id) {
 
         response => {
             console.log(response);
-            $('#taxid').val(response.taxid);
-            $('#vatnum').val(response.vatnum);
+            $('#position').val(response.position);
+            $('#city').val(response.city);
             $('#mobile').val(response.mobile);
             $('#bill_address').val(response.bill_address);
             $('#state').val(response.state);
@@ -75,38 +75,29 @@ function updateCancel() {
 }
 
 function updateCustomer() {
-    taxid = $('#taxid').val();
-    vatnum = $('#vatnum').val();
+    city = $('#city').val();
+    position = $('#position').val();
     mobile = $('#mobile').val();
     bill_address = $('#bill_address').val();
     state = $('#state').val();
     zipcode = $('#zipcode').val();
     country = $('#countryList').val();
 
-    if (taxid === '') {
+    if (position === '') {
         toastr.options = {
             "positionClass": "toast-top-right",
             "timeOut": "3000"
         }
-        toastr.error("Please insert tax id..");
+        toastr.error("Please insert position..");
         return;
     }
 
-    if (vatnum === '') {
+    if (city === '') {
         toastr.options = {
             "positionClass": "toast-top-right",
             "timeOut": "3000"
         }
-        toastr.error("Please insert vat number..");
-        return;
-    }
-
-    if (mobile === '') {
-        toastr.options = {
-            "positionClass": "toast-top-right",
-            "timeOut": "3000"
-        }
-        toastr.error("Please insert mobile number..");
+        toastr.error("Please insert city..");
         return;
     }
 
@@ -154,8 +145,8 @@ function updateCustomer() {
         },
         body: JSON.stringify({
             'id': currentId,
-            'taxid': taxid,
-            'vatnum': vatnum,
+            'city': city,
+            'position': position,
             'mobile': mobile,
             'bill_address': bill_address,
             'state': state,
@@ -206,10 +197,10 @@ async function showCustomer(id) {
     '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Email: </span>' + response.email +'</p>' +
     '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Company: </span>' + response.company +'</p>' +
     '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Country: </span>' + response.country +'</p>'+
+    '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">City: </span>' + response.city +'</p>'+
     '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">State: </span>' + response.state +'</p>'+
     '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Zipcode: </span>' + response.zipcode +'</p>'+
-    '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Taxid: </span>' + response.taxid +'</p>'+
-    '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Vatnum: </span>' + response.vatnum +'</p>'+
+    '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Position: </span>' + response.position +'</p>'+
     '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">BillAddress: </span>' + response.bill_address +'</p>'+
     '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Mobile: </span>' + response.mobile +'</p>'+
     '<p class="text-secondary fw700 ft18 ms-3">'+ '<span class="text-primary fw700 ft18">Created Time: </span>' + new Date(Date.parse(response.created_at)) +'</p>'+

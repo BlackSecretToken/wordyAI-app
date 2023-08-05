@@ -286,48 +286,29 @@ function deleteCard(id) {
 }
 
 function crateCustomer() {
-    email = $('#email').val();
-    taxid = $('#taxid').val();
-    vatnum = $('#vatnum').val();
     mobile = $('#mobile').val();
+    city = $('#city').val();
+    position = $('#position').val();
     bill_address = $('#bill_address').val();
     state = $('#state').val();
     zipcode = $('#zipcode').val();
     country = $('#countryList').val();
 
-    if (email === '') {
+    if (city === '') {
         toastr.options = {
             "positionClass": "toast-top-right",
             "timeOut": "3000"
         }
-        toastr.error("Please insert billing email address..");
+        toastr.error("Please insert city..");
         return;
     }
 
-    if (taxid === '') {
+    if (position === '') {
         toastr.options = {
             "positionClass": "toast-top-right",
             "timeOut": "3000"
         }
-        toastr.error("Please insert tax id..");
-        return;
-    }
-
-    if (vatnum === '') {
-        toastr.options = {
-            "positionClass": "toast-top-right",
-            "timeOut": "3000"
-        }
-        toastr.error("Please insert vat number..");
-        return;
-    }
-
-    if (mobile === '') {
-        toastr.options = {
-            "positionClass": "toast-top-right",
-            "timeOut": "3000"
-        }
-        toastr.error("Please insert mobile number..");
+        toastr.error("Please insert position..");
         return;
     }
 
@@ -374,9 +355,8 @@ function crateCustomer() {
             'X-CSRFToken': getCookie('csrftoken'),
         },
         body: JSON.stringify({
-            'email': email,
-            'taxid': taxid,
-            'vatnum': vatnum,
+            'city': city,
+            'position': position,
             'mobile': mobile,
             'bill_address': bill_address,
             'state': state,
