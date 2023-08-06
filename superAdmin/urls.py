@@ -42,4 +42,10 @@ urlpatterns = [
     path('user/activate_user_data_by_id', views.activate_user_data_by_id, name="activate_user_data_by_id_view"),
     path('user/change_user_role', views.change_user_role, name="change_user_role_view"),
     path('user/create_user', views.create_user, name="create_user_view"),
+
+    path('user/shop', views.get_shop, name="user_shop_view"),
+    path('user/get_shop_data', views.get_shop_data, name="get_shop_data"),
+    path('user/get_shop_data_by_id', views.get_shop_data_by_id, name="get_shop_data_by_id"),
+    path('user/update_shop_data', views.update_shop_data, name="update_shop_data"),
+
 ]

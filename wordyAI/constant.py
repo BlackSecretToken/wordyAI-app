@@ -40,7 +40,9 @@ class BILLINGSTATUS(Enum):
     UPDATE = 1
     DELETE = 2
 
-    
+SHOP_DATATYPE = ['', 'CSV', 'XML', 'SHOP']
+SHOP_ESHOPTYPE = ['', 'WOOCOMMERCE', 'MAGENTO2', 'SHOPWARE6', 'SHOPIFY']
+
 Role_User = 'User'
 Role_Admin = 'Admin'
 ProductStatus_Optimized = 'OPTIMIZED'

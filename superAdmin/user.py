@@ -1,4 +1,5 @@
 import json
+from wordyAI.constant import *
 from django.shortcuts import render
 from wordyAI.decorators import *
 from wordyAI.utils import *
@@ -13,6 +14,12 @@ def get_user(request):
     context = {}
     context = default_context(request, context)
     return render(request, 'admin/user/user.html', context)
+
+@admin_login_required
+def get_shop(request):
+    context = {}
+    context = default_context(request, context)
+    return render(request, 'admin/user/shop.html', context)
 
 def get_user_data(request):
     users = Users.objects.all()
@@ -128,6 +135,49 @@ def create_user(request):
         res['message'] = USER_CREATE_SUCCESS
         res['status'] = STATUS_SUCCESS
 
+    return JsonResponse(res)
+
+def get_shop_data(request):
+    apiDatas = ApiData.objects.select_related('users').filter(activate = ACTIVATE).all()
+    res = []
+    for apiData in apiDatas:
+        res.append({"id": apiData.id,
+                  "username": apiData.users.username,
+                  "email": apiData.users.email,
+                  "datatype": SHOP_DATATYPE[apiData.datatype],
+                  "eshopType": SHOP_ESHOPTYPE[apiData.eshopType],
+                  "appName": apiData.applicationName
+                  })
+    return JsonResponse(res, safe = False)
+
+def get_shop_data_by_id(request):
+    data = json.loads(request.body)
+    id = data['id']
+    apiData = ApiData.objects.filter(id = id).get()
+    res = []
+    res.append({"appName": apiData.applicationName,
+                "apiUrl": apiData.api_url,
+                "consumerKey": apiData.consumerKey,
+                "consumerToken": apiData.consumerToken
+                })
+    return JsonResponse(res, safe = False)
+
+def update_shop_data(request):
+    res = {}
+    data = json.loads(request.body)
+    id = data['id']
+    appName = data['appName']
+    apiUrl = data['apiUrl']
+    consumerKey = data['consumerKey']
+    consumerToken = data['consumerToken']
+    apiData = ApiData.objects.filter(id = id).get()
+    apiData.applicationName = appName
+    apiData.api_url = apiUrl
+    apiData.consumerKey = consumerKey
+    apiData.consumerToken = consumerToken
+    apiData.save()
+    res['status'] = STATUS_SUCCESS
+    res['message'] = REQUEST_HANDLE_SUCCESS
     return JsonResponse(res)
     
 

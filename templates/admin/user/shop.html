@@ -1,0 +1,70 @@
+{% extends 'admin/layouts/app.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" /> {% endcomment %}
+    <link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
+{% endblock style %}
+
+{% block wrapper %}
+<div class="page-wrapper">
+    <div class="page-content">
+        <div class="card p-4">
+            <p class="text-secondary fw700 ft24">Shop Data</p>
+            <div id="updateContent" class="mb-4">
+                <div class="mb-3 form-group">
+                    <p class="text-secondary mb-1 fw600">App Name</p>
+                    <input type="text" class="form-control" name="appName" id="appName"/>
+                </div>
+                <div class="mb-3 form-group">
+                    <p class="text-secondary mb-1 fw600">Api Url</p>
+                    <input type="text" class="form-control" name="apiUrl" id="apiUrl"/>
+                </div>
+                <div class="mb-3 form-group">
+                    <p class="text-secondary mb-1 fw600">Consumer Key</p>
+                    <input type="text" class="form-control" name="consumerKey" id="consumerKey"/>
+                </div>
+                <div class="mb-3 form-group">
+                    <p class="text-secondary mb-1 fw600">Consumer Token</p>
+                    <input type="text" class="form-control" name="consumerToken" id="consumerToken"/>
+                </div>
+                <div>
+                    <button class="btn btn-primary px-4 me-3" onclick="updateContent()">Update</button>
+                    <button class="btn btn-primary px-4" onclick="cancel()">Cancel</button>
+                </div>
+            </div>
+            <div class="custom-table-div1">
+                <table id="content_table" class="table table-hover custom-table-700">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="main-check"></th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Datatype</th>
+                            <th>EshopType</th>
+                            <th>AppName</th>
+                            <th>OPERATION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="backdrop">
+            <div class="text-center-custom loading">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock wrapper %}
+
+{% block script %}
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script src="{% static 'assets/js/admin_user_shop.js' %}"></script>
+    
+{% endblock script%}
