@@ -28,3 +28,11 @@ class HelpAudience(models.Model):
     user = models.ForeignKey(Users, on_delete = models.CASCADE, default='')
     created_at = models.DateTimeField(auto_now_add = True, null= True)
     updated_at = models.DateTimeField(auto_now = True, null=True)
+
+class FaqContent(models.Model):
+    id = models.BigAutoField(primary_key=True, auto_created= True)
+    content = models.TextField()
+    title = models.CharField(max_length = 250, default='')
+    activate = models.BooleanField(default = 1)
+    created_at = models.DateTimeField(auto_now_add = True, null= True)
+    updated_at = models.DateTimeField(auto_now = True, null=True)

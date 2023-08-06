@@ -55,6 +55,32 @@ def helpcenter_insert_category(request):
         context = {}
         context = default_context(request, context)
         return render(request, 'admin/helpcenter/insert_category.html', context)
+
+@admin_login_required
+def faq_insert_content(request):
+    if request.method == 'POST':
+        res = {}
+        data = json.loads(request.body)
+        title = data['title']
+        content = data['content']
+
+        is_exist = FaqContent.objects.filter(title = title).exists()
+        if is_exist:
+            res['status'] = 'fail'
+            res['message'] = CONTENT_ALREADY_EXIST
+            return JsonResponse(res)
+        else:
+            faqContent = FaqContent.objects.create(title = title, content = content)
+            faqContent.save()
+            res['status'] = 'success'
+            res['message'] = CONTENT_CREATE_SUCCESS
+            return JsonResponse(res) 
+    else:
+        context = {}
+        context = default_context(request, context)
+        return render(request, 'admin/faq/insert_faq.html', context)
+
+
     
 def helpcenter_get_category_data(request):
     category_data = HelpCategory.objects.filter(activate = 1).all()
@@ -205,5 +231,65 @@ def helpcenter_change_audience(request):
 
     return JsonResponse(res)
 
+def faq_get_content_data(request):
+    content_data = FaqContent.objects.filter(activate = 1).all()
+    content_data = serializers.serialize('json', content_data)
+    return JsonResponse(content_data, safe = False)
+
+def faq_edit_content(request):
+    res = {}
+    data = json.loads(request.body)
+    id = data['id']
+    content_data = FaqContent.objects.filter(id = id)
+    content_data = serializers.serialize('json', content_data)
+    return JsonResponse(content_data, safe = False)
+
+def faq_update_content(request):
+    res = {}
+    data = json.loads(request.body)
+    id = data['id']
+    title = data['title']
+    content = data['content']
+
+    faqcontent = FaqContent.objects.get(id = id)
+    is_exist = FaqContent.objects.filter(title = title, content = content).exists()
+    if is_exist:
+        res['status'] = 'fail'
+        res['message'] = CONTENT_ALREADY_EXIST
+        return JsonResponse(res)
+    else:
+        faqContent = FaqContent.objects.get(id = id)
+        faqContent.title = title
+        faqContent.content = content
+        faqContent.save()
+        res['status'] = 'success'
+        res['message'] = CONTENT_UPDATE_SUCCESS
+        return JsonResponse(res)
+
+def faq_delete_content(request):
+    res = {}
+    data = json.loads(request.body)
+    id = data['id']
+    helpcategory = FaqContent.objects.get(id = id)
+    helpcategory.activate = 0
+    helpcategory.save()
+
+    res['status'] = 'success'
+    res['message'] = CONTENT_DLETEL_SUCCESS
+    return JsonResponse(res)
+
+def faq_delete_content_bulk(request):
+    res = {}
+    data = json.loads(request.body)
+    ids = data['ids']
+    faqcontents = FaqContent.objects.filter(id__in = ids)
+
+    for faqcontent in faqcontents:
+        faqcontent.activate = 0
+        faqcontent.save()
+
+    res['status'] = 'success'
+    res['message'] = CATEGORY_DLETEL_SUCCESS
+    return JsonResponse(res)
 
 

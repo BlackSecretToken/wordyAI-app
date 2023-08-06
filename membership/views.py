@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.core import serializers
 from .models import *
+from helpcenter.models import *
 import stripe
 import os
 import json
@@ -17,6 +18,16 @@ stripe.api_key = os.getenv("STRIPE_PRIVATE_KEY")
 def billing(request):
     context = {}
     context = default_context(request, context)
+    # content_data = FaqContent.objects.filter(activate = 1).all()
+    # faqData = []
+    # for data in content_data:
+    #     faqData.append(
+    #         {
+    #             "title": data.title,
+    #             "content": data.content
+    #         }
+    #     )
+    # context['faqData'] = faqData
     return render(request, 'membership/billing.html', context)
 
 @login_required
@@ -25,6 +36,10 @@ def join(request):
     context = default_context(request, context)
     return render(request, 'membership/join.html', context)
 
+def billing_get_faq_data(request):
+    content_data = FaqContent.objects.filter(activate = 1).all()
+    content_data = serializers.serialize('json', content_data)
+    return JsonResponse(content_data, safe = False)
 
 def success(request):
     context = {}

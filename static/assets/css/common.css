@@ -570,6 +570,10 @@ input:checked+.slider:before {
     width: 42px;
 }
 
+#faq_content p {
+    margin-bottom: 0px;
+}
+
 @keyframes dot-flashing {
     0% {
         background-color: #9880ff;

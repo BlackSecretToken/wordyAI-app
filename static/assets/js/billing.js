@@ -3,6 +3,7 @@ var plan = ['Basic', 'Standard', 'Enterprise']
 $(document).ready(function () {
     $('#backdrop').hide();
     planStatus();
+    getFaqData();
 });
 
 function planStatus() {
@@ -125,3 +126,32 @@ function doFreeTrial() {
     ) 
 }
 
+function getFaqData() {
+    fetch("/membership/billing_get_faq_data", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: {}
+    }).then(response => response.json()).then(
+        
+        response => {
+            response = JSON.parse(response);
+  
+            data = '';
+            for(let i=0;i<response.length;i++)
+            {
+                title = response[i].fields.title;
+                content = response[i].fields.content;
+                contentID = response[i].pk;
+                data = data + '<div class="card p-4">' +
+                    '<p class="fw700 ft16 text-primary">' + title + '</p>' +
+                    '<div class="text-secondary mb-0" id="faq_content">' + content + '</div>' + '</div>';
+                console.log(data);
+            }   
+            $('#faq_detail').empty();
+            $('#faq_detail').append(data);
+        }
+    ) 
+}

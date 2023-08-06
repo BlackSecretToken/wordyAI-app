@@ -19,6 +19,13 @@ urlpatterns = [
     path('helpcenter/delete_content_bulk', views.helpcenter_delete_content_bulk, name="helpcenter_delete_content_bulk"),
     path('helpcenter/change_audience', views.helpcenter_change_audience, name="helpcenter_change_audience"),
 
+    path('helpcenter/faq_insert_content', views.faq_insert_content, name="faq_insert_content_view"),
+    path('helpcenter/faq_get_content_data', views.faq_get_content_data, name="faq_get_content_data"),
+    path('helpcenter/faq_edit_content', views.faq_edit_content, name="faq_edit_content"),
+    path('helpcenter/faq_update_content', views.faq_update_content, name="faq_update_content"),
+    path('helpcenter/faq_delete_content', views.faq_delete_content, name="faq_delete_content"),
+    path('helpcenter/faq_delete_content_bulk', views.faq_delete_content_bulk, name="faq_delete_content_bulk"),
+
     path('billing/customer', views.billing_customer, name="billing_customer_view"),
     path('billing/subsciptions', views.billing_subscriptions, name="billing_subscriptions_view"),
     path('billing/get_customer_data', views.billing_get_customer_data, name="billing_get_customer_data"),
