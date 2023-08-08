@@ -12,4 +12,7 @@ urlpatterns = [
     path('deactivate_account', views.deactivate_account, name='deactivate_account'),
     path('update_password', views.update_password, name='update_password'),
     path('admin/get_users', views.get_users, name='admin_get_users'),
+    path('check_connection', views.check_connection, name='check_connection'),
+    path('edit_shop', views.edit_shop, name='edit_shop'),
+    path('update_shop', views.update_shop, name='update_shop'),
 ]

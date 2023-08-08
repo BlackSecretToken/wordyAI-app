@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect
 from wordyAI.utils import *
 from wordyAI.constant import *
@@ -7,6 +8,7 @@ from home.models import *
 from wordyAI.message import *
 from django.contrib.auth.hashers import make_password, check_password
 from membership.models import *
+from woocommerce import API
 # Create your views here.
 
 @admin_login_required
@@ -110,4 +112,58 @@ def update_password(request):
         res['status'] = 'fail'
         res['message']= PASSWORD_NOT_CORRECT
     
+    return JsonResponse(res)
+
+def check_connection(request):
+    res = {}
+    email = request.session.get('email')
+    apiData = ApiData.objects.select_related('users').filter(users__email = email).get()
+
+    wcapi = API(
+            url= apiData.api_url,
+            consumer_key= apiData.consumerKey,
+            consumer_secret= apiData.consumerToken,
+            version="wc/v3",
+            timeout = 100
+        )
+    try:
+        products = wcapi.get("products", params={"page": 1, "per_page": 1}).json()
+        res['status'] = STATUS_SUCCESS
+        res['message'] = VALID_API
+
+    except Exception as e:
+        # Handle any errors from the Stripe API
+        print(e)
+        res['status'] = STATUS_FAIL
+        res['message'] = INVALID_API
+    return JsonResponse(res)
+
+def edit_shop(request):
+    res = {}
+    email = request.session.get('email')
+    apiData = ApiData.objects.select_related('users').filter(users__email = email).get()
+    res['appName'] = apiData.applicationName
+    res['apiUrl'] = apiData.api_url
+    res['consumerKey'] = apiData.consumerKey
+    res['consumerToken'] = apiData.consumerToken
+    return JsonResponse(res)
+
+def update_shop(request):
+    res = {}
+    data = json.loads(request.body)
+    appName = data['appName']
+    apiUrl = data['apiUrl']
+    consumerKey = data['consumerKey']
+    consumerToken = data['consumerToken']
+
+    email = request.session.get('email')
+    apiData = ApiData.objects.select_related('users').filter(users__email = email).get()
+    apiData.applicationName = appName
+    apiData.api_url = apiUrl
+    apiData.consumerKey = consumerKey
+    apiData.consumerToken = consumerToken
+    apiData.save()
+
+    res['status'] = STATUS_SUCCESS
+    res['message'] = REQUEST_HANDLE_SUCCESS
     return JsonResponse(res)

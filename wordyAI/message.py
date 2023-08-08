@@ -37,6 +37,7 @@ STATUS_SUCCESS = "success"
 STATUS_FAIL = "fail"
 
 INVALID_API = "Invalid Api.. Please check again!"
+VALID_API = "Valid Api.. Please enjoy!"
 
 USER_EXIST = 'User already exists!'
 USER_CREATE_SUCCESS = 'User successfully created!'
