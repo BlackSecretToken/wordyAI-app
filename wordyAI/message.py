@@ -33,6 +33,12 @@ UPLOAD_THREAD_ALREADY_EXIST = "Upload thread already exists.."
 NO_UPLOAD_THREAD ="There is no upload thread.."
 NO_UPLOAD_PRODUCT = "There is no newly optimized product.."
 
+OPTIMIZE_START = "Optimize started.."
+OPTIMIZE_STOP = "Optimize stopped.."
+OPTIMIZE_THREAD_ALREADY_EXIST = "Optimize thread already exists.."
+NO_OPTIMIZE_THREAD ="There is no optimize thread.."
+NO_UNOPTIMIZED_PRODUCT = "There is no unoptimized product.."
+
 STATUS_SUCCESS = "success"
 STATUS_FAIL = "fail"
 

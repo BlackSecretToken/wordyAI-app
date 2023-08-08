@@ -22,8 +22,10 @@ var orderQueue = ['product_title','product_sku','stockstatus_id', 'category_id',
 
 var hide = false;
 var hide_upload = false;
+var hide_optimize = false;
 var downloadInterval;
 var uploadInterval;
+var optimizeInterval;
 var originalDescription;
 var currentProductId;
 
@@ -77,47 +79,62 @@ $(document).ready(function(){
     })
 
     $("#pullButton").click(async function (event) {
-        if (hide === false){
-            $('#product_download_setting_modal').modal({
-                backdrop: 'static',
-                keyboard: false // disable keyboard navigation as well
-            })
-            $("#product_download_setting_modal").modal('show'); 
-        }
-        /*
-        response = await product_download_status();
-        response = await product_download_start();
-        console.log(response);
-        */
-    })
-    $("#pushButton").click(async function (event) {
-        /*
-        response = await product_download_stop();
-        console.log(response);
-        response = await product_download_status();
-        */
-        
-        $('#product_upload_modal').modal({
-            backdrop: 'static',
-            keyboard: false // disable keyboard navigation as well
-        })
-
-        $('#backdrop').show();
-        response = await product_upload_start();
-        $('#backdrop').hide();
-        console.log(response);
-        if (response.status === 'success')
+        let res = await checkThreadStatus();
+        if (res.status === 'success')
         {
-            $("#product_upload_modal").modal('show');
-            uploadInterval = setInterval(getUploadStatus, 3000);
+            if (hide === false){
+                $('#product_download_setting_modal').modal({
+                    backdrop: 'static',
+                    keyboard: false // disable keyboard navigation as well
+                })
+                $("#product_download_setting_modal").modal('show'); 
+            }
         }
-        else{
+        else
+        {
             toastr.options = {
                 "positionClass": "toast-top-right",
                 "timeOut": "3000"
               }
             toastr.error(response.message);
         }
+    })
+    $("#pushButton").click(async function (event) {
+       
+        let res = await checkThreadStatus();
+        if (res.status === 'success')
+        {
+            $('#product_upload_modal').modal({
+                backdrop: 'static',
+                keyboard: false // disable keyboard navigation as well
+            })
+    
+            $('#backdrop').show();
+            response = await product_upload_start();
+            $('#backdrop').hide();
+            console.log(response);
+            if (response.status === 'success')
+            {
+                $("#product_upload_modal").modal('show');
+                uploadInterval = setInterval(getUploadStatus, 3000);
+            }
+            else{
+                toastr.options = {
+                    "positionClass": "toast-top-right",
+                    "timeOut": "3000"
+                  }
+                toastr.error(response.message);
+            }
+        }
+        else
+        {
+            toastr.options = {
+                "positionClass": "toast-top-right",
+                "timeOut": "3000"
+              }
+            toastr.error(response.message);
+        }
+        
     })
 
     $("#productUploadHide").click(function (event) {
@@ -158,9 +175,78 @@ $(document).ready(function(){
     })
 
     $("#optimizeButton").click(async function (event) {
-        
+        let res = await checkThreadStatus();
+        if (res.status === 'success')
+        {
+            $('#product_optimize_modal').modal({
+                backdrop: 'static',
+                keyboard: false // disable keyboard navigation as well
+            })
+
+            $('#backdrop').show(); 
+            response = await product_optimize_start();
+            $('#backdrop').hide();
+            console.log(response);
+            if (response.status === 'success')
+            {
+                $("#product_optimize_modal").modal('show');
+                uploadInterval = setInterval(getOptimizeStatus, 3000);
+            }
+            else{
+                toastr.options = {
+                    "positionClass": "toast-top-right",
+                    "timeOut": "3000"
+                  }
+                toastr.error(response.message);
+            }
+        }
+        else
+        {
+            toastr.options = {
+                "positionClass": "toast-top-right",
+                "timeOut": "3000"
+              }
+            toastr.error(response.message);
+        }
     })
     
+    $("#productOptimizeHide").click(function (event) {
+        $("#product_optimize_modal").modal('hide');    
+        hide_upload = true;
+    })
+    
+    $("#productOptimizeStop").click(async function (event) {
+        response = await product_optimize_status();
+        total = response.total;
+        response = await product_optimize_stop();
+        response = await product_optimize_status();
+        
+        if (response.optimize_status === false)
+        {
+            // do nothing..
+            $("#product_optimize_modal").modal('hide');
+            $('#optimize_gif').hide();    
+            if (optimizeInterval !== undefined)
+                clearInterval(optimizeInterval);
+            toastr.options = {
+                "positionClass": "toast-top-right",
+                "timeOut": "3000"
+                }
+            toastr.success(total +  ' products optimized..');
+            getProductStatus();
+        }
+        else
+        {
+            $('#product_optimize_modal').modal({
+                backdrop: 'static',
+                keyboard: false // disable keyboard navigation as well
+            })
+            $("#product_optimize_modal").modal('show');
+            $('#optimize_gif').show();    
+        }
+        
+    })
+
     $("#productDownloadSettingCancel").click(function (event) {
         $("#product_download_setting_modal").modal('hide');    
     })
@@ -310,6 +396,51 @@ function enableSaveButton() {
     $('#saveProductButton').prop("disabled", false);
 }
 
+function getOptimizeStatus() {
+    fetch("/product/productOptimizeStatus", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: {}
+    }).then(response => response.json()).then(
+        
+        response => {
+            console.log(response);
+            if (response.optimize_status === false)
+            {
+                // do nothing..
+                $("#product_optimize_modal").modal('hide');
+                $('#optimize_gif').hide();  
+                if (optimizeInterval !== undefined)
+                {  
+                    clearInterval(optimizeInterval)
+                }
+                getProductStatus();
+            }
+            else
+            {
+                if (hide_optimize === false)
+                {
+                    $('#product_optimize_modal').modal({
+                        backdrop: 'static',
+                        keyboard: false // disable keyboard navigation as well
+                    })
+                    $("#product_optimize_modal").modal('show');   
+    
+                    $('#totalOptimizeCount').text(response.total);
+                }
+                $('#optimize_gif').show(); 
+                if (optimizeInterval === undefined)
+                {
+                    optimizeInterval = setInterval(getOptimizeStatus, 3000);
+                }
+            }
+        }
+    )
+}
+
 function getUploadStatus() {
     fetch("/product/productUploadStatus", { 
         method: 'POST',
@@ -399,6 +530,19 @@ function getDownloadStatus() {
         }
     )
 }
+async function product_optimize_start(){
+    response = await fetch("/product/productOptimizeStart", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: {}
+    });
+    response = await(response.json());
+    
+    return response;
+}
 
 async function product_upload_start(){
     response = await fetch("/product/productUploadStart", { 
@@ -429,6 +573,20 @@ async function product_download_start(downloadFrom){
     return response;
 }
 
+async function product_optimize_stop(){
+    response = await fetch("/product/productOptimizeStop", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: {}
+    });
+    response = await(response.json());
+    
+    return response;
+}
+
 async function product_upload_stop(){
     response = await fetch("/product/productUploadStop", { 
         method: 'POST',
@@ -445,6 +603,20 @@ async function product_upload_stop(){
 
 async function product_download_stop(){
     response = await fetch("/product/productDownloadStop", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: {}
+    });
+    response = await(response.json());
+    
+    return response;
+}
+
+async function product_optimize_status(){
+    response = await fetch("/product/productOptimizeStatus", { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -855,4 +1027,17 @@ function sendMessage(message){
     chatSocket.send(JSON.stringify({
         'message': message
     }))
+}
+
+async function checkThreadStatus(){
+    response = await fetch("/product/checkThreadStatus", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: {}
+    });
+    response = await(response.json());
+    return response;
 }

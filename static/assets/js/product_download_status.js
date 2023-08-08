@@ -43,4 +43,25 @@ function init(){
             }
         }
     )
+
+    fetch("/product/productOptimizeStatus", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: {}
+    }).then(response => response.json()).then(
+        
+        response => {
+            if (response.optimize_status === false)
+            {
+                $('#optimize_gif').hide();
+            }
+            else
+            {
+                $('#optimize_gif').show();
+            }
+        }
+    )
 }

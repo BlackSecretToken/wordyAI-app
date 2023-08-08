@@ -440,7 +440,98 @@ def productUploadStatus(request):
 
     return JsonResponse(res)
 
+def productOptimizeStart(request):
+    res = {}
 
+    email = request.session.get('email')
+    user = Users.objects.get(email = email)
+    apidata = ApiData.objects.get(users = user) 
+    unoptimized_cnt = Product.objects.filter(apidata_id = apidata.id, product_status = PRODUCTSTATUS.UNOPTIMIZED.value).count()
+    if unoptimized_cnt > 0:
+        is_exist = OptimizeProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
+        if is_exist:
+            res['status'] = STATUS_FAIL
+            res['message'] = OPTIMIZE_THREAD_ALREADY_EXIST
+        else:
+            optimize_thread = ProductOptimizeThread(request)
+            optimize_thread.start()
+
+            thread_dict[optimize_thread.ident] = optimize_thread
+            productOptimizeThreadStatus = OptimizeProductThreadStatus.objects.create(apidata = apidata, count = 0, thread_id=optimize_thread.ident)
+            productOptimizeThreadStatus.save()
+
+
+            request.session['optimize_thread_id'] = productOptimizeThreadStatus.id
+            res['status'] = 'success'
+            res['message'] = OPTIMIZE_START
+
+    else:
+        res['status'] = STATUS_FAIL
+        res['message'] = NO_UNOPTIMIZED_PRODUCT
+
+    return JsonResponse(res)
+
+def productOptimizeStop(request):
+    res = {}
+
+    email = request.session.get('email')
+    user = Users.objects.get(email = email)
+    apidata = ApiData.objects.get(users = user) 
+    is_exist = OptimizeProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
+    if is_exist:
+        optimizeProductThreadStatus = OptimizeProductThreadStatus.objects.get(apidata = apidata, is_completed = False)
+        optimizeProductThreadStatus.is_completed = True
+        optimizeProductThreadStatus.save()
+        res['status'] = STATUS_SUCCESS
+        res['message'] = OPTIMIZE_STOP
+    else:
+        res['message'] = NO_OPTIMIZE_THREAD
+    
+    return JsonResponse(res)
+
+
+def productOptimizeStatus(request):
+    res = {}
+
+    email = request.session.get('email')
+    user = Users.objects.get(email = email)
+    apidata = ApiData.objects.get(users = user) 
+    is_exist = OptimizeProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
+    if is_exist:
+        optimizeProductThreadStatus = OptimizeProductThreadStatus.objects.get(apidata = apidata, is_completed = False)
+        res['total'] = optimizeProductThreadStatus.count
+        res['optimize_status'] = True # true: thread is alive
+    else:
+        res['optimize_status'] = False
+
+    return JsonResponse(res)
+
+def checkThreadStatus(request):
+    res = {}
+    email = request.session.get('email')
+    user = Users.objects.get(email = email)
+    apidata = ApiData.objects.get(users = user) 
+    
+    is_exist = UploadProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
+    if is_exist:
+        res['status'] = STATUS_FAIL
+        res['message'] = UPLOAD_THREAD_ALREADY_EXIST
+        return JsonResponse(res)
+    
+    is_exist = DownloadProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
+    if is_exist:
+        res['status'] = STATUS_FAIL
+        res['message'] = DOWNLOAD_THREAD_ALREADY_EXIST
+        return JsonResponse(res)
+    
+    is_exist = OptimizeProductThreadStatus.objects.filter(apidata = apidata, is_completed = False).exists()
+    if is_exist:
+        res['status'] = STATUS_FAIL
+        res['message'] = OPTIMIZE_THREAD_ALREADY_EXIST
+        return JsonResponse(res)
+    
+    res['status'] = STATUS_SUCCESS
+    return JsonResponse(res)
     
 
 

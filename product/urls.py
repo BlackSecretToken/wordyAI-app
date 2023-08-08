@@ -19,5 +19,9 @@ urlpatterns = [
     path('productUploadStart', views.productUploadStart, name='product_upload_start'),
     path('productUploadStop', views.productUploadStop, name='product_upload_stop'),
     path('productUploadStatus', views.productUploadStatus, name='product_upload_status'),
+    path('productOptimizeStart', views.productOptimizeStart, name='product_optimize_start'),
+    path('productOptimizeStop', views.productOptimizeStop, name='product_optimize_stop'),
+    path('productOptimizeStatus', views.productOptimizeStatus, name='product_optimize_status'),
+    path('checkThreadStatus', views.checkThreadStatus, name='check_thread_status'),
     path('test', views.test, name='test'),
 ]

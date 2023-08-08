@@ -60,340 +60,350 @@
                     </div>
                 </div>
             <div>
-                <div class="card" id="product_main_page">
-					<div class="card-body custom-table-div1">
-                        <div class="custom-table1">
-                            <div class="row">
-                                <div class="col-12 col-xl-6 d-flex flex-row align-items-center mb-3">
-                                    <p class="ft20 mb-0 me-2 fwbold text-primary">Filters:</p>
-                                    <select class="form-select mx-1" aria-label="Status" id="filterStatus">
-                                        <option selected value=0>Status</option>
-                                    </select>
-                                    <select class="form-select mx-1" aria-label="Category" id="filterCategory">
-                                        <option selected value=0>Category</option>
-                                    </select>
-                                    <select class="form-select mx-1" aria-label="Stock" id="filterStock">
-                                        <option selected value=0>Stock</option>
-                                    </select>
+            <div class="card" id="product_main_page">
+                <div class="card-body custom-table-div1">
+                    <div class="custom-table1">
+                        <div class="row">
+                            <div class="col-12 col-xl-6 d-flex flex-row align-items-center mb-3">
+                                <p class="ft20 mb-0 me-2 fwbold text-primary">Filters:</p>
+                                <select class="form-select mx-1" aria-label="Status" id="filterStatus">
+                                    <option selected value=0>Status</option>
+                                </select>
+                                <select class="form-select mx-1" aria-label="Category" id="filterCategory">
+                                    <option selected value=0>Category</option>
+                                </select>
+                                <select class="form-select mx-1" aria-label="Stock" id="filterStock">
+                                    <option selected value=0>Stock</option>
+                                </select>
 
-                                </div>
-                                <div class="col-12 col-xl-6 d-flex justify-content-end mb-3">
-                                    <button class="btn btn-primary px-4 mx-1" id="optimizeButton">OPTIMIZE PRODUCTS</button>
-                                    <button class="btn btn-primary px-4 mx-1" id="pullButton">PULL</button>
-                                    <button class="btn btn-primary px-4 ms-1" id="pushButton">PUSH</button>    
+                            </div>
+                            <div class="col-12 col-xl-6 d-flex justify-content-end mb-3">
+                                <button class="btn btn-primary px-4 mx-1" id="optimizeButton">OPTIMIZE PRODUCTS</button>
+                                <button class="btn btn-primary px-4 mx-1" id="pullButton">PULL</button>
+                                <button class="btn btn-primary px-4 ms-1" id="pushButton">PUSH</button>    
+                            </div>
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-0">PRODUCT NAME</p>
+                                            <div class="d-flex flex-row cursor-pointer" id="productUpDown">
+                                                <p class="mb-0 text-black">&#8593;</p>
+                                                <p class="mb-0 text-secondary">&#8595;</p>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-0">SKU</p>
+                                            <div class="d-flex flex-row cursor-pointer" id="skuUpDown">
+                                                <p class="mb-0 text-black">&#8593;</p>
+                                                <p class="mb-0 text-secondary">&#8595;</p>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-0">STOCK</p>
+                                            <div class="d-flex flex-row cursor-pointer" id="stockUpDown">
+                                                <p class="mb-0 text-black">&#8593;</p>
+                                                <p class="mb-0 text-secondary">&#8595;</p>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-0">CATEGORY</p>
+                                            <div class="d-flex flex-row cursor-pointer" id="categoryUpDown">
+                                                <p class="mb-0 text-black">&#8593;</p>
+                                                <p class="mb-0 text-secondary">&#8595;</p>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-0">STATUS</p>
+                                            <div class="d-flex flex-row cursor-pointer" id="statusUpDown">
+                                                <p class="mb-0 text-black">&#8593;</p>
+                                                <p class="mb-0 text-secondary">&#8595;</p>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th scope="col">OPERATION</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productTable">
+
+                            </tbody>
+                        </table>
+                        <div class = "d-flex flex-row-reverse">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination round-pagination">
+                                    <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pagePrevBtn">Previous</a>
+                                    </li>
+                                    <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pageOne">1</a>
+                                    </li>
+                                    <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pageTwo">2</a>
+                                    </li>
+                                    <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pageThree">3</a>
+                                    </li>
+                                    <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pageNextBtn">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="product_detail_page" style="display:hidden">
+                <div class="card-body">
+                    <div class = "row">
+                        <div class ="col-12 col-lg-8">
+                            <div class="d-flex justify-content-between">
+                                <button class="btn btn-primary px-4 ft-20" onclick = "goBack()">Go Back</button>
+                                <div class="d-flex">
+                                    <button class="btn btn-primary px-4 ft-20 mx-3" onclick = "productOptimize()">Optimize</button>
+                                    <button class="btn btn-primary px-4 ft-20" id="saveProductButton">Save</button>
                                 </div>
                             </div>
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">
-                                            <div class="d-flex justify-content-between">
-                                                <p class="mb-0">PRODUCT NAME</p>
-                                                <div class="d-flex flex-row cursor-pointer" id="productUpDown">
-                                                    <p class="mb-0 text-black">&#8593;</p>
-                                                    <p class="mb-0 text-secondary">&#8595;</p>
+                            <div class="mt-3">
+                                <ul class="nav nav-tabs nav-primary" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#productdetail" role="tab" aria-selected="true">
+                                            <div class="d-flex align-items-center">
+                                                <div class="tab-title ft20">Product Details</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#attributes" role="tab" aria-selected="false">
+                                            <div class="d-flex align-items-center">
+                                                <div class="tab-title ft20">Attributes</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#settings" role="tab" aria-selected="false">
+                                            <div class="d-flex align-items-center">
+                                                <div class="tab-title ft20">Settings</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#statistics" role="tab" aria-selected="false">
+                                            <div class="d-flex align-items-center">
+                                                <div class="tab-title ft20">Statistics</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content py-3">
+                                    <div class="tab-pane fade show active" id="productdetail" role="tabpanel">
+                                        <p class="ft20 mt-3 text-primary"><b>Product Details</b></p>
+                                        <input type="text" class="form-control mb-3" placeholder="ProductTitle" id="productTitle">
+                                        <div contenteditable = 'true' class="editableDiv mb-3" id="productDescription" > </div>
+                                        <div class="row mb-3">
+                                            <div class = "col-12 col-md-4">
+                                                <div class="input-group"> <span class="input-group-text text-primary">SKU</span>
+                                                    <input type="text" class="form-control" placeholder="1234568" id="productSKU">
                                                 </div>
                                             </div>
-                                        </th>
-                                        <th scope="col">
-                                            <div class="d-flex justify-content-between">
-                                                <p class="mb-0">SKU</p>
-                                                <div class="d-flex flex-row cursor-pointer" id="skuUpDown">
-                                                    <p class="mb-0 text-black">&#8593;</p>
-                                                    <p class="mb-0 text-secondary">&#8595;</p>
+                                            <div class = "col-12 col-md-4">
+                                                <div class="input-group"> <span class="input-group-text text-primary">Price</span>
+                                                    <input type="text" class="form-control" placeholder="1234568" id="productPrice">
                                                 </div>
                                             </div>
-                                        </th>
-                                        <th scope="col">
-                                            <div class="d-flex justify-content-between">
-                                                <p class="mb-0">STOCK</p>
-                                                <div class="d-flex flex-row cursor-pointer" id="stockUpDown">
-                                                    <p class="mb-0 text-black">&#8593;</p>
-                                                    <p class="mb-0 text-secondary">&#8595;</p>
+                                            <div class = "col-12 col-md-4">
+                                                <div class="input-group"> <span class="input-group-text text-primary">Stock Status</span>
+                                                    <input type="text" class="form-control" placeholder="1234568" id="productStockStatus">
                                                 </div>
                                             </div>
-                                        </th>
-                                        <th scope="col">
-                                            <div class="d-flex justify-content-between">
-                                                <p class="mb-0">CATEGORY</p>
-                                                <div class="d-flex flex-row cursor-pointer" id="categoryUpDown">
-                                                    <p class="mb-0 text-black">&#8593;</p>
-                                                    <p class="mb-0 text-secondary">&#8595;</p>
-                                                </div>
+                                        </div>
+                                        <div class="input-group mb-3"> <span class="input-group-text text-primary">Categories</span>
+                                            <input type="text" class="form-control" placeholder="Furniture, Tables, Living room" id="productCategory">
+                                        </div>
+                                        <p class="ft20 my-3 text-primary"><b>Attributes</b></p>
+                                        <table class="table">
+                                            <thead class="table-primary">
+                                                <tr>
+                                                    <th class="customBorder"><input type="checkbox" class="form-check-input-lg"></th>
+                                                    <th class="customBorder">ATTRIBUTE</th>
+                                                    <th class="customBorder">VALUE</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="customBorder"><input type="checkbox" class="form-check-input-lg"></td>
+                                                    <td class="customBorder">Material</td>
+                                                    <td class="customBorder">Walnut wood</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="customBorder"><input type="checkbox" class="form-check-input-lg"></td>
+                                                    <td class="customBorder">Color</td>
+                                                    <td class="customBorder">Brown</td>
+                                                </tr>
+                                            </tbody>
+                                            </table>
+                                    </div>
+                                    <div class="tab-pane fade" id="attributes" role="tabpanel">
+                                        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="settings" role="tabpanel">
+                                        <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="statistics" role="tabpanel">
+                                        <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "col-12 col-lg-4 bsCustom radius-10">
+                            <div>
+                                <p class="ft20 text-primary"><b>Product Status</b></p>
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex align-items-center">
+                                        <p class="circleText mb-0 me-3 circleActive">&#x25EF;</p>
+                                        <p class="ft20 mb-0">Optimized</p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <p class="circleText mb-0 me-3">&#x25EF;</p>
+                                        <p class="ft20 mb-0">Not optimized</p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <p class="circleText mb-0 me-3">&#x25EF;</p>
+                                        <p class="ft20 mb-0">Rejected</p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <p class="circleText mb-0 me-3">&#x25EF;</p>
+                                        <p class="ft20 mb-0">Needs improvement</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <p class="ft20 text-primary"><b>Statistics</b></p>
+                                <div class="card radius-10">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <p class="mb-0">Sessions</p>
+                                                <h5 class="mb-0">54.6%</h5>
                                             </div>
-                                        </th>
-                                        <th scope="col">
-                                            <div class="d-flex justify-content-between">
-                                                <p class="mb-0">STATUS</p>
-                                                <div class="d-flex flex-row cursor-pointer" id="statusUpDown">
-                                                    <p class="mb-0 text-black">&#8593;</p>
-                                                    <p class="mb-0 text-secondary">&#8595;</p>
-                                                </div>
+                                            <div class="widgets-icons bg-light-primary text-primary ms-auto"><i class="bx bxs-cookie"></i></div>
+                                        </div>
+                                        <div id="chart8"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <div class="card radius-10">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <p class="mb-0">Impression</p>
+                                                <h5 class="mb-0">38.5%</h5>
                                             </div>
-                                        </th>
-                                        <th scope="col">OPERATION</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="productTable">
-
-                                </tbody>
-                            </table>
-                            <div class = "d-flex flex-row-reverse">
-                                <nav aria-label="Page navigation">
-                                    <ul class="pagination round-pagination">
-                                        <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pagePrevBtn">Previous</a>
-                                        </li>
-                                        <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pageOne">1</a>
-                                        </li>
-                                        <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pageTwo">2</a>
-                                        </li>
-                                        <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pageThree">3</a>
-                                        </li>
-                                        <li class="page-item cursor-pointer"><a class="page-link text-primary fwbold" id="pageNextBtn">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                            <div class="widgets-icons bg-light-danger text-danger ms-auto"><i class="bx bxs-bookmark-alt-plus"></i></div>
+                                        </div>
+                                        <div id="chart9"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+            <div id="backdrop">
+                <div class="text-center-custom loading">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="product_download_setting_modal" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered customModal">
+                    <div class="modal-content card">
+                        <div class="d-flex flex-column align-items-center p-5">
+                            <p class="ft32">Download Setting</p>
+                            <div class="d-flex align-items-center">
+                                <p class="ft18 pe-3 mb-0">Download start from</p>
+                                <input type="number" id="downloadStartFrom" class="form-control" style="width:50%;" value="0" min="0" step="10"/>
+                            </div>
+                            <div class="d-flex mt-3">
+                                <button class="btn btn-primary px-4 mx-2" id="productDownloadStart"> DOWNLOAD </button>
+                                <button class="btn btn-primary px-4 mx-2" id="productDownloadSettingCancel"> CANCEL </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="product_download_modal" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered customModal">
+                    <div class="modal-content card">
+                        <div class="d-flex flex-column align-items-center p-5">
+                            <div class="d-flex align-items-center">
+                                <p class="ft32 text-primary fw-800 me-4 mb-2">Work in progress</p>
+                                <div class="dot-flashing"></div>
+                            </div>
+                            <p class="ft16">Our system ensures that your products are synchronized.</p>
+                            <div class="d-flex justify-contents-center align-items-center">
+                                <p class="ft40 fw800 me-2 mb-0" id="totalDownloadCount">0</p>
+                                <p class="ft16 mb-0">products downloaded..</p>
                             </div>
                             
-                        </div>
-					</div>
-				</div>
-                <div class="card" id="product_detail_page" style="display:hidden">
-					<div class="card-body">
-                        <div class = "row">
-                            <div class ="col-12 col-lg-8">
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-primary px-4 ft-20" onclick = "goBack()">Go Back</button>
-                                    <div class="d-flex">
-                                        <button class="btn btn-primary px-4 ft-20 mx-3" onclick = "productOptimize()">Optimize</button>
-                                        <button class="btn btn-primary px-4 ft-20" id="saveProductButton">Save</button>
-                                    </div>
-                                </div>
-                                <div class="mt-3">
-                                    <ul class="nav nav-tabs nav-primary" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link active" data-bs-toggle="tab" href="#productdetail" role="tab" aria-selected="true">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="tab-title ft20">Product Details</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link" data-bs-toggle="tab" href="#attributes" role="tab" aria-selected="false">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="tab-title ft20">Attributes</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link" data-bs-toggle="tab" href="#settings" role="tab" aria-selected="false">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="tab-title ft20">Settings</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link" data-bs-toggle="tab" href="#statistics" role="tab" aria-selected="false">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="tab-title ft20">Statistics</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content py-3">
-                                        <div class="tab-pane fade show active" id="productdetail" role="tabpanel">
-                                            <p class="ft20 mt-3 text-primary"><b>Product Details</b></p>
-                                            <input type="text" class="form-control mb-3" placeholder="ProductTitle" id="productTitle">
-                                            <div contenteditable = 'true' class="editableDiv mb-3" id="productDescription" > </div>
-                                            <div class="row mb-3">
-                                                <div class = "col-12 col-md-4">
-                                                    <div class="input-group"> <span class="input-group-text text-primary">SKU</span>
-                                                        <input type="text" class="form-control" placeholder="1234568" id="productSKU">
-                                                    </div>
-                                                </div>
-                                                <div class = "col-12 col-md-4">
-                                                    <div class="input-group"> <span class="input-group-text text-primary">Price</span>
-                                                        <input type="text" class="form-control" placeholder="1234568" id="productPrice">
-                                                    </div>
-                                                </div>
-                                                <div class = "col-12 col-md-4">
-                                                    <div class="input-group"> <span class="input-group-text text-primary">Stock Status</span>
-                                                        <input type="text" class="form-control" placeholder="1234568" id="productStockStatus">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="input-group mb-3"> <span class="input-group-text text-primary">Categories</span>
-                                                <input type="text" class="form-control" placeholder="Furniture, Tables, Living room" id="productCategory">
-                                            </div>
-                                            <p class="ft20 my-3 text-primary"><b>Attributes</b></p>
-                                            <table class="table">
-                                                <thead class="table-primary">
-                                                    <tr>
-                                                        <th class="customBorder"><input type="checkbox" class="form-check-input-lg"></th>
-                                                        <th class="customBorder">ATTRIBUTE</th>
-                                                        <th class="customBorder">VALUE</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="customBorder"><input type="checkbox" class="form-check-input-lg"></td>
-                                                        <td class="customBorder">Material</td>
-                                                        <td class="customBorder">Walnut wood</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="customBorder"><input type="checkbox" class="form-check-input-lg"></td>
-                                                        <td class="customBorder">Color</td>
-                                                        <td class="customBorder">Brown</td>
-                                                    </tr>
-                                                </tbody>
-                                              </table>
-                                        </div>
-                                        <div class="tab-pane fade" id="attributes" role="tabpanel">
-                                            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
-                                        </div>
-                                        <div class="tab-pane fade" id="settings" role="tabpanel">
-                                            <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
-                                        </div>
-                                        <div class="tab-pane fade" id="statistics" role="tabpanel">
-                                            <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class = "col-12 col-lg-4 bsCustom radius-10">
-                                <div>
-                                    <p class="ft20 text-primary"><b>Product Status</b></p>
-                                    <div class="d-flex flex-column">
-                                        <div class="d-flex align-items-center">
-                                            <p class="circleText mb-0 me-3 circleActive">&#x25EF;</p>
-                                            <p class="ft20 mb-0">Optimized</p>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <p class="circleText mb-0 me-3">&#x25EF;</p>
-                                            <p class="ft20 mb-0">Not optimized</p>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <p class="circleText mb-0 me-3">&#x25EF;</p>
-                                            <p class="ft20 mb-0">Rejected</p>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <p class="circleText mb-0 me-3">&#x25EF;</p>
-                                            <p class="ft20 mb-0">Needs improvement</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-3">
-                                    <p class="ft20 text-primary"><b>Statistics</b></p>
-                                    <div class="card radius-10">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-center">
-                                                <div>
-                                                    <p class="mb-0">Sessions</p>
-                                                    <h5 class="mb-0">54.6%</h5>
-                                                </div>
-                                                <div class="widgets-icons bg-light-primary text-primary ms-auto"><i class="bx bxs-cookie"></i></div>
-                                            </div>
-                                            <div id="chart8"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-3">
-                                    <div class="card radius-10">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-center">
-                                                <div>
-                                                    <p class="mb-0">Impression</p>
-                                                    <h5 class="mb-0">38.5%</h5>
-                                                </div>
-                                                <div class="widgets-icons bg-light-danger text-danger ms-auto"><i class="bx bxs-bookmark-alt-plus"></i></div>
-                                            </div>
-                                            <div id="chart9"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>    
-					</div>
-				</div>
-                <!--Spinner Backdrop-->
-                <div id="product_optimize_modal" class="modal fade" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                    <div class="modal-dialog modal-sm">
-                        <div class="text-center-custom loading">
-                            <div class="spinner-border" role="status">
-                                <span class="sr-only"></span>
+                            <div class="d-flex mt-3">
+                                <button class="btn btn-primary px-4 mx-2" id="productDownloadHide"> HIDE </button>
+                                <button class="btn btn-primary px-4 mx-2" id="productDownloadStop"> CANCEL </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--Spinner Backdrop-->
-                <div id="backdrop">
-                    <div class="text-center-custom loading">
-                        <div class="spinner-border" role="status">
-                            <span class="sr-only"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="product_download_setting_modal" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                    <div class="modal-dialog modal-dialog-centered customModal">
-                        <div class="modal-content card">
-                            <div class="d-flex flex-column align-items-center p-5">
-                                <p class="ft32">Download Setting</p>
-                                <div class="d-flex align-items-center">
-                                    <p class="ft18 pe-3 mb-0">Download start from</p>
-                                    <input type="number" id="downloadStartFrom" class="form-control" style="width:50%;" value="0" min="0" step="10"/>
-                                </div>
-                                <div class="d-flex mt-3">
-                                    <button class="btn btn-primary px-4 mx-2" id="productDownloadStart"> DOWNLOAD </button>
-                                    <button class="btn btn-primary px-4 mx-2" id="productDownloadSettingCancel"> CANCEL </button>
-                                </div>
+            </div>
+            <div class="modal fade" id="product_upload_modal" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered customModal">
+                    <div class="modal-content card">
+                        <div class="d-flex flex-column align-items-center p-5">
+                            <div class="d-flex align-items-center">
+                                <p class="ft32 text-primary fw-800 me-4 mb-2">Work in progress</p>
+                                <div class="dot-flashing"></div>
+                            </div>
+                            <p class="ft16">Our system ensures that your products are synchronized.</p>
+                            <div class="d-flex justify-contents-center align-items-center">
+                                <p class="ft40 fw800 me-2 mb-0" id="totalUploadCount">0</p>
+                                <p class="ft16 mb-0">products uploaded..</p>
+                            </div>
+                            
+                            <div class="d-flex mt-3">
+                                <button class="btn btn-primary px-4 mx-2" id="productUploadHide"> HIDE </button>
+                                <button class="btn btn-primary px-4 mx-2" id="productUploadStop"> CANCEL </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="product_download_modal" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                    <div class="modal-dialog modal-dialog-centered customModal">
-                        <div class="modal-content card">
-                            <div class="d-flex flex-column align-items-center p-5">
-                                <div class="d-flex align-items-center">
-                                    <p class="ft32 text-primary fw-800 me-4 mb-2">Work in progress</p>
-                                    <div class="dot-flashing"></div>
-                                </div>
-                                <p class="ft16">Our system ensures that your products are synchronized.</p>
-                                <div class="d-flex justify-contents-center align-items-center">
-                                    <p class="ft40 fw800 me-2 mb-0" id="totalDownloadCount">0</p>
-                                    <p class="ft16 mb-0">products downloaded..</p>
-                                </div>
-                                
-                                <div class="d-flex mt-3">
-                                    <button class="btn btn-primary px-4 mx-2" id="productDownloadHide"> HIDE </button>
-                                    <button class="btn btn-primary px-4 mx-2" id="productDownloadStop"> CANCEL </button>
-                                </div>
+            </div>
+            <div class="modal fade" id="product_optimize_modal" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered customModal">
+                    <div class="modal-content card">
+                        <div class="d-flex flex-column align-items-center p-5">
+                            <div class="d-flex align-items-center">
+                                <p class="ft32 text-primary fw-800 me-4 mb-2">Work in progress</p>
+                                <div class="dot-flashing"></div>
+                            </div>
+                            <div class="d-flex justify-contents-center align-items-center">
+                                <p class="ft40 fw800 me-2 mb-0" id="totalOptimizeCount">0</p>
+                                <p class="ft16 mb-0">products optimized..</p>
+                            </div>
+                            
+                            <div class="d-flex mt-3">
+                                <button class="btn btn-primary px-4 mx-2" id="productOptimizeHide"> HIDE </button>
+                                <button class="btn btn-primary px-4 mx-2" id="productOptimizeStop"> CANCEL </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="product_upload_modal" tabindex="-1" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                    <div class="modal-dialog modal-dialog-centered customModal">
-                        <div class="modal-content card">
-                            <div class="d-flex flex-column align-items-center p-5">
-                                <div class="d-flex align-items-center">
-                                    <p class="ft32 text-primary fw-800 me-4 mb-2">Work in progress</p>
-                                    <div class="dot-flashing"></div>
-                                </div>
-                                <p class="ft16">Our system ensures that your products are synchronized.</p>
-                                <div class="d-flex justify-contents-center align-items-center">
-                                    <p class="ft40 fw800 me-2 mb-0" id="totalUploadCount">0</p>
-                                    <p class="ft16 mb-0">products uploaded..</p>
-                                </div>
-                                
-                                <div class="d-flex mt-3">
-                                    <button class="btn btn-primary px-4 mx-2" id="productUploadHide"> HIDE </button>
-                                    <button class="btn btn-primary px-4 mx-2" id="productUploadStop"> CANCEL </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </div>
         </div>
         <!--end row-->
     </div>

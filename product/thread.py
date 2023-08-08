@@ -186,3 +186,54 @@ class ProductUploadThread(threading.Thread):
         uploadProductThreadStatus = UploadProductThreadStatus.objects.filter(apidata = self.apiData).latest('id')
         uploadProductThreadStatus.count = self.count
         uploadProductThreadStatus.save()
+
+class ProductOptimizeThread(threading.Thread):
+    def __init__(self, request):
+        self.do_run = True
+        self.count = 0
+        self.request = request
+        email = self.request.session.get('email')
+        user = Users.objects.get(email = email)
+        apiData = ApiData.objects.get(users = user)
+        self.apiData = apiData
+        super().__init__()
+
+    def run(self):
+        products = Product.objects.filter(apidata_id = self.apiData.id, product_status = PRODUCTSTATUS.UNOPTIMIZED.value).all()
+        print(products.count())
+        for product in products:
+            if self.do_run == False:
+                break
+            self.count = self.count + 1
+            # do something..
+
+            self.setCount()
+            self.check()
+            time.sleep(1)
+            
+        # thread is terminated..
+        is_exist = OptimizeProductThreadStatus.objects.filter(apidata = self.apiData, is_completed = False).exists()
+        if is_exist:
+            optimizeProductThreadStatus = OptimizeProductThreadStatus.objects.get(apidata = self.apiData, is_completed = False)
+            optimizeProductThreadStatus.is_completed = True
+            optimizeProductThreadStatus.save()
+
+    def stop(self, thread):
+        self.thread = thread
+        if hasattr(self, 'thread') and self.thread.is_alive():
+            print('close')
+            self.do_run = False
+            self.thread.join()
+
+    def check(self):
+        is_exist = OptimizeProductThreadStatus.objects.filter(apidata = self.apiData, is_completed = False).exists()
+        if is_exist:
+            self.do_run = True
+        else:
+            self.do_run = False
+    def setCount(self):
+        optimizeProductThreadStatus = OptimizeProductThreadStatus.objects.filter(apidata = self.apiData).latest('id')
+        optimizeProductThreadStatus.count = self.count
+        optimizeProductThreadStatus.save()
+
+        
