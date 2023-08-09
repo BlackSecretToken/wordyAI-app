@@ -6,6 +6,8 @@ $(document).ready(async function(){
 
 function savePrompt() {
     prompt = $('#prompt').text();
+    key =  $('#key').text();
+    model =  $('#model').val();
     console.log(prompt);
     fetch(admin_app_url + "/openai/savePrompt", { 
         method: 'POST',
@@ -15,6 +17,8 @@ function savePrompt() {
         },
         body: JSON.stringify({
             'prompt': prompt,
+            'key': key,
+            'model': model,
         })
     }).then(response => response.json()).then(
         
@@ -59,7 +63,6 @@ function checkPrompt(){
             console.log(response.message);
             $('#newDescription').text(response.message);
             $('#backdrop').hide();
-            
         }
     )
 }

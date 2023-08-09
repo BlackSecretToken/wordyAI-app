@@ -17,14 +17,20 @@ def get_prompt(request):
     context['teaser'] = openaiPrompt.teaser
     context['hint'] = openaiPrompt.hint
     context['prompt'] = openaiPrompt.prompt
+    context['key'] = openaiPrompt.key
+    context['model'] = openaiPrompt.model
     return render(request, 'admin/openai/prompt.html', context)
 
 def save_prompt(request):
     res = {}
     data = json.loads(request.body)
     prompt = data['prompt']
+    key = data['key']
+    model = data['model']
     openaiPrompt = OpenaiPrompt.objects.first()
     openaiPrompt.prompt = prompt
+    openaiPrompt.key = key
+    openaiPrompt.model = model
     openaiPrompt.save()
     res['status'] = STATUS_SUCCESS
     res['message'] = REQUEST_HANDLE_SUCCESS
@@ -36,5 +42,5 @@ def check_prompt(request):
     title = data['title']
     description = data['description']
     openaiPrompt = OpenaiPrompt.objects.first()
-    res['message'] = chat(description, openaiPrompt.prompt)
+    res['message'] = chat(description, openaiPrompt.prompt, openaiPrompt.key, openaiPrompt.model)
     return JsonResponse(res)

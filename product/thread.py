@@ -202,7 +202,6 @@ class ProductOptimizeThread(threading.Thread):
     def run(self):
         products = Product.objects.filter(apidata_id = self.apiData.id, product_status = PRODUCTSTATUS.UNOPTIMIZED.value).all()
         openaiPrompt = OpenaiPrompt.objects.first()
-        prompt = openaiPrompt.prompt
         print(products.count())
         for product in products:
             if self.do_run == False:
@@ -210,7 +209,7 @@ class ProductOptimizeThread(threading.Thread):
             self.count = self.count + 1
             # do something..
             content = product.product_description
-            res = chat(content, prompt)
+            res = chat(content, openaiPrompt.prompt, openaiPrompt.key, openaiPrompt.model)
             if (product.product_status == PRODUCTSTATUS.UNOPTIMIZED.value):
                 product.product_status = PRODUCTSTATUS.OPTIMIZED.value
             else:

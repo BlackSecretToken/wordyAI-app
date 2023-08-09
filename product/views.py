@@ -223,9 +223,8 @@ def productOptimize(request):
     res = {}
     data = json.loads(request.body)
     openaiPrompt = OpenaiPrompt.objects.first()
-    prompt = openaiPrompt.prompt
     message = data['message']
-    res['message'] = chat(message, prompt)
+    res['message'] = chat(message, openaiPrompt.prompt, openaiPrompt.key, openaiPrompt.model)
     return JsonResponse(res)
 
 def productDownloadStart(request):

@@ -3,8 +3,8 @@ import os
 import openai
 import time
 
-def chat(content, prompt):
-    openai.api_key = os.getenv("OPENAI_KEY")
+def chat(content, prompt, key, model):
+    openai.api_key = key
     messages = [{"role": "system", "content" : prompt}]
     
     messages.append({"role": "user", "content": content})
@@ -12,7 +12,7 @@ def chat(content, prompt):
     start = time.perf_counter()  
     print(messages)
     completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model = model,
         messages=messages
     )
     chat_response = completion.choices[0].message.content

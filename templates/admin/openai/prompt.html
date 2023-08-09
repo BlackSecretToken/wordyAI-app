@@ -25,6 +25,23 @@
                         <p class="text-secondary mb-1 fw600 ft16">Prompt</p>
                         <div class="prompt-input background-white" contenteditable="true" id="prompt">{{prompt}}</div>
                     </div>
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600 ft16">Model</p>
+                        <select class="form-select mx-1" aria-label="Currency" id="model" name="model">
+                            <option value='gpt-3.5-turbo' {% if model == 'gpt-3.5-turbo' %}selected{% endif %}>gpt-3.5-turbo</option>
+                            <option value='gpt-3.5-turbo-0301' {% if model == 'gpt-3.5-turbo-0301' %}selected{% endif %}>gpt-3.5-turbo-0301</option>
+                            <option value='gpt-3.5-turbo-0613' {% if model == 'gpt-3.5-turbo-0613' %}selected{% endif %}>gpt-3.5-turbo-0613</option>
+                            <option value='gpt-3.5-turbo-16k' {% if model == 'gpt-3.5-turbo-16k' %}selected{% endif %}>gpt-3.5-turbo-16k</option>
+                            <option value='gpt-3.5-turbo-16k-0613' {% if model == 'gpt-3.5-turbo-16k-0613' %}selected{% endif %}>gpt-3.5-turbo-16k-0613</option>
+                            <option value='gpt-4' {% if model == 'gpt-4' %}selected{% endif %}>gpt-4</option>
+                            <option value='gpt-4-0314' {% if model == 'gpt-4-0314' %}selected{% endif %}>gpt-4-0314</option>
+                            <option value='gpt-4-0613' {% if model == 'gpt-4-0613' %}selected{% endif %}>gpt-4-0613</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600 ft16">Key</p>
+                        <div class="prompt-input background-white" contenteditable="true" id="key">{{key}}</div>
+                    </div>
                     <div>
                         <button class="btn btn-primary px-4 me-3" onclick="savePrompt()">Save</button>
                     </div>

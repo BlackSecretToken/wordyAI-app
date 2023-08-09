@@ -47,9 +47,11 @@ class ApiData(models.Model):
 
 class OpenaiPrompt(models.Model):
     id=models.BigAutoField(primary_key=True, auto_created=True)
-    teaser = models.TextField(default = '')
-    hint = models.TextField(default = '')
-    prompt = models.TextField(default = '')
+    teaser = models.TextField(default = '', null = True)
+    hint = models.TextField(default = '', null = True)
+    prompt = models.TextField(default = '', null = True)
+    model = models.CharField(max_length = 30, null = True)
+    key = models.CharField(max_length = 100, null = True)
     created_at = models.DateTimeField(auto_now_add = True, null= True)
     updated_at = models.DateTimeField(auto_now = True, null=True)
     
