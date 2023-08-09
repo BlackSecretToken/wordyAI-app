@@ -44,4 +44,12 @@ class ApiData(models.Model):
     users = models.ForeignKey(Users, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add = True, null= True)
     updated_at = models.DateTimeField(auto_now = True, null=True)
+
+class OpenaiPrompt(models.Model):
+    id=models.BigAutoField(primary_key=True, auto_created=True)
+    teaser = models.TextField(default = '')
+    hint = models.TextField(default = '')
+    prompt = models.TextField(default = '')
+    created_at = models.DateTimeField(auto_now_add = True, null= True)
+    updated_at = models.DateTimeField(auto_now = True, null=True)
     

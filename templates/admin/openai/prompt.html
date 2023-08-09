@@ -1,0 +1,67 @@
+{% extends 'admin/layouts/app.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <link href="{% static 'assets/css/common.css' %}" rel="stylesheet" />
+{% endblock style %}
+
+{% block wrapper %}
+<div class="page-wrapper">
+    <div class="page-content">
+        <div class="card p-4">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="text secondary fw600 ft24 mb-4">Insert New Prompt</div>
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600 ft16">Teaser</p>
+                        <div class="prompt-input">{{teaser}}</div>
+                    </div>
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600 ft16">Prompt Hint</p>
+                        <div class="prompt-input">{{hint}}</div>
+                    </div>
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600 ft16">Prompt</p>
+                        <div class="prompt-input background-white" contenteditable="true" id="prompt">{{prompt}}</div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary px-4 me-3" onclick="savePrompt()">Save</button>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="text secondary fw600 ft24 mb-4">Test New Prompt</div>
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600 ft16">Title</p>
+                        <div class="prompt-input background-white" contenteditable="true" id="title"></div>
+                    </div>
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600 ft16">Description</p>
+                        <div class="prompt-input background-white" contenteditable="true" id="description"></div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary px-4 me-3 mb-4" onclick="checkPrompt()">Check</button>
+                    </div>
+                    <div class="mb-3 form-group">
+                        <p class="text-secondary mb-1 fw600 ft16">New Description</p>
+                        <div class="prompt-input background-white" id="newDescription"></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div id="backdrop">
+            <div class="text-center-custom loading">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock wrapper %}
+
+{% block script %}
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script src="{% static 'assets/js/admin_openai_prompt.js' %}"></script>
+{% endblock script%}

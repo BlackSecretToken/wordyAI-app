@@ -8,6 +8,7 @@ from helpcenter.models import *
 from .helpcenter import *
 from .billing import *
 from .user import *
+from .openai import *
 import stripe
 import datetime
 from django.db.models import Count

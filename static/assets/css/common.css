@@ -574,6 +574,20 @@ input:checked+.slider:before {
     margin-bottom: 0px;
 }
 
+.prompt-input {
+    background: #F4F4F4;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 12px;
+    border-color: rgb(197 210 220);
+    min-width: 100%;
+    padding: 16px;
+}
+
+.background-white {
+    background: #FFFFFF;
+}
+
 @keyframes dot-flashing {
     0% {
         background-color: #9880ff;

@@ -48,4 +48,8 @@ urlpatterns = [
     path('user/get_shop_data_by_id', views.get_shop_data_by_id, name="get_shop_data_by_id"),
     path('user/update_shop_data', views.update_shop_data, name="update_shop_data"),
 
+    path('openai/prompt', views.get_prompt, name="openai_prompt_view"),
+    path('openai/savePrompt', views.save_prompt, name="openai_save_prompt"),
+    path('openai/checkPrompt', views.check_prompt, name="openai_check_prompt"),
+
 ]

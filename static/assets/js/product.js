@@ -190,7 +190,7 @@ $(document).ready(function(){
             if (response.status === 'success')
             {
                 $("#product_optimize_modal").modal('show');
-                uploadInterval = setInterval(getOptimizeStatus, 3000);
+                optimizeInterval = setInterval(getOptimizeStatus, 3000);
             }
             else{
                 toastr.options = {
