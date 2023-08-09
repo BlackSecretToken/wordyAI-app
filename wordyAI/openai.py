@@ -12,7 +12,7 @@ def chat(content, prompt):
     start = time.perf_counter()  
     print(messages)
     completion = openai.ChatCompletion.create(
-        model="gpt-4-0613",
+        model="gpt-3.5-turbo",
         messages=messages
     )
     chat_response = completion.choices[0].message.content
