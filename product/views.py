@@ -222,8 +222,10 @@ def getProductDataById(request):
 def productOptimize(request):
     res = {}
     data = json.loads(request.body)
+    openaiPrompt = OpenaiPrompt.objects.first()
+    prompt = openaiPrompt.prompt
     message = data['message']
-    res['message'] = chat(message)
+    res['message'] = chat(message, prompt)
     return JsonResponse(res)
 
 def productDownloadStart(request):

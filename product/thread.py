@@ -2,6 +2,7 @@ import threading
 import requests
 import time
 from .models import *
+from wordyAI.openai import *
 from woocommerce import API
 
 class ProductDownloadThread(threading.Thread):
@@ -200,12 +201,22 @@ class ProductOptimizeThread(threading.Thread):
 
     def run(self):
         products = Product.objects.filter(apidata_id = self.apiData.id, product_status = PRODUCTSTATUS.UNOPTIMIZED.value).all()
+        openaiPrompt = OpenaiPrompt.objects.first()
+        prompt = openaiPrompt.prompt
         print(products.count())
         for product in products:
             if self.do_run == False:
                 break
             self.count = self.count + 1
             # do something..
+            content = product.product_description
+            res = chat(content, prompt)
+            if (product.product_status == PRODUCTSTATUS.UNOPTIMIZED.value):
+                product.product_status = PRODUCTSTATUS.OPTIMIZED.value
+            else:
+                product.is_uploaded = False
+            product.product_updated_description = res
+            product.save()
 
             self.setCount()
             self.check()

@@ -958,11 +958,7 @@ async function getProductDataById(product_id){
 
 function productOptimize(){
 
-    $('#product_optimize_modal').modal({
-        backdrop: 'static',
-        keyboard: false // disable keyboard navigation as well
-    })
-    $("#product_optimize_modal").modal('show'); 
+    $('#backdrop').show();
     
     content = ($('#productDescription').html());
     index = content.indexOf('<ul>');
@@ -987,7 +983,7 @@ function productOptimize(){
         response => {
             $('#productDescription').empty()
             $('#productDescription').append(response.message + contentEnd);
-            $('#product_optimize_modal').modal('hide');
+            $('#backdrop').hide();
             enableSaveButton();
         }
     )
