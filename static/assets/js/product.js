@@ -10,7 +10,7 @@ var statusUpDown = 0;
 var pageNum = 1;
 var maxPageNum = 10;
 
-var filterStatus = [{'id': 1, 'name': 'OPTIMIZED'},{'id': 2, 'name': 'UNOPTIMIZED'},{'id': 3, 'name': 'REJECTED'}]
+var filterStatus = [{'id': 0, 'name': 'ALL'}, {'id': 1, 'name': 'OPTIMIZED'},{'id': 2, 'name': 'UNOPTIMIZED'},{'id': 3, 'name': 'REJECTED'}]
 var filterStatusClass = ['text-primary', 'text-warning', 'text-danger']
 var filterStock = [];
 var filterCategory = [];
@@ -795,6 +795,7 @@ async function getStockData(){
     response = JSON.parse(response);
     filterStock = response;
     $('#filterStock').empty();
+    $('#filterStock').append('<option value= "0">'+ 'ALL' + '</option>');
     response.forEach((data) => {
         $('#filterStock').append('<option value="'+data.pk+'">'+ data.fields.status + '</option>');    
     })
@@ -816,6 +817,7 @@ async function getCategoryData(){
     response = JSON.parse(response);
     filterCategory = response;
     $('#filterCategory').empty();
+    $('#filterCategory').append('<option value="0">'+ 'ALL' + '</option>')
     response.forEach((data) => {
         $('#filterCategory').append('<option value="'+data.pk+'">'+ data.fields.category_name + '</option>');    
     })
