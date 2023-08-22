@@ -13,6 +13,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import EmailMessage
 from wordyAI.utils import *
 from wordyAI.message import *
+from woocommerce import API
 
 
 def test(request):
@@ -260,3 +261,31 @@ def insertConnectData(request):
     res['status'] = 'success'
 
     return JsonResponse(res)    
+
+def checkConnection(request):
+    res = {}
+    data = json.loads(request.body)
+    apiUrl = data['apiUrl']
+    consumerKey = data['consumerKey']
+    consumerToken = data['consumerToken']
+
+    wcapi = API(
+        url= apiUrl,
+        consumer_key= consumerKey,
+        consumer_secret= consumerToken,
+        version="wc/v3",
+        timeout = 100
+    )
+    page = 1
+    per_page = 1
+
+    try:
+        products = wcapi.get("products", params={"page": page, "per_page": per_page}).json()
+        res['status'] = STATUS_SUCCESS
+    except Exception as e:
+        res['status'] = STATUS_FAIL
+        res['message'] = INVALID_API
+        print('----------------------------------------------------------')
+        print(e)
+    
+    return JsonResponse(res)

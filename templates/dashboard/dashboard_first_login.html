@@ -24,7 +24,7 @@
                 {% csrf_token %}
                 <div class="modal-dialog modal-dialog-centered customModal">
                     <div class="modal-content card">
-                        <div class='d-flex flex-row-reverse ml-1'>
+                        <div class='d-flex flex-row-reverse ml-1 p-2'>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class='d-flex flex-column align-items-center mt-4'>
@@ -123,7 +123,7 @@
                                             <p class="circleText">&#x25EF;</p>
                                         </div>
                                         <div class="d-flex flex-row-reverse my-4 mx-2">
-                                            <button type="button" class="btn btn-primary" id="bnt_next_1">Next<i class="lni lni-chevron-right"></i></button>
+                                            <button type="button" class="btn btn-primary" id="bnt_next_1">Next&nbsp;<i class="lni lni-chevron-right ft15"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -179,8 +179,8 @@
                                             <p class="circleText">&#x25EF;</p>
                                         </div>
                                         <div class="d-flex flex-row justify-content-between my-4 mx-2">
-                                            <button type="button" class="btn btn-primary" id="bnt_prev_2"><i class="lni lni-chevron-left"></i>Previous</button>
-                                            <button type="button" class="btn btn-primary" id="bnt_next_2">Next<i class="lni lni-chevron-right"></i></button>
+                                            <button type="button" class="btn btn-primary" id="bnt_prev_2"><i class="lni lni-chevron-left ft15"></i>Previous</button>
+                                            <button type="button" class="btn btn-primary" id="bnt_next_2">Next&nbsp;<i class="lni lni-chevron-right ft15"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -195,10 +195,18 @@
                                         <div class="input-group mb-3 mx-2">
                                             <input type="text" class="form-control" id="consumerToken" placeholder="Your Consumer Token" aria-label="Consumer Token">
                                         </div>
-
+                                        <div class="form-check mb-3 mx-3">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <input class="form-check-input ft20" type="checkbox" id="checkConnection">
+                                                    <label class="form-check-label fw600 ft20" for="gridCheck2">Check Connection</label>
+                                                </div>
+                                                <a class="text-primary-1 cursor-pointer ft16">Help Center</a>
+                                            </div>
+                                        </div>
                                         <div class="d-flex flex-row justify-content-between my-4 mx-2">
-                                            <button type="button" class="btn btn-primary" id="bnt_prev_3"><i class="lni lni-chevron-left"></i>Previous</button>
-                                            <button type="button" class="btn btn-primary" id="bnt_next_3">Next<i class="lni lni-chevron-right"></i></button>
+                                            <button type="button" class="btn btn-primary" id="bnt_prev_3"><i class="lni lni-chevron-left ft15"></i>Previous</button>
+                                            <button type="button" class="btn btn-primary" id="bnt_next_3" disabled>Next&nbsp;<i class="lni lni-chevron-right ft15"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -212,8 +220,8 @@
                                             </div>
                                         </div> {% endcomment %}
                                         <div class="d-flex flex-row justify-content-between my-4 mx-2">
-                                            <button type="button" class="btn btn-primary" id="bnt_prev_4"><i class="lni lni-chevron-left"></i>Previous</button>
-                                            <button type="button" class="btn btn-primary" id="bnt_next_4">Next<i class="lni lni-chevron-right"></i></button>
+                                            <button type="button" class="btn btn-primary" id="bnt_prev_4"><i class="lni lni-chevron-left ft15"></i>Previous</button>
+                                            <button type="button" class="btn btn-primary" id="bnt_next_4">Next&nbsp;<i class="lni lni-chevron-right ft15"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -225,13 +233,20 @@
                                             <img src="{% static 'assets/images/data/laptop-girl.png' %}"/>
                                         </div>
                                         <div class="d-flex flex-row justify-content-between my-4 mx-2">
-                                            <button type="button" class="btn btn-primary" id="bnt_prev_5"><i class="lni lni-chevron-left"></i>Previous</button>
-                                            <button type="button" class="btn btn-success" id="btn_submit"><i class="lni lni-checkmark"></i>Submit</button>
+                                            <button type="button" class="btn btn-primary" id="bnt_prev_5"><i class="lni lni-chevron-left ft15"></i>Previous</button>
+                                            <button type="button" class="btn btn-success" id="btn_submit"><i class="lni lni-checkmark ft15"></i>Submit</button>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="backdrop">
+                    <div class="text-center-custom loading">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only"></span>
                         </div>
                     </div>
                 </div>

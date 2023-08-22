@@ -17,5 +17,6 @@ urlpatterns = [
     path('activatePassword/<uidb64>/<token>', views.activatePassword, name='activatePassword'),
     path('emailVerification/<uidb64>/<token>', views.emailVerification, name='emailVerification'),
     path('insertConnectData', views.insertConnectData, name="insertConnectData"), 
-    path('resendEmailVerification', views.resendEmailVerification, name="resendEmailVerification")
+    path('resendEmailVerification', views.resendEmailVerification, name="resendEmailVerification"),
+    path('checkConnection', views.checkConnection, name="checkConnection"),
 ]

@@ -70,6 +70,7 @@
 
 .circleActive {
     color: #8833FF;
+    font-size: 28px;
 }
 
 .color1 {
@@ -151,6 +152,10 @@
 
 .ft16 {
     font-size: 16px !important;
+}
+
+.ft15 {
+    font-size: 15px !important;
 }
 
 .ft14 {

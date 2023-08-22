@@ -1,6 +1,7 @@
 
 $(document).ready(function () {
     //initSidebar();
+    $('#backdrop').hide();
     get_current_subscription();
     $('#dataModal').modal('show');
 
@@ -53,15 +54,44 @@ function set_group1(target){
     $('#group1_1').children("p").removeClass('circleActive');
     $('#group1_2').children("p").removeClass('circleActive');
     $('#group1_3').children("p").removeClass('circleActive');
+
+    $('#group1_1').children("p").html("&#x25EF;");
+    $('#group1_2').children("p").html("&#x25EF;");
+    $('#group1_3').children("p").html("&#x25EF;");
+
     $(target).children("p").addClass('circleActive');
+    $(target).children("p").html("&#x2B24;");
+
 }
 function set_group2(target){
     $('#group2_1').children("p").removeClass('circleActive');
     $('#group2_2').children("p").removeClass('circleActive');
     $('#group2_3').children("p").removeClass('circleActive');
     $('#group2_4').children("p").removeClass('circleActive');
+
+    $('#group2_1').children("p").html("&#x25EF;");
+    $('#group2_2').children("p").html("&#x25EF;");
+    $('#group2_3').children("p").html("&#x25EF;");
+    $('#group2_4').children("p").html("&#x25EF;");
+
     $(target).children("p").addClass('circleActive');
+    $(target).children("p").html("&#x2B24;");
 }
+
+$('#checkConnection').change(async function() {
+    if(this.checked) {
+        $('#backdrop').show();
+        let res = await checkConnection();
+        $('#backdrop').hide();
+        if (res === true)
+            $("#bnt_next_3").prop('disabled', false);
+        else{
+            $("#checkConnection").prop('checked', false);
+        }
+    } else {
+        $("#bnt_next_3").prop('disabled', true);
+    }
+});
 
 $('#bnt_next_1').click(function(){
     console.log('clicked!');
@@ -153,6 +183,65 @@ $('#group2_4').click(function(){
     set_group2('#group2_4');
     group2 = 4;
 });
+
+async function checkConnection() {
+    apiUrl = $('#apiUrl').val();
+    consumerKey = $('#consumerKey').val();
+    consumerToken = $('#consumerToken').val();
+    if (apiUrl === '')
+    {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+            }
+        toastr.error("Please insert api url..");
+        return false;
+    }
+    if (consumerKey === '')
+    {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+            }
+        toastr.error("Please insert consumer key..");
+        return false;
+    }
+    if (consumerToken === '')
+    {
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+            }
+        toastr.error("Please insert consumer token..");
+        return false;
+    }
+
+    response = await fetch("/checkConnection", { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+            'apiUrl': apiUrl,
+            'consumerKey': consumerKey,
+            'consumerToken': consumerToken,
+        })
+    });
+    response = await(response.json());
+
+    if (response.status === 'success') {
+        return true;
+    }
+    else{
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "timeOut": "3000"
+            }
+        toastr.error(response.status);
+        return false;
+    }
+}
 
 $('#btn_submit').click(function(){
     console.log('clicked!');
