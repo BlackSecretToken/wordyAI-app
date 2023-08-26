@@ -33,7 +33,7 @@ class Product(models.Model):
     product_id = models.BigIntegerField()
     product_title = models.CharField(max_length = 100)
     product_slug = models.CharField(max_length = 100)
-    product_sku = models.BigIntegerField()
+    product_sku = models.CharField(max_length = 100)
     product_image = models.CharField(max_length =250)
     product_description = models.TextField()
     product_stock_quantity = models.IntegerField()

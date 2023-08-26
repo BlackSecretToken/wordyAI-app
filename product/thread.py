@@ -53,12 +53,16 @@ class ProductDownloadThread(threading.Thread):
                         stockstatus.save()
                     
                     is_in = Product.objects.filter(apidata_id = self.apiData.id, product_id = product['id']).exists()
+                    image_url = ''
+                    if product['images'] != [] :
+                        image_url = product['images'][0]['src']
+
                     if is_in:
                         db_product = Product.objects.get(apidata_id = self.apiData.id, product_id = product['id'])
                         db_product.product_title = product['name']
                         db_product.product_slug = product['slug']
                         db_product.product_sku = product['sku']
-                        db_product.product_image = product['images'][0]['src']
+                        db_product.product_image = image_url
                         if not db_product.product_updated_description:
                             db_product.product_updated_description = product['description']
                         else:    
@@ -75,7 +79,7 @@ class ProductDownloadThread(threading.Thread):
                             product_title = product['name'],
                             product_slug = product['slug'],
                             product_sku = product['sku'],
-                            product_image = product['images'][0]['src'],
+                            product_image = image_url,
                             product_description = product['description'],
                             product_stock_quantity = product['stock_quantity'],
                             product_price = product['price'],
