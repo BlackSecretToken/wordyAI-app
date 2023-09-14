@@ -29,9 +29,19 @@ var optimizeInterval;
 var originalDescription;
 var currentProductId;
 
+var editorData;
+
 $(document).ready(function(){
     // disable save button //
     //disableSaveButton();
+    ClassicEditor
+    .create( document.querySelector( '#content' ) )
+    .then( editor => {
+            editorData = editor;
+    } )
+    .catch( error => {
+            console.error( error );
+    } );
     $('#product_main_page').show();
     $('#product_detail_page').hide();
     // get download status
@@ -946,9 +956,15 @@ async function getProductDataById(product_id){
     $('#productTitle').val(response.product_title);
     $('#productDescription').empty();
     if (response.product_status == 1) // optimized product
+    {
         $('#productDescription').append(response.product_updated_description);
+        editorData.setData(response.product_updated_description);
+    }
     else
+    {
         $('#productDescription').append(response.product_description);
+        editorData.setData(response.product_description);
+    }
 
     $('#productSKU').val(response.product_sku);
     $('#productPrice').val(response.product_price);
@@ -985,6 +1001,7 @@ function productOptimize(){
         response => {
             $('#productDescription').empty()
             $('#productDescription').append(response.message + contentEnd);
+            editorData.setData(response.message + contentEnd);
             $('#backdrop').hide();
             enableSaveButton();
         }

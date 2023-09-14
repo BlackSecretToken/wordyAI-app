@@ -204,7 +204,8 @@
                                     <div class="tab-pane fade show active" id="productdetail" role="tabpanel">
                                         <p class="ft20 mt-3 text-primary"><b>Product Details</b></p>
                                         <input type="text" class="form-control mb-3" placeholder="ProductTitle" id="productTitle">
-                                        <div contenteditable = 'true' class="editableDiv mb-3" id="productDescription" > </div>
+                                        <div id="content"></div>
+                                        <div contenteditable = 'true' class="editableDiv mb-3" id="productDescription" hidden> </div>
                                         <div class="row mb-3">
                                             <div class = "col-12 col-md-4">
                                                 <div class="input-group"> <span class="input-group-text text-primary">SKU</span>
@@ -424,6 +425,7 @@
             }
         }
     </script> {% endcomment %}
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/classic/ckeditor.js"></script>
     <script src="{% static 'assets/plugins/datatable/js/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'assets/plugins/datatable/js/dataTables.bootstrap5.min.js' %}"></script>
     <script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>

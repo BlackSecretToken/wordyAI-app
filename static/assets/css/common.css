@@ -593,6 +593,17 @@ input:checked+.slider:before {
     background: #FFFFFF;
 }
 
+
+.ck.ck-content {
+    max-height: 300px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+/* .ck-editor {
+    
+} */
+
 @keyframes dot-flashing {
     0% {
         background-color: #9880ff;
