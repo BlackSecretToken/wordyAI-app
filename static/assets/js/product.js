@@ -953,6 +953,17 @@ async function getProductDataById(product_id){
     response = await (response.json());
     response = JSON.parse(response);
 
+    const attributes = JSON.parse(response.data)
+    let attribute = ''
+    attributes.map(one => {
+        attribute += '<tr>' + 
+                        '<td class="customBorder"><input type="checkbox" class="form-check-input-lg"></td>' + 
+                        '<td class="customBorder">'+ one.name +'</td>' +
+                        '<td class="customBorder">'+ one.options[0] +'</td>' +
+                      '</tr>'
+    })
+    $('table#attribute_table tbody').html(attribute)
+
     $('#productTitle').val(response.product_title);
     $('#productDescription').empty();
     if (response.product_status == 1) // optimized product
