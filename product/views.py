@@ -213,8 +213,11 @@ def getProductDataById(request):
     user = Users.objects.get(email = email)
     apiData = ApiData.objects.get(users = user) 
     product = Product.objects.get(apidata_id = apiData.id, id = product_id)
+    attribute = Attribute.objects.get(id=product.attribute_id)
     product_dict = model_to_dict(product)
-    json_data = json.dumps(product_dict, cls=DjangoJSONEncoder)
+    attribute_dict = model_to_dict(attribute)
+    combined_dict = {**product_dict, **attribute_dict}
+    json_data = json.dumps(combined_dict, cls=DjangoJSONEncoder)
     # product_data = serializers.serialize('json', product)
     return JsonResponse(json_data, safe = False)
     # return JsonResponse(res)
@@ -534,5 +537,3 @@ def checkThreadStatus(request):
     res['status'] = STATUS_SUCCESS
     return JsonResponse(res)
     
-
-

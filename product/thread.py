@@ -4,6 +4,7 @@ import time
 from .models import *
 from wordyAI.openai import *
 from woocommerce import API
+import json
 
 class ProductDownloadThread(threading.Thread):
     def __init__(self, request, page):
@@ -33,6 +34,20 @@ class ProductDownloadThread(threading.Thread):
                 products = wcapi.get("products", params={"page": self.page, "per_page": self.per_page}).json() 
                 print(len(products))
                 for product in products:
+                    ## save product attribute ##
+                    attribute_data = product['attributes']
+                    is_exist = Attribute.objects.filter(data=attribute_data).exists()
+                    if is_exist:
+                        attribute = Attribute.objects.filter(data=attribute_data)
+                        product_attribute_id = attribute.id
+                    else:
+                        db_attribute = Attribute.objects.create(
+                            data = json.dumps(attribute_data),
+                            apidata_id = self.apiData.id,
+                            activate = True,
+                            )
+                        db_attribute.save()
+                        product_attribute_id = db_attribute.id
                     ## check catetory is in ##
                     is_in = Category.objects.filter(apidata_id = self.apiData.id, category_id = product['categories'][0]['id']).exists()
                     category = []
@@ -70,6 +85,7 @@ class ProductDownloadThread(threading.Thread):
                         db_product.product_stock_quantity = product['stock_quantity']
                         db_product.stockstatus_id = stockstatus.id
                         db_product.apidata_id = self.apiData.id
+                        db_product.attribute_id = product_attribute_id
                         db_product.product_price = product['price']
                         db_product.save()
                     else:
@@ -85,7 +101,8 @@ class ProductDownloadThread(threading.Thread):
                             product_price = product['price'],
                             product_status = PRODUCTSTATUS.UNOPTIMIZED.value,
                             stockstatus_id = stockstatus.id,
-                            category_id = category.id
+                            category_id = category.id,
+                            attribute_id = product_attribute_id
                         )
                         db_product.save()
                     cnt +=1
