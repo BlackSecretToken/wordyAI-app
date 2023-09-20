@@ -986,6 +986,14 @@ async function getProductDataById(product_id){
 }
 
 function productOptimize(){
+    let attribute = ' Attributes:';
+    let checked_atts = $("input[type='checkbox']:checked");
+    for (let i=0;i<checked_atts.length;i++)
+    {
+        let att_name = checked_atts[i].parentElement.nextSibling.textContent;
+        let att_content = checked_atts[i].parentElement.nextSibling.nextSibling.textContent;
+        attribute = attribute + '"'+ att_name + '":"' + att_content + '",';
+    }
 
     $('#backdrop').show();
     
@@ -1005,7 +1013,7 @@ function productOptimize(){
             'X-CSRFToken': getCookie('csrftoken'),
         },
         body: JSON.stringify({
-            message: contentStart
+            message: contentStart + attribute
         })
     }).then(response => response.json()).then(
         
