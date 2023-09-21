@@ -38,7 +38,7 @@ class ProductDownloadThread(threading.Thread):
                     attribute_data = product['attributes']
                     is_exist = Attribute.objects.filter(data=attribute_data).exists()
                     if is_exist:
-                        attribute = Attribute.objects.filter(data=attribute_data)
+                        attribute = Attribute.objects.filter(data=attribute_data).get()
                         product_attribute_id = attribute.id
                     else:
                         db_attribute = Attribute.objects.create(

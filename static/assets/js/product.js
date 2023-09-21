@@ -305,11 +305,11 @@ $(document).ready(function(){
             $('#download_gif').hide();    
             if (downloadInterval !== undefined)
                 clearInterval(downloadInterval);
-            toastr.options = {
-                "positionClass": "toast-top-right",
-                "timeOut": "3000"
-                }
-            toastr.success(total +  ' products downloaded..');
+            // toastr.options = {
+            //     "positionClass": "toast-top-right",
+            //     "timeOut": "3000"
+            //     }
+            // toastr.success(total +  ' products downloaded..');
             getProductStatus();
         }
         else
